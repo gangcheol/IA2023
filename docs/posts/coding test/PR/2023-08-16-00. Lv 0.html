@@ -290,6 +290,14 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#ex8.-숨어있는-숫자의-덧셈" id="toc-ex8.-숨어있는-숫자의-덧셈" class="nav-link" data-scroll-target="#ex8.-숨어있는-숫자의-덧셈">ex8. 숨어있는 숫자의 덧셈</a></li>
   <li><a href="#ex9.-제곱수-판별하기" id="toc-ex9.-제곱수-판별하기" class="nav-link" data-scroll-target="#ex9.-제곱수-판별하기">ex9. 제곱수 판별하기</a></li>
   <li><a href="#ex10.-홀수짝수이어붙인-후-더하기" id="toc-ex10.-홀수짝수이어붙인-후-더하기" class="nav-link" data-scroll-target="#ex10.-홀수짝수이어붙인-후-더하기">ex10. 홀수짝수(이어붙인 후 더하기)</a></li>
+  <li><a href="#ex-11.-모든-원소들의-합의-제곱이-모든-원소들의-곱보다-작으면" id="toc-ex-11.-모든-원소들의-합의-제곱이-모든-원소들의-곱보다-작으면" class="nav-link" data-scroll-target="#ex-11.-모든-원소들의-합의-제곱이-모든-원소들의-곱보다-작으면">ex 11. 모든 원소들의 합의 제곱이 모든 원소들의 곱보다 작으면?</a></li>
+  <li><a href="#ex12.-특정-문자열-대문자로-변경" id="toc-ex12.-특정-문자열-대문자로-변경" class="nav-link" data-scroll-target="#ex12.-특정-문자열-대문자로-변경">ex12. 특정 문자열 대문자로 변경</a>
+  <ul class="collapse">
+  <li><a href="#ex13.-감소하는-배열-생성" id="toc-ex13.-감소하는-배열-생성" class="nav-link" data-scroll-target="#ex13.-감소하는-배열-생성">ex13. 감소하는 배열 생성</a></li>
+  </ul></li>
+  <li><a href="#ex14.-배열의-길이에-따른-연산" id="toc-ex14.-배열의-길이에-따른-연산" class="nav-link" data-scroll-target="#ex14.-배열의-길이에-따른-연산">ex14. 배열의 길이에 따른 연산</a></li>
+  <li><a href="#ex13.-조건에-맞게-수열-변환하기-1" id="toc-ex13.-조건에-맞게-수열-변환하기-1" class="nav-link" data-scroll-target="#ex13.-조건에-맞게-수열-변환하기-1">ex13. 조건에 맞게 수열 변환하기 1</a></li>
+  <li><a href="#ex15.-접미사에-해당-인덱스-포함" id="toc-ex15.-접미사에-해당-인덱스-포함" class="nav-link" data-scroll-target="#ex15.-접미사에-해당-인덱스-포함">ex15. 접미사에 해당 인덱스 포함</a></li>
   </ul>
 </nav>
     </div>
@@ -544,6 +552,144 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <div class="sourceCode cell-code" id="cb50"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb50-1"><a href="#cb50-1"></a>solution(lst)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="415">
 <pre><code>37</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="ex-11.-모든-원소들의-합의-제곱이-모든-원소들의-곱보다-작으면" class="level1">
+<h1>ex 11. 모든 원소들의 합의 제곱이 모든 원소들의 곱보다 작으면?</h1>
+<p><code>-</code> 작을경우 1, 클경우 0 을 <code>return</code></p>
+<div class="cell" data-execution_count="11">
+<div class="sourceCode cell-code" id="cb52"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb52-1"><a href="#cb52-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb52-2"><a href="#cb52-2"></a><span class="kw">def</span> solution(num_list):</span>
+<span id="cb52-3"><a href="#cb52-3"></a>    p <span class="op">=</span> np.prod(num_list)</span>
+<span id="cb52-4"><a href="#cb52-4"></a>    s <span class="op">=</span> (<span class="bu">sum</span>(num_list))<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb52-5"><a href="#cb52-5"></a>    <span class="cf">if</span> p <span class="op">&lt;=</span>s :</span>
+<span id="cb52-6"><a href="#cb52-6"></a>        <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb52-7"><a href="#cb52-7"></a>    <span class="cf">else</span> : <span class="cf">return</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>solution([<span class="dv">1</span>,<span class="dv">2</span>,<span class="dv">3</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="12">
+<pre><code>1</code></pre>
+</div>
+</div>
+<hr>
+<div class="cell" data-execution_count="15">
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb55-2"><a href="#cb55-2"></a><span class="kw">def</span> solution(num_list):</span>
+<span id="cb55-3"><a href="#cb55-3"></a>    L <span class="op">=</span> <span class="bu">len</span>(num_list)</span>
+<span id="cb55-4"><a href="#cb55-4"></a>    <span class="cf">if</span> L <span class="op">&gt;=</span><span class="dv">11</span> : </span>
+<span id="cb55-5"><a href="#cb55-5"></a>        <span class="cf">return</span> <span class="bu">sum</span>(num_list)</span>
+<span id="cb55-6"><a href="#cb55-6"></a>    <span class="cf">else</span> : <span class="cf">return</span> np.prod(num_list)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="16">
+<div class="sourceCode cell-code" id="cb56"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb56-1"><a href="#cb56-1"></a>solution([<span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="17">
+<pre><code>120</code></pre>
+</div>
+</div>
+<hr>
+</section>
+<section id="ex12.-특정-문자열-대문자로-변경" class="level1">
+<h1>ex12. 특정 문자열 대문자로 변경</h1>
+<div class="cell" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb58"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb58-1"><a href="#cb58-1"></a><span class="kw">def</span> solution(s, alp):</span>
+<span id="cb58-2"><a href="#cb58-2"></a>    <span class="cf">return</span> <span class="st">""</span>.join([i.upper() <span class="cf">if</span> i <span class="kw">in</span> alp  <span class="cf">else</span> i <span class="cf">for</span> i <span class="kw">in</span> s])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="96">
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>s<span class="op">=</span> <span class="st">"pro"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="97">
+<div class="sourceCode cell-code" id="cb60"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb60-1"><a href="#cb60-1"></a>alp <span class="op">=</span> <span class="st">"p"</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="98">
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a>solution(s,alp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="98">
+<pre><code>'Pro'</code></pre>
+</div>
+</div>
+<section id="ex13.-감소하는-배열-생성" class="level2">
+<h2 class="anchored" data-anchor-id="ex13.-감소하는-배열-생성">ex13. 감소하는 배열 생성</h2>
+<div class="cell" data-execution_count="109">
+<div class="sourceCode cell-code" id="cb63"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb63-1"><a href="#cb63-1"></a><span class="im">import</span> numpy <span class="im">as</span> np</span>
+<span id="cb63-2"><a href="#cb63-2"></a><span class="kw">def</span> solution(start, end):</span>
+<span id="cb63-3"><a href="#cb63-3"></a>    result <span class="op">=</span> <span class="bu">list</span>(np.arange(start,end<span class="op">-</span><span class="dv">1</span>,<span class="op">-</span><span class="dv">1</span>))</span>
+<span id="cb63-4"><a href="#cb63-4"></a>    r <span class="op">=</span> [<span class="bu">int</span>(i) <span class="cf">for</span> i <span class="kw">in</span> result]</span>
+<span id="cb63-5"><a href="#cb63-5"></a>    <span class="cf">return</span> r</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="117">
+<div class="sourceCode cell-code" id="cb64"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb64-1"><a href="#cb64-1"></a>solution(<span class="dv">10</span>,<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="117">
+<pre><code>[10, 9, 8, 7, 6, 5, 4, 3]</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ex14.-배열의-길이에-따른-연산" class="level1">
+<h1>ex14. 배열의 길이에 따른 연산</h1>
+<p><code>-</code> 길이가 홀수 <span class="math inline">\(\to\)</span> 짝수 인덱스에서 <code>+n</code></p>
+<p><code>-</code> 길이가 짝수 <span class="math inline">\(\to\)</span> 홀수 인덱스에서 <code>+n</code></p>
+<div class="cell" data-execution_count="188">
+<div class="sourceCode cell-code" id="cb66"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb66-1"><a href="#cb66-1"></a><span class="kw">def</span> solution(arr, n):</span>
+<span id="cb66-2"><a href="#cb66-2"></a>    N<span class="op">=</span><span class="bu">len</span>(arr)</span>
+<span id="cb66-3"><a href="#cb66-3"></a>    <span class="cf">if</span> N<span class="op">%</span><span class="dv">2</span>:</span>
+<span id="cb66-4"><a href="#cb66-4"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">0</span>,N,<span class="dv">2</span>): arr[i]<span class="op">+=</span>n</span>
+<span id="cb66-5"><a href="#cb66-5"></a>    <span class="cf">else</span>:</span>
+<span id="cb66-6"><a href="#cb66-6"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,N,<span class="dv">2</span>): arr[i]<span class="op">+=</span>n</span>
+<span id="cb66-7"><a href="#cb66-7"></a>    <span class="cf">return</span> arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<hr>
+</section>
+<section id="ex13.-조건에-맞게-수열-변환하기-1" class="level1">
+<h1>ex13. 조건에 맞게 수열 변환하기 1</h1>
+<p>arr의 각 원소에 대해 값이 50보다 크거나 같은 짝수라면 2로 나누고, 50보다 작은 홀수라면 2를 곱헤라.</p>
+<div class="cell" data-execution_count="202">
+<div class="sourceCode cell-code" id="cb67"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb67-1"><a href="#cb67-1"></a>arr <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">100</span>, <span class="dv">99</span>, <span class="dv">98</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="203">
+<div class="sourceCode cell-code" id="cb68"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb68-1"><a href="#cb68-1"></a><span class="kw">def</span> solution(arr):</span>
+<span id="cb68-2"><a href="#cb68-2"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(arr)) :</span>
+<span id="cb68-3"><a href="#cb68-3"></a>        <span class="cf">if</span> arr[i] <span class="op">&gt;=</span> <span class="dv">50</span> <span class="kw">and</span> arr[i] <span class="op">%</span> <span class="dv">2</span><span class="op">==</span><span class="dv">0</span> : </span>
+<span id="cb68-4"><a href="#cb68-4"></a>            arr[i] <span class="op">=</span><span class="bu">int</span>(arr[i]<span class="op">/</span><span class="dv">2</span>)</span>
+<span id="cb68-5"><a href="#cb68-5"></a>        <span class="cf">elif</span> arr[i] <span class="op">&lt;</span> <span class="dv">50</span> <span class="kw">and</span> arr[i] <span class="op">%</span> <span class="dv">2</span><span class="op">==</span><span class="dv">1</span> : </span>
+<span id="cb68-6"><a href="#cb68-6"></a>            arr[i] <span class="op">=</span> <span class="bu">int</span>(arr[i]<span class="op">*</span><span class="dv">2</span>) </span>
+<span id="cb68-7"><a href="#cb68-7"></a>    <span class="cf">return</span> arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="204">
+<div class="sourceCode cell-code" id="cb69"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb69-1"><a href="#cb69-1"></a>solution(arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="204">
+<pre><code>[2, 2, 6, 50, 99, 49]</code></pre>
+</div>
+</div>
+</section>
+<section id="ex15.-접미사에-해당-인덱스-포함" class="level1">
+<h1>ex15. 접미사에 해당 인덱스 포함</h1>
+<ol type="1">
+<li><p>두 배열의 길이가 다르다면, 배열의 길이가 긴 쪽이 더 크다.</p></li>
+<li><p>배열의 길이가 같다면 각 배열에 있는 모든 원소의 합을 비교하여 다르다면 더 큰 쪽이 크고, 같다면 같다.</p></li>
+<li><p>두 정수 배열 arr1과 arr2가 주어질 때, 위에서 정의한 배열의 대소관계에 대하여 arr2가 크다면 -1, arr1이 크다면 1, 두 배열이 같다면 0을 return 하는 solution 함수를 작성</p></li>
+</ol>
+<div class="cell" data-execution_count="218">
+<div class="sourceCode cell-code" id="cb71"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb71-1"><a href="#cb71-1"></a><span class="kw">def</span> solution(arr1, arr2):</span>
+<span id="cb71-2"><a href="#cb71-2"></a>    <span class="cf">if</span> <span class="bu">len</span>(arr1) <span class="op">&lt;</span> <span class="bu">len</span>(arr2) :</span>
+<span id="cb71-3"><a href="#cb71-3"></a>        <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb71-4"><a href="#cb71-4"></a>    <span class="cf">elif</span> <span class="bu">len</span>(arr1) <span class="op">==</span> <span class="bu">len</span>(arr2) :</span>
+<span id="cb71-5"><a href="#cb71-5"></a>        <span class="cf">if</span> <span class="bu">sum</span>(arr1) <span class="op">&gt;</span> <span class="bu">sum</span>(arr2) :</span>
+<span id="cb71-6"><a href="#cb71-6"></a>            <span class="cf">return</span> <span class="dv">1</span></span>
+<span id="cb71-7"><a href="#cb71-7"></a>        <span class="cf">elif</span> <span class="bu">sum</span>(arr1) <span class="op">==</span> <span class="bu">sum</span>(arr2) : </span>
+<span id="cb71-8"><a href="#cb71-8"></a>            <span class="cf">return</span> <span class="dv">0</span></span>
+<span id="cb71-9"><a href="#cb71-9"></a>        <span class="cf">else</span> : <span class="cf">return</span> <span class="op">-</span><span class="dv">1</span></span>
+<span id="cb71-10"><a href="#cb71-10"></a>    <span class="cf">else</span> : <span class="cf">return</span> <span class="dv">1</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="219">
+<div class="sourceCode cell-code" id="cb72"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb72-1"><a href="#cb72-1"></a>arr1 <span class="op">=</span> [<span class="dv">49</span>, <span class="dv">13</span>]</span>
+<span id="cb72-2"><a href="#cb72-2"></a>arr2 <span class="op">=</span>  [<span class="dv">70</span>, <span class="dv">11</span>, <span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-execution_count="220">
+<div class="sourceCode cell-code" id="cb73"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb73-1"><a href="#cb73-1"></a>solution(arr1,arr2)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="220">
+<pre><code>-1</code></pre>
 </div>
 </div>
 
