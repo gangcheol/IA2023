@@ -66,6 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../../">
+<link href="../../../../posts/coding test/PR/study/2023-09-24-03. PR study (4).html" rel="next">
 <link href="../../../../posts/coding test/PR/study/2023-08-27-01. PR study (2).html" rel="prev">
 <script src="../../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
@@ -288,6 +289,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">02. PR study (3)</span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../posts/coding test/PR/study/2023-09-24-03. PR study (4).html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">03. PR study (4)</span></a>
+  </div>
+</li>
       </ul>
   </li>
       </ul>
@@ -386,23 +393,17 @@ queries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]
 </code></pre>
 </div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="80">
-<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a>[<span class="bu">min</span>(i) <span class="cf">if</span> <span class="bu">len</span>(i) <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">for</span> i <span class="kw">in</span> result ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="80">
-<pre><code>[3, 4, -1]</code></pre>
-</div>
-</div>
 <section id="함수로-작성" class="level3">
 <h3 class="anchored" data-anchor-id="함수로-작성">함수로 작성</h3>
 <div class="cell" data-tags="[]" data-execution_count="61">
-<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="kw">def</span> solution(arr, queries):</span>
-<span id="cb6-2"><a href="#cb6-2"></a>    result <span class="op">=</span> []</span>
-<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">for</span> j <span class="kw">in</span> queries :    </span>
-<span id="cb6-4"><a href="#cb6-4"></a>        temp <span class="op">=</span> arr[j[<span class="dv">0</span>]:j[<span class="dv">1</span>]<span class="op">+</span><span class="dv">1</span>] </span>
-<span id="cb6-5"><a href="#cb6-5"></a>        <span class="co">#print(temp)</span></span>
-<span id="cb6-6"><a href="#cb6-6"></a>        temp2 <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> temp <span class="cf">if</span> i <span class="op">&gt;</span> j[<span class="dv">2</span>]]</span>
-<span id="cb6-7"><a href="#cb6-7"></a>        result.extend([temp2])</span>
-<span id="cb6-8"><a href="#cb6-8"></a>    <span class="cf">return</span> [<span class="bu">min</span>(i) <span class="cf">if</span> <span class="bu">len</span>(i) <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">for</span> i <span class="kw">in</span> result ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb4"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb4-1"><a href="#cb4-1"></a><span class="kw">def</span> solution(arr, queries):</span>
+<span id="cb4-2"><a href="#cb4-2"></a>    result <span class="op">=</span> []</span>
+<span id="cb4-3"><a href="#cb4-3"></a>    <span class="cf">for</span> j <span class="kw">in</span> queries :    </span>
+<span id="cb4-4"><a href="#cb4-4"></a>        temp <span class="op">=</span> arr[j[<span class="dv">0</span>]:j[<span class="dv">1</span>]<span class="op">+</span><span class="dv">1</span>] </span>
+<span id="cb4-5"><a href="#cb4-5"></a>        <span class="co">#print(temp)</span></span>
+<span id="cb4-6"><a href="#cb4-6"></a>        temp2 <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> temp <span class="cf">if</span> i <span class="op">&gt;</span> j[<span class="dv">2</span>]]</span>
+<span id="cb4-7"><a href="#cb4-7"></a>        result.extend([temp2])</span>
+<span id="cb4-8"><a href="#cb4-8"></a>    <span class="cf">return</span> [<span class="bu">min</span>(i) <span class="cf">if</span> <span class="bu">len</span>(i) <span class="op">!=</span> <span class="dv">0</span> <span class="cf">else</span> <span class="op">-</span><span class="dv">1</span> <span class="cf">for</span> i <span class="kw">in</span> result ]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -410,45 +411,45 @@ queries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]
 </section>
 <section id="배열-조각하기" class="level1">
 <h1>배열 조각하기</h1>
-<div class="cell" data-tags="[]" data-execution_count="112">
-<div class="sourceCode cell-code" id="cb7"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb7-1"><a href="#cb7-1"></a>arr <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
-<span id="cb7-2"><a href="#cb7-2"></a>query <span class="op">=</span> [<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="3">
+<div class="sourceCode cell-code" id="cb5"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb5-1"><a href="#cb5-1"></a>arr <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">2</span>, <span class="dv">3</span>, <span class="dv">4</span>, <span class="dv">5</span>]</span>
+<span id="cb5-2"><a href="#cb5-2"></a>query <span class="op">=</span> [<span class="dv">4</span>,<span class="dv">1</span>,<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="sol-1-1" class="level2">
 <h2 class="anchored" data-anchor-id="sol-1-1">sol 1</h2>
-<div class="cell" data-tags="[]" data-execution_count="109">
-<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="bu">print</span>(arr)</span>
-<span id="cb8-2"><a href="#cb8-2"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(query)) : </span>
-<span id="cb8-3"><a href="#cb8-3"></a>    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
-<span id="cb8-4"><a href="#cb8-4"></a>        arr <span class="op">=</span> arr[ : query[i]<span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb8-5"><a href="#cb8-5"></a>        <span class="bu">print</span>(<span class="st">"query ="</span>,query[i],<span class="st">", arr :"</span>, arr)</span>
-<span id="cb8-6"><a href="#cb8-6"></a>    <span class="cf">else</span> :</span>
-<span id="cb8-7"><a href="#cb8-7"></a>        arr <span class="op">=</span> arr[query[i] : ]</span>
-<span id="cb8-8"><a href="#cb8-8"></a>        <span class="bu">print</span>(<span class="st">"query ="</span>,query[i],<span class="st">", arr :"</span>, arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="4">
+<div class="sourceCode cell-code" id="cb6"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb6-1"><a href="#cb6-1"></a><span class="bu">print</span>(arr)</span>
+<span id="cb6-2"><a href="#cb6-2"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(query)) : </span>
+<span id="cb6-3"><a href="#cb6-3"></a>    <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
+<span id="cb6-4"><a href="#cb6-4"></a>        arr <span class="op">=</span> arr[ : query[i]<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb6-5"><a href="#cb6-5"></a>        <span class="bu">print</span>(<span class="st">"query ="</span>,query[i],<span class="st">", arr :"</span>, arr)</span>
+<span id="cb6-6"><a href="#cb6-6"></a>    <span class="cf">else</span> :</span>
+<span id="cb6-7"><a href="#cb6-7"></a>        arr <span class="op">=</span> arr[query[i] : ]</span>
+<span id="cb6-8"><a href="#cb6-8"></a>        <span class="bu">print</span>(<span class="st">"query ="</span>,query[i],<span class="st">", arr :"</span>, arr)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
-<pre><code>[1, 2, 3]
-query = 4 , arr : [1, 2, 3]
-query = 1 , arr : [2, 3]
-query = 2 , arr : [2, 3]</code></pre>
+<pre><code>[0, 1, 2, 3, 4, 5]
+query = 4 , arr : [0, 1, 2, 3, 4]
+query = 1 , arr : [1, 2, 3, 4]
+query = 2 , arr : [1, 2, 3]</code></pre>
 </div>
 </div>
 <section id="함수로-작성-1" class="level3">
 <h3 class="anchored" data-anchor-id="함수로-작성-1">함수로 작성</h3>
-<div class="cell" data-tags="[]" data-execution_count="113">
-<div class="sourceCode cell-code" id="cb10"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb10-1"><a href="#cb10-1"></a><span class="kw">def</span> solution(arr, query):</span>
-<span id="cb10-2"><a href="#cb10-2"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(query)) : </span>
-<span id="cb10-3"><a href="#cb10-3"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
-<span id="cb10-4"><a href="#cb10-4"></a>            arr <span class="op">=</span> arr[ : query[i]<span class="op">+</span><span class="dv">1</span>]</span>
-<span id="cb10-5"><a href="#cb10-5"></a>            <span class="co">#print("query =",query[i],", arr :", arr)</span></span>
-<span id="cb10-6"><a href="#cb10-6"></a>        <span class="cf">else</span> :</span>
-<span id="cb10-7"><a href="#cb10-7"></a>            arr <span class="op">=</span> arr[query[i] : ]</span>
-<span id="cb10-8"><a href="#cb10-8"></a>            <span class="co">#print("query =",query[i],", arr :", arr)</span></span>
-<span id="cb10-9"><a href="#cb10-9"></a>    <span class="cf">return</span> arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="5">
+<div class="sourceCode cell-code" id="cb8"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb8-1"><a href="#cb8-1"></a><span class="kw">def</span> solution(arr, query):</span>
+<span id="cb8-2"><a href="#cb8-2"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(query)) : </span>
+<span id="cb8-3"><a href="#cb8-3"></a>        <span class="cf">if</span> i <span class="op">%</span> <span class="dv">2</span> <span class="op">==</span> <span class="dv">0</span> :</span>
+<span id="cb8-4"><a href="#cb8-4"></a>            arr <span class="op">=</span> arr[ : query[i]<span class="op">+</span><span class="dv">1</span>]</span>
+<span id="cb8-5"><a href="#cb8-5"></a>            <span class="co">#print("query =",query[i],", arr :", arr)</span></span>
+<span id="cb8-6"><a href="#cb8-6"></a>        <span class="cf">else</span> :</span>
+<span id="cb8-7"><a href="#cb8-7"></a>            arr <span class="op">=</span> arr[query[i] : ]</span>
+<span id="cb8-8"><a href="#cb8-8"></a>            <span class="co">#print("query =",query[i],", arr :", arr)</span></span>
+<span id="cb8-9"><a href="#cb8-9"></a>    <span class="cf">return</span> arr</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="114">
-<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>solution(arr,query)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="114">
-<pre><code>[1, 2, 3]</code></pre>
+<div class="cell" data-tags="[]" data-execution_count="6">
+<div class="sourceCode cell-code" id="cb9"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1"></a>solution(arr,query)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="6">
+<pre><code>[2, 3]</code></pre>
 </div>
 </div>
 <hr>
@@ -467,65 +468,61 @@ query = 2 , arr : [2, 3]</code></pre>
 </ol>
 <section id="sol-1-2" class="level2">
 <h2 class="anchored" data-anchor-id="sol-1-2">sol 1</h2>
-<div class="cell" data-tags="[]" data-execution_count="245">
-<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a>a,b,c,d <span class="op">=</span> <span class="dv">6</span>,<span class="dv">4</span>,<span class="dv">2</span>,<span class="dv">5</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="26">
+<div class="sourceCode cell-code" id="cb11"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb11-1"><a href="#cb11-1"></a>a,b,c,d <span class="op">=</span> <span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">4</span>,<span class="dv">3</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-tags="[]" data-execution_count="246">
-<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a><span class="bu">print</span>(a,b,c,d,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
-<span id="cb14-2"><a href="#cb14-2"></a>lst <span class="op">=</span> [a,b,c,d]</span>
-<span id="cb14-3"><a href="#cb14-3"></a></span>
-<span id="cb14-4"><a href="#cb14-4"></a><span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb14-5"><a href="#cb14-5"></a>    <span class="bu">print</span>(<span class="dv">1111</span><span class="op">*</span>a)</span>
-<span id="cb14-6"><a href="#cb14-6"></a>    <span class="bu">print</span>(<span class="st">"모두 값이 같습니다. -&gt;"</span>, (<span class="dv">10</span><span class="op">*</span>p <span class="op">+</span> q)<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb14-7"><a href="#cb14-7"></a>    </span>
-<span id="cb14-8"><a href="#cb14-8"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb14-9"><a href="#cb14-9"></a>    p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
-<span id="cb14-10"><a href="#cb14-10"></a>    q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
-<span id="cb14-11"><a href="#cb14-11"></a>    <span class="bu">print</span>(<span class="st">"3개의 값이 같고 1개가 다릅니다 -&gt;"</span>, (<span class="dv">10</span><span class="op">*</span>p <span class="op">+</span> q)<span class="op">**</span><span class="dv">2</span>)</span>
-<span id="cb14-12"><a href="#cb14-12"></a>    </span>
-<span id="cb14-13"><a href="#cb14-13"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">2</span>:</span>
-<span id="cb14-14"><a href="#cb14-14"></a>    p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
-<span id="cb14-15"><a href="#cb14-15"></a>    q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
-<span id="cb14-16"><a href="#cb14-16"></a>    <span class="bu">print</span>(<span class="st">"2개씩 같은값이 각각 존재 -&gt; "</span>, (p<span class="op">+</span>q)<span class="op">*</span><span class="bu">abs</span>(p<span class="op">-</span>q))</span>
-<span id="cb14-17"><a href="#cb14-17"></a></span>
-<span id="cb14-18"><a href="#cb14-18"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">3</span> :</span>
-<span id="cb14-19"><a href="#cb14-19"></a>    dic <span class="op">=</span> {i : lst.count(i) <span class="cf">for</span> i <span class="kw">in</span> lst}</span>
-<span id="cb14-20"><a href="#cb14-20"></a>    q,r <span class="op">=</span> (i  <span class="cf">for</span> i,j <span class="kw">in</span> dic.items() <span class="cf">if</span> j <span class="op">!=</span> <span class="dv">2</span>)</span>
-<span id="cb14-21"><a href="#cb14-21"></a>    <span class="bu">print</span>(<span class="st">"2개의 값이 같고, 나머지 두개는 값이 다름. -&gt; "</span>, q<span class="op">*</span>r)</span>
-<span id="cb14-22"><a href="#cb14-22"></a><span class="cf">else</span> : </span>
-<span id="cb14-23"><a href="#cb14-23"></a>    <span class="bu">print</span>(<span class="st">"다다름"</span>,<span class="bu">min</span>(lst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>6 4 2 5 
-
-다다름 2</code></pre>
-</div>
+<div class="cell" data-tags="[]">
+<div class="sourceCode cell-code" id="cb12"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb12-1"><a href="#cb12-1"></a><span class="dv">4</span><span class="er">print</span>(a,b,c,d,<span class="st">"</span><span class="ch">\n</span><span class="st">"</span>)</span>
+<span id="cb12-2"><a href="#cb12-2"></a>lst <span class="op">=</span> [a,b,c,d]</span>
+<span id="cb12-3"><a href="#cb12-3"></a></span>
+<span id="cb12-4"><a href="#cb12-4"></a><span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb12-5"><a href="#cb12-5"></a>    p <span class="op">=</span> lst[<span class="dv">0</span>]</span>
+<span id="cb12-6"><a href="#cb12-6"></a>    <span class="bu">print</span>(<span class="dv">1111</span><span class="op">*</span>a)</span>
+<span id="cb12-7"><a href="#cb12-7"></a>    <span class="bu">print</span>(<span class="st">"모두 값이 같습니다. -&gt;"</span>, <span class="dv">1111</span><span class="op">*</span>p)</span>
+<span id="cb12-8"><a href="#cb12-8"></a>    </span>
+<span id="cb12-9"><a href="#cb12-9"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb12-10"><a href="#cb12-10"></a>    p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
+<span id="cb12-11"><a href="#cb12-11"></a>    q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
+<span id="cb12-12"><a href="#cb12-12"></a>    <span class="bu">print</span>(<span class="st">"3개의 값이 같고 1개가 다릅니다 -&gt;"</span>, (<span class="dv">10</span><span class="op">*</span>p <span class="op">+</span> q)<span class="op">**</span><span class="dv">2</span>)</span>
+<span id="cb12-13"><a href="#cb12-13"></a>    </span>
+<span id="cb12-14"><a href="#cb12-14"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb12-15"><a href="#cb12-15"></a>    p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
+<span id="cb12-16"><a href="#cb12-16"></a>    q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
+<span id="cb12-17"><a href="#cb12-17"></a>    <span class="bu">print</span>(<span class="st">"2개씩 같은값이 각각 존재 -&gt; "</span>, (p<span class="op">+</span>q)<span class="op">*</span><span class="bu">abs</span>(p<span class="op">-</span>q))</span>
+<span id="cb12-18"><a href="#cb12-18"></a></span>
+<span id="cb12-19"><a href="#cb12-19"></a><span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">3</span> :</span>
+<span id="cb12-20"><a href="#cb12-20"></a>    dic <span class="op">=</span> {i : lst.count(i) <span class="cf">for</span> i <span class="kw">in</span> lst}</span>
+<span id="cb12-21"><a href="#cb12-21"></a>    q,r <span class="op">=</span> (i  <span class="cf">for</span> i,j <span class="kw">in</span> dic.items() <span class="cf">if</span> j <span class="op">!=</span> <span class="dv">2</span>)</span>
+<span id="cb12-22"><a href="#cb12-22"></a>    <span class="bu">print</span>(<span class="st">"2개의 값이 같고, 나머지 두개는 값이 다름. -&gt; "</span>, q<span class="op">*</span>r)</span>
+<span id="cb12-23"><a href="#cb12-23"></a><span class="cf">else</span> : </span>
+<span id="cb12-24"><a href="#cb12-24"></a>    <span class="bu">print</span>(<span class="st">"다다름"</span>,<span class="bu">min</span>(lst))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <section id="함수로-작성-2" class="level3">
 <h3 class="anchored" data-anchor-id="함수로-작성-2">함수로 작성</h3>
-<div class="cell" data-tags="[]" data-execution_count="247">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">def</span> solution(a, b, c, d):</span>
-<span id="cb16-2"><a href="#cb16-2"></a>    lst <span class="op">=</span> [a,b,c,d]</span>
-<span id="cb16-3"><a href="#cb16-3"></a></span>
-<span id="cb16-4"><a href="#cb16-4"></a>    <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">1</span>:</span>
-<span id="cb16-5"><a href="#cb16-5"></a>        p <span class="op">=</span> lst[<span class="dv">0</span>]</span>
-<span id="cb16-6"><a href="#cb16-6"></a>        <span class="cf">return</span> (<span class="dv">1111</span><span class="op">*</span>p)</span>
-<span id="cb16-7"><a href="#cb16-7"></a></span>
-<span id="cb16-8"><a href="#cb16-8"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">3</span>:</span>
-<span id="cb16-9"><a href="#cb16-9"></a>        p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
-<span id="cb16-10"><a href="#cb16-10"></a>        q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
-<span id="cb16-11"><a href="#cb16-11"></a>        <span class="cf">return</span> (<span class="dv">10</span><span class="op">*</span>p <span class="op">+</span> q)<span class="op">**</span><span class="dv">2</span></span>
-<span id="cb16-12"><a href="#cb16-12"></a></span>
-<span id="cb16-13"><a href="#cb16-13"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">2</span>:</span>
-<span id="cb16-14"><a href="#cb16-14"></a>        p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
-<span id="cb16-15"><a href="#cb16-15"></a>        q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
-<span id="cb16-16"><a href="#cb16-16"></a>        <span class="cf">return</span> (p<span class="op">+</span>q)<span class="op">*</span><span class="bu">abs</span>(p<span class="op">-</span>q)</span>
-<span id="cb16-17"><a href="#cb16-17"></a></span>
-<span id="cb16-18"><a href="#cb16-18"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">3</span> :</span>
-<span id="cb16-19"><a href="#cb16-19"></a>        dic <span class="op">=</span> {i : lst.count(i) <span class="cf">for</span> i <span class="kw">in</span> lst}</span>
-<span id="cb16-20"><a href="#cb16-20"></a>        q,r <span class="op">=</span> (i  <span class="cf">for</span> i,j <span class="kw">in</span> dic.items() <span class="cf">if</span> j <span class="op">!=</span> <span class="dv">2</span>)</span>
-<span id="cb16-21"><a href="#cb16-21"></a>        <span class="cf">return</span> q<span class="op">*</span>r</span>
-<span id="cb16-22"><a href="#cb16-22"></a>    <span class="cf">else</span> :</span>
-<span id="cb16-23"><a href="#cb16-23"></a>        <span class="cf">return</span> <span class="bu">min</span>(lst) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="20">
+<div class="sourceCode cell-code" id="cb13"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb13-1"><a href="#cb13-1"></a><span class="kw">def</span> solution(a, b, c, d):</span>
+<span id="cb13-2"><a href="#cb13-2"></a>    lst <span class="op">=</span> [a,b,c,d]</span>
+<span id="cb13-3"><a href="#cb13-3"></a></span>
+<span id="cb13-4"><a href="#cb13-4"></a>    <span class="cf">if</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb13-5"><a href="#cb13-5"></a>        p <span class="op">=</span> lst[<span class="dv">0</span>]</span>
+<span id="cb13-6"><a href="#cb13-6"></a>        <span class="cf">return</span> (<span class="dv">1111</span><span class="op">*</span>p)</span>
+<span id="cb13-7"><a href="#cb13-7"></a></span>
+<span id="cb13-8"><a href="#cb13-8"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">3</span>:</span>
+<span id="cb13-9"><a href="#cb13-9"></a>        p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
+<span id="cb13-10"><a href="#cb13-10"></a>        q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
+<span id="cb13-11"><a href="#cb13-11"></a>        <span class="cf">return</span> (<span class="dv">10</span><span class="op">*</span>p <span class="op">+</span> q)<span class="op">**</span><span class="dv">2</span></span>
+<span id="cb13-12"><a href="#cb13-12"></a></span>
+<span id="cb13-13"><a href="#cb13-13"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">2</span> <span class="kw">and</span> lst.count(<span class="bu">sorted</span>(lst)[<span class="dv">2</span>]) <span class="op">==</span> <span class="dv">2</span>:</span>
+<span id="cb13-14"><a href="#cb13-14"></a>        p <span class="op">=</span> <span class="bu">sorted</span>(lst)[<span class="dv">2</span>]</span>
+<span id="cb13-15"><a href="#cb13-15"></a>        q <span class="op">=</span> [i <span class="cf">for</span> i <span class="kw">in</span> lst <span class="cf">if</span> i <span class="op">!=</span> p][<span class="dv">0</span>]</span>
+<span id="cb13-16"><a href="#cb13-16"></a>        <span class="cf">return</span> (p<span class="op">+</span>q)<span class="op">*</span><span class="bu">abs</span>(p<span class="op">-</span>q)</span>
+<span id="cb13-17"><a href="#cb13-17"></a></span>
+<span id="cb13-18"><a href="#cb13-18"></a>    <span class="cf">elif</span> <span class="bu">len</span>(<span class="bu">set</span>(lst)) <span class="op">==</span> <span class="dv">3</span> :</span>
+<span id="cb13-19"><a href="#cb13-19"></a>        dic <span class="op">=</span> {i : lst.count(i) <span class="cf">for</span> i <span class="kw">in</span> lst}</span>
+<span id="cb13-20"><a href="#cb13-20"></a>        q,r <span class="op">=</span> (i  <span class="cf">for</span> i,j <span class="kw">in</span> dic.items() <span class="cf">if</span> j <span class="op">!=</span> <span class="dv">2</span>)</span>
+<span id="cb13-21"><a href="#cb13-21"></a>        <span class="cf">return</span> q<span class="op">*</span>r</span>
+<span id="cb13-22"><a href="#cb13-22"></a>    <span class="cf">else</span> :</span>
+<span id="cb13-23"><a href="#cb13-23"></a>        <span class="cf">return</span> <span class="bu">min</span>(lst) </span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <hr>
 </section>
@@ -535,28 +532,28 @@ query = 2 , arr : [2, 3]</code></pre>
 <h1>3진법 뒤집기</h1>
 <section id="sol-1-3" class="level2">
 <h2 class="anchored" data-anchor-id="sol-1-3">sol 1</h2>
-<div class="cell" data-tags="[]" data-execution_count="283">
-<div class="sourceCode cell-code" id="cb17"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb17-1"><a href="#cb17-1"></a>n <span class="op">=</span> <span class="dv">125</span></span>
-<span id="cb17-2"><a href="#cb17-2"></a>result <span class="op">=</span> []</span>
-<span id="cb17-3"><a href="#cb17-3"></a><span class="cf">while</span> n <span class="op">&gt;=</span> <span class="dv">1</span> : </span>
-<span id="cb17-4"><a href="#cb17-4"></a>    n,r <span class="op">=</span> <span class="bu">divmod</span>(n,<span class="dv">3</span>)</span>
-<span id="cb17-5"><a href="#cb17-5"></a>    result.append(r)</span>
-<span id="cb17-6"><a href="#cb17-6"></a></span>
-<span id="cb17-7"><a href="#cb17-7"></a><span class="bu">int</span>(<span class="st">""</span>.join([<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> result]),<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="283">
+<div class="cell" data-tags="[]" data-execution_count="27">
+<div class="sourceCode cell-code" id="cb14"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb14-1"><a href="#cb14-1"></a>n <span class="op">=</span> <span class="dv">125</span></span>
+<span id="cb14-2"><a href="#cb14-2"></a>result <span class="op">=</span> []</span>
+<span id="cb14-3"><a href="#cb14-3"></a><span class="cf">while</span> n <span class="op">&gt;=</span> <span class="dv">1</span> : </span>
+<span id="cb14-4"><a href="#cb14-4"></a>    n,r <span class="op">=</span> <span class="bu">divmod</span>(n,<span class="dv">3</span>)</span>
+<span id="cb14-5"><a href="#cb14-5"></a>    result.append(r)</span>
+<span id="cb14-6"><a href="#cb14-6"></a></span>
+<span id="cb14-7"><a href="#cb14-7"></a><span class="bu">int</span>(<span class="st">""</span>.join([<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> result]),<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="27">
 <pre><code>229</code></pre>
 </div>
 </div>
 <section id="함수로-작성-3" class="level3">
 <h3 class="anchored" data-anchor-id="함수로-작성-3">함수로 작성</h3>
-<div class="cell" data-tags="[]" data-execution_count="284">
-<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> solution(n) :</span>
-<span id="cb19-2"><a href="#cb19-2"></a>    result <span class="op">=</span> []</span>
-<span id="cb19-3"><a href="#cb19-3"></a>    <span class="cf">while</span> n <span class="op">&gt;=</span> <span class="dv">1</span> : </span>
-<span id="cb19-4"><a href="#cb19-4"></a>        n,r <span class="op">=</span> <span class="bu">divmod</span>(n,<span class="dv">3</span>)</span>
-<span id="cb19-5"><a href="#cb19-5"></a>        result.append(r)</span>
-<span id="cb19-6"><a href="#cb19-6"></a></span>
-<span id="cb19-7"><a href="#cb19-7"></a>    <span class="cf">return</span> <span class="bu">int</span>(<span class="st">""</span>.join([<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> result]),<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="28">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a><span class="kw">def</span> solution(n) :</span>
+<span id="cb16-2"><a href="#cb16-2"></a>    result <span class="op">=</span> []</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    <span class="cf">while</span> n <span class="op">&gt;=</span> <span class="dv">1</span> : </span>
+<span id="cb16-4"><a href="#cb16-4"></a>        n,r <span class="op">=</span> <span class="bu">divmod</span>(n,<span class="dv">3</span>)</span>
+<span id="cb16-5"><a href="#cb16-5"></a>        result.append(r)</span>
+<span id="cb16-6"><a href="#cb16-6"></a></span>
+<span id="cb16-7"><a href="#cb16-7"></a>    <span class="cf">return</span> <span class="bu">int</span>(<span class="st">""</span>.join([<span class="bu">str</span>(i) <span class="cf">for</span> i <span class="kw">in</span> result]),<span class="dv">3</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 
 
@@ -805,6 +802,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../../../posts/coding test/PR/study/2023-09-24-03. PR study (4).html" class="pagination-link">
+        <span class="nav-page-text">03. PR study (4)</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
