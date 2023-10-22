@@ -355,6 +355,22 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </ul></li>
   <li><a href="#ex4.-2xn-타일링과-쿼리-못품" id="toc-ex4.-2xn-타일링과-쿼리-못품" class="nav-link" data-scroll-target="#ex4.-2xn-타일링과-쿼리-못품">ex4. 2xN 타일링과 쿼리 (못품…)</a></li>
   </ul></li>
+  <li><a href="#study-1" id="toc-study-1" class="nav-link" data-scroll-target="#study-1">study</a>
+  <ul class="collapse">
+  <li><a href="#ex1.-바이러스" id="toc-ex1.-바이러스" class="nav-link" data-scroll-target="#ex1.-바이러스">ex1. 바이러스</a>
+  <ul class="collapse">
+  <li><a href="#sol-4" id="toc-sol-4" class="nav-link" data-scroll-target="#sol-4">sol</a></li>
+  </ul></li>
+  <li><a href="#ex-2.-단지번호-붙이기" id="toc-ex-2.-단지번호-붙이기" class="nav-link" data-scroll-target="#ex-2.-단지번호-붙이기">ex 2. 단지번호 붙이기</a>
+  <ul class="collapse">
+  <li><a href="#sol-5" id="toc-sol-5" class="nav-link" data-scroll-target="#sol-5">sol</a></li>
+  </ul></li>
+  <li><a href="#ex-3.-유기농-배추" id="toc-ex-3.-유기농-배추" class="nav-link" data-scroll-target="#ex-3.-유기농-배추">ex 3. 유기농 배추</a>
+  <ul class="collapse">
+  <li><a href="#sol-dfs" id="toc-sol-dfs" class="nav-link" data-scroll-target="#sol-dfs">sol : dfs</a></li>
+  </ul></li>
+  <li><a href="#ex-4.-연결-요소의-개수" id="toc-ex-4.-연결-요소의-개수" class="nav-link" data-scroll-target="#ex-4.-연결-요소의-개수">ex 4. 연결 요소의 개수</a></li>
+  </ul></li>
   <li><a href="#이취코" id="toc-이취코" class="nav-link" data-scroll-target="#이취코">이취코</a>
   <ul class="collapse">
   <li><a href="#ex1.-금광" id="toc-ex1.-금광" class="nav-link" data-scroll-target="#ex1.-금광">ex1. 금광</a>
@@ -527,38 +543,37 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sol" class="level3">
 <h3 class="anchored" data-anchor-id="sol">sol</h3>
 <p><code>-</code> 예비학습</p>
-<div class="cell" data-execution_count="5">
+<div class="cell" data-execution_count="11">
 <div class="sourceCode cell-code" id="cb15"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb15-1"><a href="#cb15-1"></a>array <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">5</span>, <span class="dv">2</span>, <span class="dv">6</span> ,<span class="dv">3</span> ,<span class="dv">7</span>]</span>
 <span id="cb15-2"><a href="#cb15-2"></a>commands <span class="op">=</span> [[<span class="dv">2</span>, <span class="dv">5</span>, <span class="dv">3</span>], [<span class="dv">4</span>, <span class="dv">4</span>, <span class="dv">1</span>], [<span class="dv">1</span>, <span class="dv">7</span>, <span class="dv">3</span>]]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
-<div class="cell" data-execution_count="20">
-<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>i, j ,k <span class="op">=</span> commands[<span class="dv">0</span>]</span>
-<span id="cb16-2"><a href="#cb16-2"></a>i</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="20">
-<pre><code>2</code></pre>
+<div class="cell" data-execution_count="12">
+<div class="sourceCode cell-code" id="cb16"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb16-1"><a href="#cb16-1"></a>result <span class="op">=</span> []</span>
+<span id="cb16-2"><a href="#cb16-2"></a><span class="cf">for</span> c <span class="kw">in</span> commands :</span>
+<span id="cb16-3"><a href="#cb16-3"></a>    i, j, k <span class="op">=</span> c</span>
+<span id="cb16-4"><a href="#cb16-4"></a>    result.append((<span class="bu">sorted</span>(array[i<span class="op">-</span><span class="dv">1</span>:j])[k<span class="op">-</span><span class="dv">1</span>]))</span>
+<span id="cb16-5"><a href="#cb16-5"></a>    <span class="bu">print</span>(result)</span>
+<span id="cb16-6"><a href="#cb16-6"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>[5]
+[5, 6]
+[5, 6, 3]</code></pre>
 </div>
-</div>
-<div class="cell" data-execution_count="28">
-<div class="sourceCode cell-code" id="cb18"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb18-1"><a href="#cb18-1"></a>result <span class="op">=</span> []</span>
-<span id="cb18-2"><a href="#cb18-2"></a><span class="cf">for</span> c <span class="kw">in</span> commands :  </span>
-<span id="cb18-3"><a href="#cb18-3"></a>    i, j, k <span class="op">=</span> c</span>
-<span id="cb18-4"><a href="#cb18-4"></a>    result.append((<span class="bu">sorted</span>(array[i<span class="op">-</span><span class="dv">1</span>:j])[k<span class="op">-</span><span class="dv">1</span>]))</span>
-<span id="cb18-5"><a href="#cb18-5"></a>result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
-<div class="cell-output cell-output-display" data-execution_count="28">
+<div class="cell-output cell-output-display" data-execution_count="12">
 <pre><code>[5, 6, 3]</code></pre>
 </div>
 </div>
 <p><code>-</code> 함수로 작성</p>
 <div class="cell" data-execution_count="32">
-<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a><span class="kw">def</span> solution(array, commands) :</span>
-<span id="cb20-2"><a href="#cb20-2"></a>    result <span class="op">=</span> []</span>
-<span id="cb20-3"><a href="#cb20-3"></a>    <span class="cf">for</span> c <span class="kw">in</span> commands :  </span>
-<span id="cb20-4"><a href="#cb20-4"></a>        i, j, k <span class="op">=</span> c</span>
-<span id="cb20-5"><a href="#cb20-5"></a>        result.append((<span class="bu">sorted</span>(array[i<span class="op">-</span><span class="dv">1</span>:j])[k<span class="op">-</span><span class="dv">1</span>]))</span>
-<span id="cb20-6"><a href="#cb20-6"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb19"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb19-1"><a href="#cb19-1"></a><span class="kw">def</span> solution(array, commands) :</span>
+<span id="cb19-2"><a href="#cb19-2"></a>    result <span class="op">=</span> []</span>
+<span id="cb19-3"><a href="#cb19-3"></a>    <span class="cf">for</span> c <span class="kw">in</span> commands :  </span>
+<span id="cb19-4"><a href="#cb19-4"></a>        i, j, k <span class="op">=</span> c</span>
+<span id="cb19-5"><a href="#cb19-5"></a>        result.append((<span class="bu">sorted</span>(array[i<span class="op">-</span><span class="dv">1</span>:j])[k<span class="op">-</span><span class="dv">1</span>]))</span>
+<span id="cb19-6"><a href="#cb19-6"></a>    <span class="cf">return</span> result</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 </div>
 <div class="cell" data-execution_count="31">
-<div class="sourceCode cell-code" id="cb21"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb21-1"><a href="#cb21-1"></a>solutions(array,commands)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb20"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1"></a>solutions(array,commands)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="31">
 <pre><code>[5, 6, 3]</code></pre>
 </div>
@@ -589,16 +604,16 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="sol-1" class="level3">
 <h3 class="anchored" data-anchor-id="sol-1">sol</h3>
 <div class="cell" data-scrolled="true" data-execution_count="33">
-<div class="sourceCode cell-code" id="cb23"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb23-1"><a href="#cb23-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
-<span id="cb23-2"><a href="#cb23-2"></a>a <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span>n</span>
-<span id="cb23-3"><a href="#cb23-3"></a></span>
-<span id="cb23-4"><a href="#cb23-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb23-5"><a href="#cb23-5"></a>    a[i] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>,<span class="bu">input</span>().split()))</span>
-<span id="cb23-6"><a href="#cb23-6"></a>    </span>
-<span id="cb23-7"><a href="#cb23-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n): </span>
-<span id="cb23-8"><a href="#cb23-8"></a>    a[i][<span class="dv">0</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]) <span class="op">+</span> a[i][<span class="dv">0</span>] </span>
-<span id="cb23-9"><a href="#cb23-9"></a>    a[i][<span class="dv">1</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]) <span class="op">+</span> a[i][<span class="dv">1</span>]</span>
-<span id="cb23-10"><a href="#cb23-10"></a>    a[i][<span class="dv">2</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>]) <span class="op">+</span> a[i][<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb22"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb22-1"><a href="#cb22-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb22-2"><a href="#cb22-2"></a>a <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span>n</span>
+<span id="cb22-3"><a href="#cb22-3"></a></span>
+<span id="cb22-4"><a href="#cb22-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb22-5"><a href="#cb22-5"></a>    a[i] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>,<span class="bu">input</span>().split()))</span>
+<span id="cb22-6"><a href="#cb22-6"></a>    </span>
+<span id="cb22-7"><a href="#cb22-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>,n): </span>
+<span id="cb22-8"><a href="#cb22-8"></a>    a[i][<span class="dv">0</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]) <span class="op">+</span> a[i][<span class="dv">0</span>] </span>
+<span id="cb22-9"><a href="#cb22-9"></a>    a[i][<span class="dv">1</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]) <span class="op">+</span> a[i][<span class="dv">1</span>]</span>
+<span id="cb22-10"><a href="#cb22-10"></a>    a[i][<span class="dv">2</span>]<span class="op">=</span> <span class="bu">min</span>(a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[i<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>]) <span class="op">+</span> a[i][<span class="dv">2</span>]</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3
 26 40 83
@@ -610,7 +625,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </div>
 </div>
 <div class="cell" data-execution_count="37">
-<div class="sourceCode cell-code" id="cb26"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb26-1"><a href="#cb26-1"></a><span class="bu">print</span>(<span class="bu">min</span>(a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>],a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb25"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb25-1"><a href="#cb25-1"></a><span class="bu">print</span>(<span class="bu">min</span>(a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">0</span>],a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">1</span>],a[n<span class="op">-</span><span class="dv">1</span>][<span class="dv">2</span>]))</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>96</code></pre>
 </div>
@@ -641,23 +656,23 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><span class="math display">\[\text{dp}[i] = \text {max}(\text {dp}[i-3] + \text {s}[i-1] + s[i], \text{dp}[i-2] + s[i])\]</span></p>
 <div class="cell" data-execution_count="44">
-<div class="sourceCode cell-code" id="cb28"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb28-1"><a href="#cb28-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>()) <span class="co"># 계단 개수 입력</span></span>
-<span id="cb28-2"><a href="#cb28-2"></a></span>
-<span id="cb28-3"><a href="#cb28-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb28-4"><a href="#cb28-4"></a>    s[i] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>,<span class="bu">input</span>().split()))</span>
-<span id="cb28-5"><a href="#cb28-5"></a></span>
-<span id="cb28-6"><a href="#cb28-6"></a>dp<span class="op">=</span>[<span class="dv">0</span>]<span class="op">*</span>(n) </span>
-<span id="cb28-7"><a href="#cb28-7"></a></span>
-<span id="cb28-8"><a href="#cb28-8"></a><span class="cf">if</span> <span class="bu">len</span>(s)<span class="op">&lt;=</span><span class="dv">2</span>: <span class="co"># 계단의 개수 가 2인 경우</span></span>
-<span id="cb28-9"><a href="#cb28-9"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(s))</span>
-<span id="cb28-10"><a href="#cb28-10"></a></span>
-<span id="cb28-11"><a href="#cb28-11"></a><span class="cf">else</span>: <span class="co"># 계단이 3개 이상일 때</span></span>
-<span id="cb28-12"><a href="#cb28-12"></a>    dp[<span class="dv">0</span>]<span class="op">=</span>s[<span class="dv">0</span>] <span class="co"># 첫째 계단 수동 계산</span></span>
-<span id="cb28-13"><a href="#cb28-13"></a>    dp[<span class="dv">1</span>]<span class="op">=</span>s[<span class="dv">0</span>]<span class="op">+</span>s[<span class="dv">1</span>] <span class="co"># 둘째 계단까지 수동 계산</span></span>
-<span id="cb28-14"><a href="#cb28-14"></a>    </span>
-<span id="cb28-15"><a href="#cb28-15"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,n):</span>
-<span id="cb28-16"><a href="#cb28-16"></a>        dp[i]<span class="op">=</span><span class="bu">max</span>(dp[i<span class="op">-</span><span class="dv">3</span>]<span class="op">+</span>s[i<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span>s[i], dp[i<span class="op">-</span><span class="dv">2</span>]<span class="op">+</span>s[i])</span>
-<span id="cb28-17"><a href="#cb28-17"></a>    <span class="bu">print</span>(dp[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb27"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb27-1"><a href="#cb27-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>()) <span class="co"># 계단 개수 입력</span></span>
+<span id="cb27-2"><a href="#cb27-2"></a></span>
+<span id="cb27-3"><a href="#cb27-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb27-4"><a href="#cb27-4"></a>    s[i] <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>,<span class="bu">input</span>().split()))</span>
+<span id="cb27-5"><a href="#cb27-5"></a></span>
+<span id="cb27-6"><a href="#cb27-6"></a>dp<span class="op">=</span>[<span class="dv">0</span>]<span class="op">*</span>(n) </span>
+<span id="cb27-7"><a href="#cb27-7"></a></span>
+<span id="cb27-8"><a href="#cb27-8"></a><span class="cf">if</span> <span class="bu">len</span>(s)<span class="op">&lt;=</span><span class="dv">2</span>: <span class="co"># 계단의 개수 가 2인 경우</span></span>
+<span id="cb27-9"><a href="#cb27-9"></a>    <span class="bu">print</span>(<span class="bu">sum</span>(s))</span>
+<span id="cb27-10"><a href="#cb27-10"></a></span>
+<span id="cb27-11"><a href="#cb27-11"></a><span class="cf">else</span>: <span class="co"># 계단이 3개 이상일 때</span></span>
+<span id="cb27-12"><a href="#cb27-12"></a>    dp[<span class="dv">0</span>]<span class="op">=</span>s[<span class="dv">0</span>] <span class="co"># 첫째 계단 수동 계산</span></span>
+<span id="cb27-13"><a href="#cb27-13"></a>    dp[<span class="dv">1</span>]<span class="op">=</span>s[<span class="dv">0</span>]<span class="op">+</span>s[<span class="dv">1</span>] <span class="co"># 둘째 계단까지 수동 계산</span></span>
+<span id="cb27-14"><a href="#cb27-14"></a>    </span>
+<span id="cb27-15"><a href="#cb27-15"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">2</span>,n):</span>
+<span id="cb27-16"><a href="#cb27-16"></a>        dp[i]<span class="op">=</span><span class="bu">max</span>(dp[i<span class="op">-</span><span class="dv">3</span>]<span class="op">+</span>s[i<span class="op">-</span><span class="dv">1</span>]<span class="op">+</span>s[i], dp[i<span class="op">-</span><span class="dv">2</span>]<span class="op">+</span>s[i])</span>
+<span id="cb27-17"><a href="#cb27-17"></a>    <span class="bu">print</span>(dp[<span class="op">-</span><span class="dv">1</span>])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>6
 10
@@ -675,19 +690,19 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <h2 class="anchored" data-anchor-id="ex-5.-가장-긴-증가하는-부분-수열">ex 5. 가장 긴 증가하는 부분 수열</h2>
 <section id="sol-3" class="level3">
 <h3 class="anchored" data-anchor-id="sol-3">sol</h3>
-<div class="cell" data-execution_count="105">
-<div class="sourceCode cell-code" id="cb30"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb30-1"><a href="#cb30-1"></a>n<span class="op">=</span><span class="bu">int</span>(<span class="bu">input</span>())</span>
-<span id="cb30-2"><a href="#cb30-2"></a>A <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()))</span>
-<span id="cb30-3"><a href="#cb30-3"></a></span>
-<span id="cb30-4"><a href="#cb30-4"></a>dp <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span><span class="dv">1001</span> <span class="co">## dp 초기화</span></span>
-<span id="cb30-5"><a href="#cb30-5"></a>result <span class="op">=</span> <span class="dv">0</span> </span>
-<span id="cb30-6"><a href="#cb30-6"></a></span>
-<span id="cb30-7"><a href="#cb30-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb30-8"><a href="#cb30-8"></a>    num <span class="op">=</span> A[i] <span class="co">## i 번째 원소 전달</span></span>
-<span id="cb30-9"><a href="#cb30-9"></a>    dp[num] <span class="op">=</span> <span class="bu">max</span>(dp[<span class="dv">0</span>:num])<span class="op">+</span><span class="dv">1</span> <span class="co">## </span></span>
-<span id="cb30-10"><a href="#cb30-10"></a>    result <span class="op">=</span> <span class="bu">max</span>(result, dp[num])</span>
-<span id="cb30-11"><a href="#cb30-11"></a>    <span class="bu">print</span>(<span class="st">"i번째 result : "</span>, result)</span>
-<span id="cb30-12"><a href="#cb30-12"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-scrolled="true" data-execution_count="105">
+<div class="sourceCode cell-code" id="cb29"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb29-1"><a href="#cb29-1"></a>n<span class="op">=</span><span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb29-2"><a href="#cb29-2"></a>A <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()))</span>
+<span id="cb29-3"><a href="#cb29-3"></a></span>
+<span id="cb29-4"><a href="#cb29-4"></a>dp <span class="op">=</span> [<span class="dv">0</span>]<span class="op">*</span><span class="dv">1001</span> <span class="co">## dp 초기화</span></span>
+<span id="cb29-5"><a href="#cb29-5"></a>result <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb29-6"><a href="#cb29-6"></a></span>
+<span id="cb29-7"><a href="#cb29-7"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb29-8"><a href="#cb29-8"></a>    num <span class="op">=</span> A[i] <span class="co">## i 번째 원소 전달</span></span>
+<span id="cb29-9"><a href="#cb29-9"></a>    dp[num] <span class="op">=</span> <span class="bu">max</span>(dp[<span class="dv">0</span>:num])<span class="op">+</span><span class="dv">1</span> </span>
+<span id="cb29-10"><a href="#cb29-10"></a>    result <span class="op">=</span> <span class="bu">max</span>(result, dp[num])</span>
+<span id="cb29-11"><a href="#cb29-11"></a>    <span class="bu">print</span>(<span class="st">"i번째 result : "</span>, result)</span>
+<span id="cb29-12"><a href="#cb29-12"></a><span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>6
  10 20 10 30 20 50
@@ -711,6 +726,547 @@ i번째 result :  4
 <li><p>1 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 추가한다. 이전에 제한이 없었음이 보장된다.</p></li>
 <li><p>2 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 삭제한다. 이전에 제한이 있었음이 보장된다.</p></li>
 </ul>
+<hr>
+</section>
+</section>
+<section id="study-1" class="level1">
+<h1>study</h1>
+<section id="ex1.-바이러스" class="level2">
+<h2 class="anchored" data-anchor-id="ex1.-바이러스">ex1. 바이러스</h2>
+<p>신종 바이러스인 웜 바이러스는 네트워크를 통해 전파된다. 한 컴퓨터가 웜 바이러스에 걸리면 그 컴퓨터와 네트워크 상에서 연결되어 있는 모든 컴퓨터는 웜 바이러스에 걸리게 된다.</p>
+<p>예를 들어 7대의 컴퓨터가 &lt;그림 1&gt;과 같이 네트워크 상에서 연결되어 있다고 하자. 1번 컴퓨터가 웜 바이러스에 걸리면 웜 바이러스는 2번과 5번 컴퓨터를 거쳐 3번과 6번 컴퓨터까지 전파되어 <code>2, 3, 5, 6</code> 네 대의 컴퓨터는 웜 바이러스에 걸리게 된다. 하지만 4번과 7번 컴퓨터는 1번 컴퓨터와 네트워크상에서 연결되어 있지 않기 때문에 영향을 받지 않는다.</p>
+<center>
+<img src="https://www.acmicpc.net/upload/images/zmMEZZ8ioN6rhCdHmcIT4a7.png" width="239">
+</center>
+<blockquote class="blockquote">
+<p>입력</p>
+</blockquote>
+<p>첫째 줄에는 컴퓨터의 수가 주어진다. 컴퓨터의 수는 100 이하인 양의 정수이고 각 컴퓨터에는 1번 부터 차례대로 번호가 매겨진다. 둘째 줄에는 네트워크 상에서 직접 연결되어 있는 컴퓨터 쌍의 수가 주어진다. 이어서 그 수만큼 한 줄에 한 쌍씩 네트워크 상에서 직접 연결되어 있는 컴퓨터의 번호 쌍이 주어진다.</p>
+<div class="sourceCode" id="cb31"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb31-1"><a href="#cb31-1"></a><span class="dv">7</span></span>
+<span id="cb31-2"><a href="#cb31-2"></a><span class="dv">6</span></span>
+<span id="cb31-3"><a href="#cb31-3"></a><span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb31-4"><a href="#cb31-4"></a><span class="dv">2</span> <span class="dv">3</span></span>
+<span id="cb31-5"><a href="#cb31-5"></a><span class="dv">1</span> <span class="dv">5</span></span>
+<span id="cb31-6"><a href="#cb31-6"></a><span class="dv">5</span> <span class="dv">2</span></span>
+<span id="cb31-7"><a href="#cb31-7"></a><span class="dv">5</span> <span class="dv">6</span></span>
+<span id="cb31-8"><a href="#cb31-8"></a><span class="dv">4</span> <span class="dv">7</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<blockquote class="blockquote">
+<p>출력</p>
+</blockquote>
+<p>1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 첫째 줄에 출력한다.</p>
+<section id="sol-4" class="level3">
+<h3 class="anchored" data-anchor-id="sol-4">sol</h3>
+<p><code>-</code>dfs를 이용한 풀이</p>
+<div class="cell" data-tags="[]" data-execution_count="82">
+<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># 컴퓨터</span></span>
+<span id="cb32-2"><a href="#cb32-2"></a></span>
+<span id="cb32-3"><a href="#cb32-3"></a>v <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb32-4"><a href="#cb32-4"></a></span>
+<span id="cb32-5"><a href="#cb32-5"></a><span class="co"># 네트워크 쌍</span></span>
+<span id="cb32-6"><a href="#cb32-6"></a>e <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb32-7"><a href="#cb32-7"></a>graph <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(v<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb32-8"><a href="#cb32-8"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(e):</span>
+<span id="cb32-9"><a href="#cb32-9"></a>    a, b <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split())</span>
+<span id="cb32-10"><a href="#cb32-10"></a>    graph[a].append(b)</span>
+<span id="cb32-11"><a href="#cb32-11"></a>    graph[b].append(a)</span>
+<span id="cb32-12"><a href="#cb32-12"></a></span>
+<span id="cb32-13"><a href="#cb32-13"></a><span class="co"># 재귀적 구현</span></span>
+<span id="cb32-14"><a href="#cb32-14"></a><span class="kw">def</span> dfs(x):</span>
+<span id="cb32-15"><a href="#cb32-15"></a>    <span class="kw">global</span> count <span class="co">## 전역변수 설정</span></span>
+<span id="cb32-16"><a href="#cb32-16"></a>    visited[x] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb32-17"><a href="#cb32-17"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb32-18"><a href="#cb32-18"></a>    <span class="cf">for</span> node <span class="kw">in</span> graph[x]:  <span class="co">##</span></span>
+<span id="cb32-19"><a href="#cb32-19"></a>        <span class="cf">if</span> visited[node]:</span>
+<span id="cb32-20"><a href="#cb32-20"></a>            <span class="cf">continue</span></span>
+<span id="cb32-21"><a href="#cb32-21"></a>        dfs(node)</span>
+<span id="cb32-22"><a href="#cb32-22"></a></span>
+<span id="cb32-23"><a href="#cb32-23"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb32-24"><a href="#cb32-24"></a>visited <span class="op">=</span> [<span class="va">False</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(v<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb32-25"><a href="#cb32-25"></a>dfs(<span class="dv">1</span>)</span>
+<span id="cb32-26"><a href="#cb32-26"></a><span class="bu">print</span>(count<span class="op">-</span><span class="dv">1</span>)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdin">
+<pre><code> 7
+ 6
+ 2 3
+ 1 2
+ 1 5
+ 5 2
+ 5 6
+ 4 7</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>4</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ex-2.-단지번호-붙이기" class="level2">
+<h2 class="anchored" data-anchor-id="ex-2.-단지번호-붙이기">ex 2. 단지번호 붙이기</h2>
+<p>&lt;그림 1&gt;과 같이 정사각형 모양의 지도가 있다. 1은 집이 있는 곳을, 0은 집이 없는 곳을 나타낸다. 철수는 이 지도를 가지고 연결된 집의 모임인 단지를 정의하고, 단지에 번호를 붙이려 한다. 여기서 연결되었다는 것은 어떤 집이 좌우, 혹은 아래위로 다른 집이 있는 경우를 말한다. 대각선상에 집이 있는 경우는 연결된 것이 아니다. &lt;그림 2&gt;는 &lt;그림 1&gt;을 단지별로 번호를 붙인 것이다. 지도를 입력하여 단지수를 출력하고, 각 단지에 속하는 집의 수를 오름차순으로 정렬하여 출력하는 프로그램을 작성하시오.</p>
+<center>
+<img src="https://www.acmicpc.net/upload/images/ITVH9w1Gf6eCRdThfkegBUSOKd.png">
+</center>
+<p><code>=</code> 입력조건</p>
+<p>첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.</p>
+<p><code>-</code> 출력조건</p>
+<p>첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.</p>
+<section id="sol-5" class="level3">
+<h3 class="anchored" data-anchor-id="sol-5">sol</h3>
+<p><code>-</code> dfs를 이용한 풀이</p>
+<div class="cell" data-tags="[]" data-execution_count="93">
+<div class="sourceCode cell-code" id="cb35"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb35-1"><a href="#cb35-1"></a>n <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>()) <span class="co">## 가로 세로 길이</span></span>
+<span id="cb35-2"><a href="#cb35-2"></a>graph <span class="op">=</span> []</span>
+<span id="cb35-3"><a href="#cb35-3"></a></span>
+<span id="cb35-4"><a href="#cb35-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb35-5"><a href="#cb35-5"></a>    graph.append(<span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>())))</span>
+<span id="cb35-6"><a href="#cb35-6"></a></span>
+<span id="cb35-7"><a href="#cb35-7"></a>dx <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb35-8"><a href="#cb35-8"></a>dy <span class="op">=</span> [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb35-9"><a href="#cb35-9"></a><span class="bu">print</span>(n)</span>
+<span id="cb35-10"><a href="#cb35-10"></a><span class="bu">print</span>(graph)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdin">
+<pre><code> 7
+ 0110100
+ 0110101
+ 1110101
+ 0000111
+ 0100000
+ 0111110
+ 0111000</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>7
+[[0, 1, 1, 0, 1, 0, 0], [0, 1, 1, 0, 1, 0, 1], [1, 1, 1, 0, 1, 0, 1], [0, 0, 0, 0, 1, 1, 1], [0, 1, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 0, 0, 0]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="94">
+<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co">## 재귀함수 작성</span></span>
+<span id="cb38-2"><a href="#cb38-2"></a><span class="kw">def</span> DFS(x, y):</span>
+<span id="cb38-3"><a href="#cb38-3"></a>    <span class="cf">if</span> x <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> x <span class="op">&gt;=</span> n <span class="kw">or</span> y <span class="op">&lt;</span> <span class="dv">0</span> <span class="kw">or</span> y <span class="op">&gt;=</span> n:</span>
+<span id="cb38-4"><a href="#cb38-4"></a>        <span class="cf">return</span> <span class="va">False</span></span>
+<span id="cb38-5"><a href="#cb38-5"></a></span>
+<span id="cb38-6"><a href="#cb38-6"></a>    <span class="cf">if</span> graph[x][y] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb38-7"><a href="#cb38-7"></a>        <span class="kw">global</span> count</span>
+<span id="cb38-8"><a href="#cb38-8"></a>        count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb38-9"><a href="#cb38-9"></a>        graph[x][y] <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb38-10"><a href="#cb38-10"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):</span>
+<span id="cb38-11"><a href="#cb38-11"></a>            nx <span class="op">=</span> x <span class="op">+</span> dx[i] <span class="co">## x좌표</span></span>
+<span id="cb38-12"><a href="#cb38-12"></a>            ny <span class="op">=</span> y <span class="op">+</span> dy[i] <span class="co">## y좌표</span></span>
+<span id="cb38-13"><a href="#cb38-13"></a>            DFS(nx, ny)</span>
+<span id="cb38-14"><a href="#cb38-14"></a>        <span class="cf">return</span> <span class="va">True</span></span>
+<span id="cb38-15"><a href="#cb38-15"></a>    <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="95">
+<div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-2"><a href="#cb39-2"></a>result <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-3"><a href="#cb39-3"></a>num <span class="op">=</span> []</span>
+<span id="cb39-4"><a href="#cb39-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb39-5"><a href="#cb39-5"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb39-6"><a href="#cb39-6"></a>        <span class="cf">if</span> DFS(i, j) <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb39-7"><a href="#cb39-7"></a>            num.append(count)</span>
+<span id="cb39-8"><a href="#cb39-8"></a>            result <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb39-9"><a href="#cb39-9"></a>            count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a></span>
+<span id="cb39-11"><a href="#cb39-11"></a>num.sort()</span>
+<span id="cb39-12"><a href="#cb39-12"></a><span class="bu">print</span>(result)</span>
+<span id="cb39-13"><a href="#cb39-13"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(num)):</span>
+<span id="cb39-14"><a href="#cb39-14"></a>    <span class="bu">print</span>(num[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>3
+7
+8
+9</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ex-3.-유기농-배추" class="level2">
+<h2 class="anchored" data-anchor-id="ex-3.-유기농-배추">ex 3. 유기농 배추</h2>
+<p>차세대 영농인 한나는 강원도 고랭지에서 유기농 배추를 재배하기로 하였다. 농약을 쓰지 않고 배추를 재배하려면 배추를 해충으로부터 보호하는 것이 중요하기 때문에, 한나는 해충 방지에 효과적인 배추흰지렁이를 구입하기로 결심한다. 이 지렁이는 배추근처에 서식하며 해충을 잡아 먹음으로써 배추를 보호한다. 특히, 어떤 배추에 배추흰지렁이가 한 마리라도 살고 있으면 이 지렁이는 인접한 다른 배추로 이동할 수 있어, 그 배추들 역시 해충으로부터 보호받을 수 있다. 한 배추의 상하좌우 네 방향에 다른 배추가 위치한 경우에 서로 인접해있는 것이다.</p>
+<p>한나가 배추를 재배하는 땅은 고르지 못해서 배추를 군데군데 심어 놓았다. 배추들이 모여있는 곳에는 배추흰지렁이가 한 마리만 있으면 되므로 서로 인접해있는 배추들이 몇 군데에 퍼져있는지 조사하면 총 몇 마리의 지렁이가 필요한지 알 수 있다. 예를 들어 배추밭이 아래와 같이 구성되어 있으면 최소 5마리의 배추흰지렁이가 필요하다. 0은 배추가 심어져 있지 않은 땅이고, 1은 배추가 심어져 있는 땅을 나타낸다.</p>
+
+<table class="table table-bordered" style="width:40%">
+<tbody>
+<tr>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+</tr>
+<tr>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+0
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+<td style="text-align:center; width:4%">
+<strong>1</strong>
+</td>
+</tr>
+</tbody>
+
+</table>
+<p><code>-</code> 입력</p>
+<p>입력의 첫 줄에는 테스트 케이스의 개수 T가 주어진다. 그 다음 줄부터 각각의 테스트 케이스에 대해 첫째 줄에는 배추를 심은 배추밭의 가로길이 M(1 ≤ M ≤ 50)과 세로길이 N(1 ≤ N ≤ 50), 그리고 배추가 심어져 있는 위치의 개수 K(1 ≤ K ≤ 2500)이 주어진다. 그 다음 K줄에는 배추의 위치 X(0 ≤ X ≤ M-1), Y(0 ≤ Y ≤ N-1)가 주어진다. 두 배추의 위치가 같은 경우는 없다.</p>
+<p><code>-</code> 출력</p>
+<p>각 테스트 케이스에 대해 필요한 최소의 배추흰지렁이 마리 수를 출력한다.</p>
+<p><code>-</code> 예제 입력</p>
+<div class="sourceCode" id="cb41"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb41-1"><a href="#cb41-1"></a><span class="dv">1</span></span>
+<span id="cb41-2"><a href="#cb41-2"></a><span class="dv">5</span> <span class="dv">3</span> <span class="dv">6</span></span>
+<span id="cb41-3"><a href="#cb41-3"></a><span class="dv">0</span> <span class="dv">2</span></span>
+<span id="cb41-4"><a href="#cb41-4"></a><span class="dv">1</span> <span class="dv">2</span></span>
+<span id="cb41-5"><a href="#cb41-5"></a><span class="dv">2</span> <span class="dv">2</span></span>
+<span id="cb41-6"><a href="#cb41-6"></a><span class="dv">3</span> <span class="dv">2</span></span>
+<span id="cb41-7"><a href="#cb41-7"></a><span class="dv">4</span> <span class="dv">2</span></span>
+<span id="cb41-8"><a href="#cb41-8"></a><span class="dv">4</span> <span class="dv">0</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<section id="sol-dfs" class="level3">
+<h3 class="anchored" data-anchor-id="sol-dfs">sol : dfs</h3>
+<div class="sourceCode" id="cb42"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb42-1"><a href="#cb42-1"></a><span class="im">import</span> sys</span>
+<span id="cb42-2"><a href="#cb42-2"></a>sys.setrecursionlimit(<span class="dv">10</span><span class="op">**</span><span class="dv">6</span>)</span>
+<span id="cb42-3"><a href="#cb42-3"></a><span class="bu">input</span> <span class="op">=</span> sys.stdin.readline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="103">
+<div class="sourceCode cell-code" id="cb43"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb43-1"><a href="#cb43-1"></a><span class="co"># dfs 정의</span></span>
+<span id="cb43-2"><a href="#cb43-2"></a><span class="kw">def</span> dfs(x, y):</span>
+<span id="cb43-3"><a href="#cb43-3"></a>    <span class="co"># 상하좌우</span></span>
+<span id="cb43-4"><a href="#cb43-4"></a>    dx <span class="op">=</span> [<span class="dv">0</span>, <span class="dv">0</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">1</span>] </span>
+<span id="cb43-5"><a href="#cb43-5"></a>    dy <span class="op">=</span> [<span class="dv">1</span>, <span class="op">-</span><span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>]</span>
+<span id="cb43-6"><a href="#cb43-6"></a></span>
+<span id="cb43-7"><a href="#cb43-7"></a>    <span class="co"># 네 방향 탐색</span></span>
+<span id="cb43-8"><a href="#cb43-8"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">4</span>):</span>
+<span id="cb43-9"><a href="#cb43-9"></a>        nx <span class="op">=</span> x <span class="op">+</span> dx[i]</span>
+<span id="cb43-10"><a href="#cb43-10"></a>        ny <span class="op">=</span> y <span class="op">+</span> dy[i]</span>
+<span id="cb43-11"><a href="#cb43-11"></a>        <span class="cf">if</span> (<span class="dv">0</span> <span class="op">&lt;=</span> nx <span class="op">&lt;</span> m) <span class="kw">and</span> (<span class="dv">0</span> <span class="op">&lt;=</span> ny <span class="op">&lt;</span> n) <span class="kw">and</span> graph[ny][nx] <span class="op">==</span> <span class="dv">1</span>:    </span>
+<span id="cb43-12"><a href="#cb43-12"></a>            graph[ny][nx] <span class="op">=</span> <span class="op">-</span><span class="dv">1</span> <span class="co"># 지나간것을 -1로 표시하고 주변 탐색</span></span>
+<span id="cb43-13"><a href="#cb43-13"></a>            dfs(nx, ny)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<table class="table">
+<thead>
+<tr class="header">
+<th style="text-align: center;">0</th>
+<th style="text-align: center;">1</th>
+<th style="text-align: center;">2</th>
+<th style="text-align: center;">3</th>
+<th style="text-align: center;">4</th>
+<th style="text-align: center;">5</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="odd">
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+<tr class="even">
+<td style="text-align: center;">1</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+<td style="text-align: center;">0</td>
+</tr>
+</tbody>
+</table>
+<div class="cell" data-tags="[]" data-execution_count="104">
+<div class="sourceCode cell-code" id="cb44"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb44-1"><a href="#cb44-1"></a>t <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>()) <span class="co"># 테스트 케이스의 개수</span></span>
+<span id="cb44-2"><a href="#cb44-2"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(t):</span>
+<span id="cb44-3"><a href="#cb44-3"></a>    m, n, k <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()) <span class="co"># 가로, 세로, 배추 개수</span></span>
+<span id="cb44-4"><a href="#cb44-4"></a>    graph <span class="op">=</span> [[<span class="dv">0</span> <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(m)] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n)] </span>
+<span id="cb44-5"><a href="#cb44-5"></a></span>
+<span id="cb44-6"><a href="#cb44-6"></a>    <span class="co"># 배추 위치 표시</span></span>
+<span id="cb44-7"><a href="#cb44-7"></a>    <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(k):</span>
+<span id="cb44-8"><a href="#cb44-8"></a>        X, Y <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()) </span>
+<span id="cb44-9"><a href="#cb44-9"></a>        graph[Y][X] <span class="op">=</span> <span class="dv">1</span> <span class="co"># X, Y 바꿔서 표시해야하는거 주의! 그래프 loop문 확인</span></span>
+<span id="cb44-10"><a href="#cb44-10"></a></span>
+<span id="cb44-11"><a href="#cb44-11"></a>    <span class="co"># 배추 그룹 수(=배추흰지렁이 개수) 세기</span></span>
+<span id="cb44-12"><a href="#cb44-12"></a>    count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb44-13"><a href="#cb44-13"></a>    <span class="cf">for</span> a <span class="kw">in</span> <span class="bu">range</span>(m):</span>
+<span id="cb44-14"><a href="#cb44-14"></a>        <span class="cf">for</span> b <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb44-15"><a href="#cb44-15"></a>            <span class="cf">if</span> graph[b][a] <span class="op">==</span> <span class="dv">1</span>:</span>
+<span id="cb44-16"><a href="#cb44-16"></a>                dfs(a ,b)</span>
+<span id="cb44-17"><a href="#cb44-17"></a>                count <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb44-18"><a href="#cb44-18"></a>    <span class="bu">print</span>(count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdin">
+<pre><code> 1
+ 5 3 6
+ 0 2
+ 1 2
+ 2 2
+ 3 2
+ 4 2
+ 4 0</code></pre>
+</div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
+</section>
+</section>
+<section id="ex-4.-연결-요소의-개수" class="level2">
+<h2 class="anchored" data-anchor-id="ex-4.-연결-요소의-개수">ex 4. 연결 요소의 개수</h2>
+<p>방향 없는 그래프가 주어졌을 때, 연결 요소 (Connected Component)의 개수를 구하는 프로그램을 작성하시오.</p>
+<p><code>-</code> 입력</p>
+<p>첫째 줄에 정점의 개수 N과 간선의 개수 M이 주어진다. (1 ≤ N ≤ 1,000, 0 ≤ M ≤ N×(N-1)/2) 둘째 줄부터 M개의 줄에 간선의 양 끝점 u와 v가 주어진다. (1 ≤ u, v ≤ N, u ≠ v) 같은 간선은 한 번만 주어진다.</p>
+<p><code>-</code> 출력</p>
+<p>첫째 줄에 연결 요소의 개수를 출력한다.</p>
+<div class="sourceCode" id="cb47"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb47-1"><a href="#cb47-1"></a><span class="im">import</span> sys</span>
+<span id="cb47-2"><a href="#cb47-2"></a>sys.setrecursionlimit(<span class="dv">10</span><span class="op">**</span><span class="dv">6</span>)</span>
+<span id="cb47-3"><a href="#cb47-3"></a><span class="bu">input</span> <span class="op">=</span> sys.stdin.readline</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell" data-tags="[]" data-execution_count="105">
+<div class="sourceCode cell-code" id="cb48"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb48-1"><a href="#cb48-1"></a><span class="co"># dfs 함수</span></span>
+<span id="cb48-2"><a href="#cb48-2"></a><span class="kw">def</span> dfs(graph, v, visited):</span>
+<span id="cb48-3"><a href="#cb48-3"></a>    visited[v] <span class="op">=</span> <span class="va">True</span></span>
+<span id="cb48-4"><a href="#cb48-4"></a>    <span class="cf">for</span> i <span class="kw">in</span> graph[v]:</span>
+<span id="cb48-5"><a href="#cb48-5"></a>        <span class="cf">if</span> <span class="kw">not</span> visited[i]:</span>
+<span id="cb48-6"><a href="#cb48-6"></a>            dfs(graph, i, visited)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="106">
+<div class="sourceCode cell-code" id="cb49"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb49-1"><a href="#cb49-1"></a>n, m <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()) <span class="co"># 정점의 개수, 간선의 개수</span></span>
+<span id="cb49-2"><a href="#cb49-2"></a></span>
+<span id="cb49-3"><a href="#cb49-3"></a>graph <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(n<span class="op">+</span><span class="dv">1</span>)]</span>
+<span id="cb49-4"><a href="#cb49-4"></a></span>
+<span id="cb49-5"><a href="#cb49-5"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(m):</span>
+<span id="cb49-6"><a href="#cb49-6"></a>    u, v <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split())</span>
+<span id="cb49-7"><a href="#cb49-7"></a>    graph[u].append(v)</span>
+<span id="cb49-8"><a href="#cb49-8"></a>    graph[v].append(u)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdin">
+<pre><code> 6 5
+ 1 2
+ 2 5
+ 5 1
+ 3 4
+ 4 6</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="107">
+<div class="sourceCode cell-code" id="cb51"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb51-1"><a href="#cb51-1"></a>graph</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-display" data-execution_count="107">
+<pre><code>[[], [2, 5], [1, 5], [4], [3, 6], [2, 1], [4]]</code></pre>
+</div>
+</div>
+<div class="cell" data-tags="[]" data-execution_count="108">
+<div class="sourceCode cell-code" id="cb53"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb53-1"><a href="#cb53-1"></a>count <span class="op">=</span> <span class="dv">0</span> <span class="co"># 연결 노드의 수</span></span>
+<span id="cb53-2"><a href="#cb53-2"></a>visited <span class="op">=</span> [<span class="va">False</span>] <span class="op">*</span> (n<span class="op">+</span><span class="dv">1</span>)</span>
+<span id="cb53-3"><a href="#cb53-3"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, n<span class="op">+</span><span class="dv">1</span>):</span>
+<span id="cb53-4"><a href="#cb53-4"></a>    <span class="cf">if</span> <span class="kw">not</span> visited[i]:</span>
+<span id="cb53-5"><a href="#cb53-5"></a>        dfs(graph, i, visited)</span>
+<span id="cb53-6"><a href="#cb53-6"></a>        count <span class="op">+=</span> <span class="dv">1</span> <span class="co"># dfs 한 번 끝날 때마다 count+1</span></span>
+<span id="cb53-7"><a href="#cb53-7"></a></span>
+<span id="cb53-8"><a href="#cb53-8"></a><span class="bu">print</span>(count)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="cell-output cell-output-stdout">
+<pre><code>2</code></pre>
+</div>
+</div>
 <hr>
 </section>
 </section>
@@ -763,21 +1319,21 @@ i번째 result :  4
 <section id="예비학습" class="level3">
 <h3 class="anchored" data-anchor-id="예비학습">예비학습</h3>
 <div class="cell" data-execution_count="86">
-<div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co">## 테스트 케이스를 1이라고 가정</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a>tc <span class="op">=</span> <span class="dv">1</span></span>
-<span id="cb32-3"><a href="#cb32-3"></a><span class="co">##  3 x 4에 금광</span></span>
-<span id="cb32-4"><a href="#cb32-4"></a>n, m <span class="op">=</span> <span class="dv">3</span>, <span class="dv">4</span></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="co">## 금광을 담을 배열</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>array <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>]</span>
-<span id="cb32-7"><a href="#cb32-7"></a></span>
-<span id="cb32-8"><a href="#cb32-8"></a><span class="co">## 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화</span></span>
-<span id="cb32-9"><a href="#cb32-9"></a>dp <span class="op">=</span> []</span>
-<span id="cb32-10"><a href="#cb32-10"></a>index <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb32-11"><a href="#cb32-11"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) :</span>
-<span id="cb32-12"><a href="#cb32-12"></a>      dp.append(array[index:index<span class="op">+</span>m]) <span class="co">## n번째 행에 m개만큼 배열을 다음</span></span>
-<span id="cb32-13"><a href="#cb32-13"></a>      index <span class="op">+=</span> m <span class="co">## array가 1차원이므로 index 값 갱신</span></span>
-<span id="cb32-14"><a href="#cb32-14"></a></span>
-<span id="cb32-15"><a href="#cb32-15"></a>dp <span class="co">## 단순히 array를 2차식으로 표시한것임</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb55"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb55-1"><a href="#cb55-1"></a><span class="co">## 테스트 케이스를 1이라고 가정</span></span>
+<span id="cb55-2"><a href="#cb55-2"></a>tc <span class="op">=</span> <span class="dv">1</span></span>
+<span id="cb55-3"><a href="#cb55-3"></a><span class="co">##  3 x 4에 금광</span></span>
+<span id="cb55-4"><a href="#cb55-4"></a>n, m <span class="op">=</span> <span class="dv">3</span>, <span class="dv">4</span></span>
+<span id="cb55-5"><a href="#cb55-5"></a><span class="co">## 금광을 담을 배열</span></span>
+<span id="cb55-6"><a href="#cb55-6"></a>array <span class="op">=</span> [<span class="dv">1</span>, <span class="dv">3</span>, <span class="dv">3</span>, <span class="dv">2</span>, <span class="dv">2</span>, <span class="dv">1</span>, <span class="dv">4</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">6</span>, <span class="dv">4</span>, <span class="dv">7</span>]</span>
+<span id="cb55-7"><a href="#cb55-7"></a></span>
+<span id="cb55-8"><a href="#cb55-8"></a><span class="co">## 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화</span></span>
+<span id="cb55-9"><a href="#cb55-9"></a>dp <span class="op">=</span> []</span>
+<span id="cb55-10"><a href="#cb55-10"></a>index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb55-11"><a href="#cb55-11"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) :</span>
+<span id="cb55-12"><a href="#cb55-12"></a>      dp.append(array[index:index<span class="op">+</span>m]) <span class="co">## n번째 행에 m개만큼 배열을 다음</span></span>
+<span id="cb55-13"><a href="#cb55-13"></a>      index <span class="op">+=</span> m <span class="co">## array가 1차원이므로 index 값 갱신</span></span>
+<span id="cb55-14"><a href="#cb55-14"></a></span>
+<span id="cb55-15"><a href="#cb55-15"></a>dp <span class="co">## 단순히 array를 2차식으로 표시한것임</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-display" data-execution_count="86">
 <pre><code>[[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]</code></pre>
 </div>
@@ -788,36 +1344,36 @@ i번째 result :  4
 <li><p><span class="math inline">\(\text{dp}_{i+1,j-1}\)</span> : 왼쪽 아래</p></li>
 </ul>
 <div class="cell" data-scrolled="true" data-execution_count="87">
-<div class="sourceCode cell-code" id="cb34"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb34-1"><a href="#cb34-1"></a><span class="co">## 다이나믹 프로그래밍 진행</span></span>
-<span id="cb34-2"><a href="#cb34-2"></a><span class="bu">print</span>(<span class="st">"초기 dp : "</span>,dp)</span>
-<span id="cb34-3"><a href="#cb34-3"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, m) : <span class="co">## 열기준 : j가 1인 이유는 항상 왼쪽에서 오니까 0번쨰 인덱스를 입력받기 위함임</span></span>
-<span id="cb34-4"><a href="#cb34-4"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) :</span>
-<span id="cb34-5"><a href="#cb34-5"></a>        <span class="co"># 1. 왼쪽 위에서 오는 경우</span></span>
-<span id="cb34-6"><a href="#cb34-6"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> : <span class="co">## 인덱스값을 벗어나는지 체크</span></span>
-<span id="cb34-7"><a href="#cb34-7"></a>            left_up <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb34-8"><a href="#cb34-8"></a>        <span class="cf">else</span> : </span>
-<span id="cb34-9"><a href="#cb34-9"></a>            left_up <span class="op">=</span> dp[i<span class="op">-</span><span class="dv">1</span>][j<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb34-10"><a href="#cb34-10"></a>        <span class="co"># 2. 왼쪽 아래에서 오는 경우</span></span>
-<span id="cb34-11"><a href="#cb34-11"></a>        <span class="cf">if</span> i <span class="op">==</span> n<span class="op">-</span><span class="dv">1</span> : <span class="co"># i  == n-1이면  dp[n][j-1]이므로 왼쪽아래가 성립이 안된다..</span></span>
-<span id="cb34-12"><a href="#cb34-12"></a>            left_down <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb34-13"><a href="#cb34-13"></a>        <span class="cf">else</span> :</span>
-<span id="cb34-14"><a href="#cb34-14"></a>            left_down <span class="op">=</span> dp[i<span class="op">+</span><span class="dv">1</span>][j<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb34-15"><a href="#cb34-15"></a>        <span class="co">## 3. 왼쪽에서 오는 경우</span></span>
-<span id="cb34-16"><a href="#cb34-16"></a>        left <span class="op">=</span> dp[i][j<span class="op">-</span><span class="dv">1</span>]</span>
-<span id="cb34-17"><a href="#cb34-17"></a>        <span class="co">## 4. 위에서 세운 점화식을 구현 -&gt; 2차식으로 구현한 array를 max 값을 입력받아 갱신</span></span>
-<span id="cb34-18"><a href="#cb34-18"></a>        dp[i][j] <span class="op">=</span> dp[i][j] <span class="op">+</span> <span class="bu">max</span>(left_up, left_down, left) <span class="co">## 모든 j번쨰 열에서 행의 값이 최대값을 +한 것으로 업데이트됨</span></span>
-<span id="cb34-19"><a href="#cb34-19"></a></span>
-<span id="cb34-20"><a href="#cb34-20"></a><span class="bu">print</span>(<span class="st">"연산후 dp : "</span>,dp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb57"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb57-1"><a href="#cb57-1"></a><span class="co">## 다이나믹 프로그래밍 진행</span></span>
+<span id="cb57-2"><a href="#cb57-2"></a><span class="bu">print</span>(<span class="st">"초기 dp : "</span>,dp)</span>
+<span id="cb57-3"><a href="#cb57-3"></a><span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, m) : <span class="co">## 열기준 : j가 1인 이유는 항상 왼쪽에서 오니까 0번쨰 인덱스를 입력받기 위함임</span></span>
+<span id="cb57-4"><a href="#cb57-4"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n) :</span>
+<span id="cb57-5"><a href="#cb57-5"></a>        <span class="co"># 1. 왼쪽 위에서 오는 경우</span></span>
+<span id="cb57-6"><a href="#cb57-6"></a>        <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span> : <span class="co">## 인덱스값을 벗어나는지 체크</span></span>
+<span id="cb57-7"><a href="#cb57-7"></a>            left_up <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb57-8"><a href="#cb57-8"></a>        <span class="cf">else</span> : </span>
+<span id="cb57-9"><a href="#cb57-9"></a>            left_up <span class="op">=</span> dp[i<span class="op">-</span><span class="dv">1</span>][j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb57-10"><a href="#cb57-10"></a>        <span class="co"># 2. 왼쪽 아래에서 오는 경우</span></span>
+<span id="cb57-11"><a href="#cb57-11"></a>        <span class="cf">if</span> i <span class="op">==</span> n<span class="op">-</span><span class="dv">1</span> : <span class="co"># i  == n-1이면  dp[n][j-1]이므로 왼쪽아래가 성립이 안된다..</span></span>
+<span id="cb57-12"><a href="#cb57-12"></a>            left_down <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb57-13"><a href="#cb57-13"></a>        <span class="cf">else</span> :</span>
+<span id="cb57-14"><a href="#cb57-14"></a>            left_down <span class="op">=</span> dp[i<span class="op">+</span><span class="dv">1</span>][j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb57-15"><a href="#cb57-15"></a>        <span class="co">## 3. 왼쪽에서 오는 경우</span></span>
+<span id="cb57-16"><a href="#cb57-16"></a>        left <span class="op">=</span> dp[i][j<span class="op">-</span><span class="dv">1</span>]</span>
+<span id="cb57-17"><a href="#cb57-17"></a>        <span class="co">## 4. 위에서 세운 점화식을 구현 -&gt; 2차식으로 구현한 array를 max 값을 입력받아 갱신</span></span>
+<span id="cb57-18"><a href="#cb57-18"></a>        dp[i][j] <span class="op">=</span> dp[i][j] <span class="op">+</span> <span class="bu">max</span>(left_up, left_down, left) <span class="co">## 모든 j번쨰 열에서 행의 값이 최대값을 +한 것으로 업데이트됨</span></span>
+<span id="cb57-19"><a href="#cb57-19"></a></span>
+<span id="cb57-20"><a href="#cb57-20"></a><span class="bu">print</span>(<span class="st">"연산후 dp : "</span>,dp)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>초기 dp :  [[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]
 연산후 dp :  [[1, 5, 8, 14], [2, 3, 12, 13], [0, 8, 12, 19]]</code></pre>
 </div>
 </div>
 <div class="cell" data-execution_count="85">
-<div class="sourceCode cell-code" id="cb36"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb36-1"><a href="#cb36-1"></a>result <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb36-2"><a href="#cb36-2"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb36-3"><a href="#cb36-3"></a>    result <span class="op">=</span> <span class="bu">max</span>(result, dp[i][m <span class="op">-</span> <span class="dv">1</span>]) <span class="co">## 결국 모든 열과 행의 각 요소에서 가장 금광을 많이 캔 것을 저장했으므로!! 모든 행의 마지막열 중 가장 큰 값을 찾으면됨.</span></span>
-<span id="cb36-4"><a href="#cb36-4"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb59"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb59-1"><a href="#cb59-1"></a>result <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb59-2"><a href="#cb59-2"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb59-3"><a href="#cb59-3"></a>    result <span class="op">=</span> <span class="bu">max</span>(result, dp[i][m <span class="op">-</span> <span class="dv">1</span>]) <span class="co">## 결국 모든 열과 행의 각 요소에서 가장 금광을 많이 캔 것을 저장했으므로!! 모든 행의 마지막열 중 가장 큰 값을 찾으면됨.</span></span>
+<span id="cb59-4"><a href="#cb59-4"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>14
 14
@@ -826,41 +1382,41 @@ i번째 result :  4
 </div>
 <p><code>-</code> 이를 한번에 하면~~</p>
 <div class="cell" data-execution_count="88">
-<div class="sourceCode cell-code" id="cb38"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb38-1"><a href="#cb38-1"></a><span class="co"># 테스트 케이스(Test Case) 입력</span></span>
-<span id="cb38-2"><a href="#cb38-2"></a><span class="cf">for</span> tc <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>())):</span>
-<span id="cb38-3"><a href="#cb38-3"></a>    <span class="co"># 금광 정보 입력</span></span>
-<span id="cb38-4"><a href="#cb38-4"></a>    n, m <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split())</span>
-<span id="cb38-5"><a href="#cb38-5"></a>    array <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()))</span>
-<span id="cb38-6"><a href="#cb38-6"></a></span>
-<span id="cb38-7"><a href="#cb38-7"></a>    <span class="co"># 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화</span></span>
-<span id="cb38-8"><a href="#cb38-8"></a>    dp <span class="op">=</span> []</span>
-<span id="cb38-9"><a href="#cb38-9"></a>    index <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb38-10"><a href="#cb38-10"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb38-11"><a href="#cb38-11"></a>        dp.append(array[index:index <span class="op">+</span> m])</span>
-<span id="cb38-12"><a href="#cb38-12"></a>        index <span class="op">+=</span> m</span>
-<span id="cb38-13"><a href="#cb38-13"></a></span>
-<span id="cb38-14"><a href="#cb38-14"></a>    <span class="co"># 다이나믹 프로그래밍 진행</span></span>
-<span id="cb38-15"><a href="#cb38-15"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, m):</span>
-<span id="cb38-16"><a href="#cb38-16"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb38-17"><a href="#cb38-17"></a>            <span class="co"># 왼쪽 위에서 오는 경우</span></span>
-<span id="cb38-18"><a href="#cb38-18"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
-<span id="cb38-19"><a href="#cb38-19"></a>                left_up <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb38-20"><a href="#cb38-20"></a>            <span class="cf">else</span>:</span>
-<span id="cb38-21"><a href="#cb38-21"></a>                left_up <span class="op">=</span> dp[i <span class="op">-</span> <span class="dv">1</span>][j <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb38-22"><a href="#cb38-22"></a>            <span class="co"># 왼쪽 아래에서 오는 경우</span></span>
-<span id="cb38-23"><a href="#cb38-23"></a>            <span class="cf">if</span> i <span class="op">==</span> n <span class="op">-</span> <span class="dv">1</span>:</span>
-<span id="cb38-24"><a href="#cb38-24"></a>                left_down <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb38-25"><a href="#cb38-25"></a>            <span class="cf">else</span>:</span>
-<span id="cb38-26"><a href="#cb38-26"></a>                left_down <span class="op">=</span> dp[i <span class="op">+</span> <span class="dv">1</span>][j <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb38-27"><a href="#cb38-27"></a>            <span class="co"># 왼쪽에서 오는 경우</span></span>
-<span id="cb38-28"><a href="#cb38-28"></a>            left <span class="op">=</span> dp[i][j <span class="op">-</span> <span class="dv">1</span>]</span>
-<span id="cb38-29"><a href="#cb38-29"></a>            dp[i][j] <span class="op">=</span> dp[i][j] <span class="op">+</span> <span class="bu">max</span>(left_up, left_down, left)</span>
-<span id="cb38-30"><a href="#cb38-30"></a></span>
-<span id="cb38-31"><a href="#cb38-31"></a>    result <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb38-32"><a href="#cb38-32"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb38-33"><a href="#cb38-33"></a>        result <span class="op">=</span> <span class="bu">max</span>(result, dp[i][m <span class="op">-</span> <span class="dv">1</span>])</span>
-<span id="cb38-34"><a href="#cb38-34"></a></span>
-<span id="cb38-35"><a href="#cb38-35"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<div class="sourceCode cell-code" id="cb61"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb61-1"><a href="#cb61-1"></a><span class="co"># 테스트 케이스(Test Case) 입력</span></span>
+<span id="cb61-2"><a href="#cb61-2"></a><span class="cf">for</span> tc <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">int</span>(<span class="bu">input</span>())):</span>
+<span id="cb61-3"><a href="#cb61-3"></a>    <span class="co"># 금광 정보 입력</span></span>
+<span id="cb61-4"><a href="#cb61-4"></a>    n, m <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split())</span>
+<span id="cb61-5"><a href="#cb61-5"></a>    array <span class="op">=</span> <span class="bu">list</span>(<span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split()))</span>
+<span id="cb61-6"><a href="#cb61-6"></a></span>
+<span id="cb61-7"><a href="#cb61-7"></a>    <span class="co"># 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화</span></span>
+<span id="cb61-8"><a href="#cb61-8"></a>    dp <span class="op">=</span> []</span>
+<span id="cb61-9"><a href="#cb61-9"></a>    index <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb61-10"><a href="#cb61-10"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb61-11"><a href="#cb61-11"></a>        dp.append(array[index:index <span class="op">+</span> m])</span>
+<span id="cb61-12"><a href="#cb61-12"></a>        index <span class="op">+=</span> m</span>
+<span id="cb61-13"><a href="#cb61-13"></a></span>
+<span id="cb61-14"><a href="#cb61-14"></a>    <span class="co"># 다이나믹 프로그래밍 진행</span></span>
+<span id="cb61-15"><a href="#cb61-15"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(<span class="dv">1</span>, m):</span>
+<span id="cb61-16"><a href="#cb61-16"></a>        <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb61-17"><a href="#cb61-17"></a>            <span class="co"># 왼쪽 위에서 오는 경우</span></span>
+<span id="cb61-18"><a href="#cb61-18"></a>            <span class="cf">if</span> i <span class="op">==</span> <span class="dv">0</span>:</span>
+<span id="cb61-19"><a href="#cb61-19"></a>                left_up <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb61-20"><a href="#cb61-20"></a>            <span class="cf">else</span>:</span>
+<span id="cb61-21"><a href="#cb61-21"></a>                left_up <span class="op">=</span> dp[i <span class="op">-</span> <span class="dv">1</span>][j <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb61-22"><a href="#cb61-22"></a>            <span class="co"># 왼쪽 아래에서 오는 경우</span></span>
+<span id="cb61-23"><a href="#cb61-23"></a>            <span class="cf">if</span> i <span class="op">==</span> n <span class="op">-</span> <span class="dv">1</span>:</span>
+<span id="cb61-24"><a href="#cb61-24"></a>                left_down <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb61-25"><a href="#cb61-25"></a>            <span class="cf">else</span>:</span>
+<span id="cb61-26"><a href="#cb61-26"></a>                left_down <span class="op">=</span> dp[i <span class="op">+</span> <span class="dv">1</span>][j <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb61-27"><a href="#cb61-27"></a>            <span class="co"># 왼쪽에서 오는 경우</span></span>
+<span id="cb61-28"><a href="#cb61-28"></a>            left <span class="op">=</span> dp[i][j <span class="op">-</span> <span class="dv">1</span>]</span>
+<span id="cb61-29"><a href="#cb61-29"></a>            dp[i][j] <span class="op">=</span> dp[i][j] <span class="op">+</span> <span class="bu">max</span>(left_up, left_down, left)</span>
+<span id="cb61-30"><a href="#cb61-30"></a></span>
+<span id="cb61-31"><a href="#cb61-31"></a>    result <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb61-32"><a href="#cb61-32"></a>    <span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb61-33"><a href="#cb61-33"></a>        result <span class="op">=</span> <span class="bu">max</span>(result, dp[i][m <span class="op">-</span> <span class="dv">1</span>])</span>
+<span id="cb61-34"><a href="#cb61-34"></a></span>
+<span id="cb61-35"><a href="#cb61-35"></a>    <span class="bu">print</span>(result)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>1
 3 4
@@ -868,6 +1424,7 @@ i번째 result :  4
 19</code></pre>
 </div>
 </div>
+<hr>
 
 
 </section>
