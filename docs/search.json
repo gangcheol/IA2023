@@ -1,248 +1,171 @@
 [
   {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html",
-    "title": "04. 다이나믹 프로그래밍",
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html",
+    "title": "06. DFS & BFS",
     "section": "",
-    "text": "- 동적 프로그래밍의 대표적인 예제\n\\[a_{n} = a_{n-1} + a_{n-2},\\quad n\\geq3\\]\n\\[a_1 = 1, a_2 =1\\]\nif \\(n = 4\\)?\n\\[\\begin{align} \\text{fibo(4)} &= \\text{fibo(3)} + \\text{fibo(2)} \\\\\n                                                          &=  2 + 1 = 3\\end {align}\\]\n\n\n- 재귀함수를 이용 : 큰 문제를 해결하기 위해 작은 문제를 호출하는 방식\n\n\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n8\n\n\n\n\n- fibo1(6) 를 구하기 위해 fibo(3) 이 몇 번 호출될까?\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        if n == 3:\n            print(n)\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n3\n3\n3\n\n\n8\n\n\n- 이를 직관적으로 표현하면…??\nfibo(6) = fibo(5) + fibo(4)\n\nfibo(5) = fibo(4) + fibo(3)....  ## 1번\n\nfibo(4) = fibo(3) + fibo(2)... ## 2번\n\nfibo(3) = fibo(2) + fibo(1)... ## 3번\n....\n- 총 3번 호출된다.\n\n여기서 말하는 문제점은 단순히 재귀함수를 통해 매번 계산하는 방식은 비효율적이라는 것이다.\nf(n)에서 n이 커질수록, 반복해서 호출하고 계산하고…벌써 끔찍함..\n이러한 문제점을 해결하기 위해 “메모제이션을 활용한 TOP-down” 또는 “DP 테이블을 활용한 Bottom-Up” 방식이 사용된다.\n\n\n\n\n\n- 메모제이션(Memoization) : 한 번 계산한 결과를 메모리 공간에 메모하는 기법 * 같은 문제를 다시 호출하면 메모했던 결과를 그대로 가져옴 * 값을 기록해 놓는다는 점에서 캐싱(Cashing) 이라고도 한다..\n\n## step 1. 한 번 계산된 결과를 메모제이션 하기 위한 리스트 초기화\nd = [0] * 100\n\ndef fibo(x) :\n        if x ==1 or x== 2:\n            return 1\n        ## step 2. 만약 이전의 결과를 저장해 놓았다면 그 값을 그대로 반환\n        if d[x] != 0:\n            print(\"어 이전에 값을 저장해 두셨네요! 핳\")\n            return d[x]\n        ## step 3. 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과를 반환\n        if x == 3:\n            print(x)\n        print(\"저장해둔 값이 없네요...\")\n        d[x] = fibo(x-1) + fibo(x-2)\n        return d[x]\n\n- 아래와 같이 fibo(3)을 계산하려고 할 떄 저장된 값이 있다면? 그냥 값을 가져옴을 확인할 수 있다!!\n\nfibo(6)\n\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n3\n저장해둔 값이 없네요...\n어 이전에 값을 저장해 두셨네요! 핳\n어 이전에 값을 저장해 두셨네요! 핳\n\n\n8\n\n\n\n\n\n\n- 단순히 반복문을 이용하여 작은 문제를 먼저 해결하고, 해결된 작은 문제를 모아 큰 문제를 해결하는 방식\n\n # 앞서 계산된 결과를 저장하기 위한 테이블 초기화\nd = [0] * 100\n\n  # 첫 번째 피보나치 수와 두 번째 피보나치 수는 1\nd[1] = 1\nd[2] = 1\nn = 6\n\n  # 피보나치 함수(Fibonacci Function) 반복문으로 구현(보텀업 다이나믹 프로그래밍)\nfor i in range(3, n + 1):\n    d[i] = d[i - 1] + d[i - 2]\n\nprint(d[n])\n\n8"
+    "text": "- 탐색(search) : 많은 양의 데이터 중에서 원하는 데이터를 찾는 과정\n- 자료구조(Data Structure) : 데이터를 표현하고 관리하고 처리하기 위한 구조\n\n대표적인 자료구조로 stack과 queue가 있으며 두 핵심적인 함수로 구성된다.\n\n삽입(Push) : 데이터를 삽입한다.\n삭제(Pop) : 데이터를 삭제한다.\n\n\n- 물론 실제로 스택과 큐를 사용할 때는 삽입과 삭제 외에도 오버플로와 언더플로를 고민해야 한다.\n\n오버플로(overflow) : 특정한 자료구조가 수용할 수 있는 데이터의 크기를 이미 가득 찬 상태에서 삽입 연사을 수행할 때 발생\n언더플로(underflow) : 특정한 자료구조에 데이터가 전혀 들어 있지 않은 상태에서 삭제 연산을 수행하면 데이터가 전혀 없는 상태이므로 언더플로가 발생한다.\n\n\n\n- 선입후출의 구조 (First in Last out)\n- 예제\n\n삽입 (5) - 삽입 (2) - 삽입(3) - 삽입(7) - 삭제() - 삽입(1) - 삽입 (4) - 삭제() : [5, 2, 3, 1]\n\n\nstack = []\n\n\nstack.append(5)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(2)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(3)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(7)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.pop()\nprint(\"삭제 -&gt; stack 상태 : \", stack)\n\nstack.append(1)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(4)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.pop()\nprint(\"삭제 -&gt; stack 상태 : \", stack)\n\n삽입 -&gt; stack 상태 :  [5]\n삽입 -&gt; stack 상태 :  [5, 2]\n삽입 -&gt; stack 상태 :  [5, 2, 3]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 7]\n삭제 -&gt; stack 상태 :  [5, 2, 3]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 1]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 1, 4]\n삭제 -&gt; stack 상태 :  [5, 2, 3, 1]\n\n\n\n\n\n- 큐는 대기 줄에 비유할 수 있으며 선입선출에 구조이다.\n\n삽입 (5) - 삽입 (2) - 삽입 (3) - 삽입(7) - 삭제() - 삽입(1) - 삽입(4) - 삭제() : [4, 1, 7, 3]\n\n\nfrom collections import deque\n\nqueue = deque()\n\nqueue.append(5)\nprint(\"큐 상태 -&gt;\", list(queue))\nqueue.append(2)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(3)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(7)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.popleft()\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(1)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(4)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.popleft()\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\n\n큐 상태 -&gt; [5]\n큐 상태 -&gt; [2, 5]\n큐 상태 -&gt; [3, 2, 5]\n큐 상태 -&gt; [7, 3, 2, 5]\n큐 상태 -&gt; [7, 3, 2]\n큐 상태 -&gt; [1, 7, 3, 2]\n큐 상태 -&gt; [4, 1, 7, 3, 2]\n큐 상태 -&gt; [4, 1, 7, 3]\n\n\n\n\n\nDFS외 BFS를 구현하려면 재귀함수도 이해하고 있어야 한다. 재귀함수(Recursive Function)란 자기 자신을 다시 호출하는 함수!\n- 그러나 재귀함수 사용 시 종료 조건을 무조건 명시해야함\n- 그렇지 않으면 호출 횟수 제한을 벗어나 다음과 같은 에러문이 발생한다.\nRecursiveError : maximum recursion depth exceeded while pickling an object\n\n\n- 100번째 출력했을 때 종료되도록 종료 조건 명시\n\ndef r(i) :\n    if i == 5 :\n        return\n    print(i,\"번째 호출\")\n    r(i+1)\n    print(i,\"번째 재귀함수 종료\")\n\nr(1)\n\n1 번째 호출\n2 번째 호출\n3 번째 호출\n4 번째 호출\n4 번째 재귀함수 종료\n3 번째 재귀함수 종료\n2 번째 재귀함수 종료\n1 번째 재귀함수 종료\n\n\n- 컴퓨터 내부에서 재귀함수의 수행은 스택 자료구조를 이용한다.\n\n\n\n\ndef f(n) :\n    result = 1\n    for i in range(1,n+1):\n        result *= i\n    return result\n\n\nf(5)\n\n120\n\n\n\n\n\n\ndef f(n) :\n    if n &lt;= 1 :\n        return 1\n    return n*f(n-1)\n\n\nf(5)\n\n120\n\n\n\n\n\n- 스택은 선입선출, 큐는 선입후출\n- 재귀함수를 이용하면 반복문으로 구현했을때 보다 훨씬 간결하게 코드를 작성할 수 있음"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-1.-탑다운",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-1.-탑다운",
-    "title": "04. 다이나믹 프로그래밍",
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#스택",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#스택",
+    "title": "06. DFS & BFS",
     "section": "",
-    "text": "- 재귀함수를 이용 : 큰 문제를 해결하기 위해 작은 문제를 호출하는 방식\n\n\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n8\n\n\n\n\n- fibo1(6) 를 구하기 위해 fibo(3) 이 몇 번 호출될까?\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        if n == 3:\n            print(n)\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n3\n3\n3\n\n\n8\n\n\n- 이를 직관적으로 표현하면…??\nfibo(6) = fibo(5) + fibo(4)\n\nfibo(5) = fibo(4) + fibo(3)....  ## 1번\n\nfibo(4) = fibo(3) + fibo(2)... ## 2번\n\nfibo(3) = fibo(2) + fibo(1)... ## 3번\n....\n- 총 3번 호출된다.\n\n여기서 말하는 문제점은 단순히 재귀함수를 통해 매번 계산하는 방식은 비효율적이라는 것이다.\nf(n)에서 n이 커질수록, 반복해서 호출하고 계산하고…벌써 끔찍함..\n이러한 문제점을 해결하기 위해 “메모제이션을 활용한 TOP-down” 또는 “DP 테이블을 활용한 Bottom-Up” 방식이 사용된다.\n\n\n\n\n\n- 메모제이션(Memoization) : 한 번 계산한 결과를 메모리 공간에 메모하는 기법 * 같은 문제를 다시 호출하면 메모했던 결과를 그대로 가져옴 * 값을 기록해 놓는다는 점에서 캐싱(Cashing) 이라고도 한다..\n\n## step 1. 한 번 계산된 결과를 메모제이션 하기 위한 리스트 초기화\nd = [0] * 100\n\ndef fibo(x) :\n        if x ==1 or x== 2:\n            return 1\n        ## step 2. 만약 이전의 결과를 저장해 놓았다면 그 값을 그대로 반환\n        if d[x] != 0:\n            print(\"어 이전에 값을 저장해 두셨네요! 핳\")\n            return d[x]\n        ## step 3. 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과를 반환\n        if x == 3:\n            print(x)\n        print(\"저장해둔 값이 없네요...\")\n        d[x] = fibo(x-1) + fibo(x-2)\n        return d[x]\n\n- 아래와 같이 fibo(3)을 계산하려고 할 떄 저장된 값이 있다면? 그냥 값을 가져옴을 확인할 수 있다!!\n\nfibo(6)\n\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n3\n저장해둔 값이 없네요...\n어 이전에 값을 저장해 두셨네요! 핳\n어 이전에 값을 저장해 두셨네요! 핳\n\n\n8"
+    "text": "- 선입후출의 구조 (First in Last out)\n- 예제\n\n삽입 (5) - 삽입 (2) - 삽입(3) - 삽입(7) - 삭제() - 삽입(1) - 삽입 (4) - 삭제() : [5, 2, 3, 1]\n\n\nstack = []\n\n\nstack.append(5)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(2)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(3)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(7)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.pop()\nprint(\"삭제 -&gt; stack 상태 : \", stack)\n\nstack.append(1)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.append(4)\nprint(\"삽입 -&gt; stack 상태 : \", stack)\n\nstack.pop()\nprint(\"삭제 -&gt; stack 상태 : \", stack)\n\n삽입 -&gt; stack 상태 :  [5]\n삽입 -&gt; stack 상태 :  [5, 2]\n삽입 -&gt; stack 상태 :  [5, 2, 3]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 7]\n삭제 -&gt; stack 상태 :  [5, 2, 3]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 1]\n삽입 -&gt; stack 상태 :  [5, 2, 3, 1, 4]\n삭제 -&gt; stack 상태 :  [5, 2, 3, 1]"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-2.-보텀업",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-2.-보텀업",
-    "title": "04. 다이나믹 프로그래밍",
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#큐",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#큐",
+    "title": "06. DFS & BFS",
     "section": "",
-    "text": "- 단순히 반복문을 이용하여 작은 문제를 먼저 해결하고, 해결된 작은 문제를 모아 큰 문제를 해결하는 방식\n\n # 앞서 계산된 결과를 저장하기 위한 테이블 초기화\nd = [0] * 100\n\n  # 첫 번째 피보나치 수와 두 번째 피보나치 수는 1\nd[1] = 1\nd[2] = 1\nn = 6\n\n  # 피보나치 함수(Fibonacci Function) 반복문으로 구현(보텀업 다이나믹 프로그래밍)\nfor i in range(3, n + 1):\n    d[i] = d[i - 1] + d[i - 2]\n\nprint(d[n])\n\n8"
+    "text": "- 큐는 대기 줄에 비유할 수 있으며 선입선출에 구조이다.\n\n삽입 (5) - 삽입 (2) - 삽입 (3) - 삽입(7) - 삭제() - 삽입(1) - 삽입(4) - 삭제() : [4, 1, 7, 3]\n\n\nfrom collections import deque\n\nqueue = deque()\n\nqueue.append(5)\nprint(\"큐 상태 -&gt;\", list(queue))\nqueue.append(2)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(3)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(7)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.popleft()\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(1)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.append(4)\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\nqueue.popleft()\nprint(\"큐 상태 -&gt;\", list(queue)[: :-1])\n\n큐 상태 -&gt; [5]\n큐 상태 -&gt; [2, 5]\n큐 상태 -&gt; [3, 2, 5]\n큐 상태 -&gt; [7, 3, 2, 5]\n큐 상태 -&gt; [7, 3, 2]\n큐 상태 -&gt; [1, 7, 3, 2]\n큐 상태 -&gt; [4, 1, 7, 3, 2]\n큐 상태 -&gt; [4, 1, 7, 3]"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-k번째-수",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-k번째-수",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex1. K번째 수",
-    "text": "ex1. K번째 수\n배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.\n예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면\n\narray의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다.\n1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다.\n2에서 나온 배열의 3번째 숫자는 5입니다.\n\n배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.\n\nsol\n- 예비학습\n\narray = [1, 5, 2, 6 ,3 ,7]\ncommands = [[2, 5, 3], [4, 4, 1], [1, 7, 3]]\n\n\nresult = []\nfor c in commands :\n    i, j, k = c\n    result.append((sorted(array[i-1:j])[k-1]))\n    print(result)\nresult\n\n[5]\n[5, 6]\n[5, 6, 3]\n\n\n[5, 6, 3]\n\n\n- 함수로 작성\n\ndef solution(array, commands) :\n    result = []\n    for c in commands :  \n        i, j, k = c\n        result.append((sorted(array[i-1:j])[k-1]))\n    return result\n\n\nsolutions(array,commands)\n\n[5, 6, 3]"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex2.-완주하지-못한-선수",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex2.-완주하지-못한-선수",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex2. 완주하지 못한 선수",
-    "text": "ex2. 완주하지 못한 선수\n완주하지 못한 선수"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex3.-rgb-거리",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex3.-rgb-거리",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex3. RGB 거리",
-    "text": "ex3. RGB 거리\nRGB거리에는 집이 N개 있다. 거리는 선분으로 나타낼 수 있고, 1번 집부터 N번 집이 순서대로 있다.\n집은 빨강, 초록, 파랑 중 하나의 색으로 칠해야 한다. 각각의 집을 빨강, 초록, 파랑으로 칠하는 비용이 주어졌을 때, 아래 규칙을 만족하면서 모든 집을 칠하는 비용의 최솟값을 구해보자.\n\n1번 집의 색은 2번 집의 색과 같지 않아야 한다.\nN번 집의 색은 N-1번 집의 색과 같지 않아야 한다.\ni(2 ≤ i ≤ N-1)번 집의 색은 i-1번, i+1번 집의 색과 같지 않아야 한다.\n\n- 입력\n첫째 줄에 집의 수 N(2 ≤ N ≤ 1,000)이 주어진다. 둘째 줄부터 N개의 줄에는 각 집을 빨강, 초록, 파랑으로 칠하는 비용이 1번 집부터 한 줄에 하나씩 주어진다. 집을 칠하는 비용은 1,000보다 작거나 같은 자연수이다.\n- 출력\n첫째 줄에 모든 집을 칠하는 비용의 최솟값을 출력한다.\n- 접근법 : 보텀업 방식\n\ni번째 집과 i-1 번째집의 색깔이 같으며 안되므로 i번쨰 집이 0의 색깔일 때, i-1번쨰 집이 1,2 인 경우 작은 값을 더 해서 쌓자\n\n\nsol\n\nn = int(input())\na = [0]*n\n\nfor i in range(n):\n    a[i] = list(map(int,input().split()))\n    \nfor i in range(1,n): \n    a[i][0]= min(a[i-1][1],a[i-1][2]) + a[i][0] \n    a[i][1]= min(a[i-1][0],a[i-1][2]) + a[i][1]\n    a[i][2]= min(a[i-1][0],a[i-1][1]) + a[i][2]\n\n3\n26 40 83\n49 60 57\n13 89 99\n\n\n[[26, 40, 83], [89, 86, 83], [96, 172, 185]]\n\n\n\nprint(min(a[n-1][0],a[n-1][1],a[n-1][2]))\n\n96"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-계단-오르기",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-계단-오르기",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex4. 계단 오르기",
-    "text": "ex4. 계단 오르기\n계단 오르기 게임은 계단 아래 시작점부터 계단 꼭대기에 위치한 도착점까지 가는 게임이다. &lt;그림 1&gt;과 같이 각각의 계단에는 일정한 점수가 쓰여 있는데 계단을 밟으면 그 계단에 쓰여 있는 점수를 얻게 된다.\n\n\n\n예를 들어 &lt;그림 2&gt;와 같이 시작점에서부터 첫 번째, 두 번째, 네 번째, 여섯 번째 계단을 밟아 도착점에 도달하면 총 점수는 10 + 20 + 25 + 20 = 75점이 된다.\n계단 오르는 데는 다음과 같은 규칙이 있다.\n\n계단은 한 번에 한 계단씩 또는 두 계단씩 오를 수 있다. 즉, 한 계단을 밟으면서 이어서 다음 계단이나, 다음 다음 계단으로 오를 수 있다.\n연속된 세 개의 계단을 모두 밟아서는 안 된다. 단, 시작점은 계단에 포함되지 않는다.\n마지막 도착 계단은 반드시 밟아야 한다.\n\n따라서 첫 번째 계단을 밟고 이어 두 번째 계단이나, 세 번째 계단으로 오를 수 있다. 하지만, 첫 번째 계단을 밟고 이어 네 번째 계단으로 올라가거나, 첫 번째, 두 번째, 세 번째 계단을 연속해서 모두 밟을 수는 없다.\n각 계단에 쓰여 있는 점수가 주어질 때 이 게임에서 얻을 수 있는 총 점수의 최댓값을 구하는 프로그램을 작성하시오.\n\nsol\n- 점화식 1. \\((i \\geq 3)\\)\n\n연속된 3개의 계단을 밞을 수 없으므로 1칸, 1칸 간 경우와\n한번에 2칸 간 경우, 최대값을 구하면 된다.\n\n\\[\\text{dp}[i] = \\text {max}(\\text {dp}[i-3] + \\text {s}[i-1] + s[i], \\text{dp}[i-2] + s[i])\\]\n\nn = int(input()) # 계단 개수 입력\n\nfor i in range(n):\n    s[i] = list(map(int,input().split()))\n\ndp=[0]*(n) \n\nif len(s)&lt;=2: # 계단의 개수 가 2인 경우\n    print(sum(s))\n\nelse: # 계단이 3개 이상일 때\n    dp[0]=s[0] # 첫째 계단 수동 계산\n    dp[1]=s[0]+s[1] # 둘째 계단까지 수동 계산\n    \n    for i in range(2,n):\n        dp[i]=max(dp[i-3]+s[i-1]+s[i], dp[i-2]+s[i])\n    print(dp[-1])\n\n6\n10\n20\n15\n20\n25\n20\n80"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-5.-가장-긴-증가하는-부분-수열",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-5.-가장-긴-증가하는-부분-수열",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex 5. 가장 긴 증가하는 부분 수열",
-    "text": "ex 5. 가장 긴 증가하는 부분 수열\n\nsol\n\nn=int(input())\nA = list(map(int, input().split()))\n\ndp = [0]*1001 ## dp 초기화\nresult = 0\n\nfor i in range(n):\n    num = A[i] ## i 번째 원소 전달\n    dp[num] = max(dp[0:num])+1 \n    result = max(result, dp[num])\n    print(\"i번째 result : \", result)\nprint(result)\n\n6\n 10 20 10 30 20 50\ni번째 result :  1\ni번째 result :  2\ni번째 result :  2\ni번째 result :  3\ni번째 result :  3\ni번째 result :  4\n4"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-2xn-타일링과-쿼리-못품",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-2xn-타일링과-쿼리-못품",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex4. 2xN 타일링과 쿼리 (못품…)",
-    "text": "ex4. 2xN 타일링과 쿼리 (못품…)\n2xN 크기의 직사각형에 1x2 또는 2x1크기의 타일로 채우는 방법의 수를 구하는 문제는 잘 알려져 있다.\n최초에 아무런 제한이 없는 2xN 직사각형에 블럭을 놓는 칸에 대한 제한이 빈번히 생기고 사라질 때 제한을 제외한 나머지 칸을 전부 채우는 방법의 수를 구하는 프로그램을 작성하시오.\n각 쿼리는 다음과 같다.\n\n1 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 추가한다. 이전에 제한이 없었음이 보장된다.\n2 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 삭제한다. 이전에 제한이 있었음이 보장된다."
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-바이러스",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-바이러스",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex1. 바이러스",
-    "text": "ex1. 바이러스\n신종 바이러스인 웜 바이러스는 네트워크를 통해 전파된다. 한 컴퓨터가 웜 바이러스에 걸리면 그 컴퓨터와 네트워크 상에서 연결되어 있는 모든 컴퓨터는 웜 바이러스에 걸리게 된다.\n예를 들어 7대의 컴퓨터가 &lt;그림 1&gt;과 같이 네트워크 상에서 연결되어 있다고 하자. 1번 컴퓨터가 웜 바이러스에 걸리면 웜 바이러스는 2번과 5번 컴퓨터를 거쳐 3번과 6번 컴퓨터까지 전파되어 2, 3, 5, 6 네 대의 컴퓨터는 웜 바이러스에 걸리게 된다. 하지만 4번과 7번 컴퓨터는 1번 컴퓨터와 네트워크상에서 연결되어 있지 않기 때문에 영향을 받지 않는다.\n\n\n\n\n입력\n\n첫째 줄에는 컴퓨터의 수가 주어진다. 컴퓨터의 수는 100 이하인 양의 정수이고 각 컴퓨터에는 1번 부터 차례대로 번호가 매겨진다. 둘째 줄에는 네트워크 상에서 직접 연결되어 있는 컴퓨터 쌍의 수가 주어진다. 이어서 그 수만큼 한 줄에 한 쌍씩 네트워크 상에서 직접 연결되어 있는 컴퓨터의 번호 쌍이 주어진다.\n7\n6\n1 2\n2 3\n1 5\n5 2\n5 6\n4 7\n\n출력\n\n1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 첫째 줄에 출력한다.\n\nsol\n-dfs를 이용한 풀이\n\n# 컴퓨터\n\nv = int(input())\n\n# 네트워크 쌍\ne = int(input())\ngraph = [[] for _ in range(v+1)]\nfor _ in range(e):\n    a, b = map(int, input().split())\n    graph[a].append(b)\n    graph[b].append(a)\n\n# 재귀적 구현\ndef dfs(x):\n    global count ## 전역변수 설정\n    visited[x] = True\n    count += 1\n    for node in graph[x]:  ##\n        if visited[node]:\n            continue\n        dfs(node)\n\ncount = 0\nvisited = [False for _ in range(v+1)]\ndfs(1)\nprint(count-1)\n\n 7\n 6\n 2 3\n 1 2\n 1 5\n 5 2\n 5 6\n 4 7\n\n\n4"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-2.-단지번호-붙이기",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-2.-단지번호-붙이기",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex 2. 단지번호 붙이기",
-    "text": "ex 2. 단지번호 붙이기\n&lt;그림 1&gt;과 같이 정사각형 모양의 지도가 있다. 1은 집이 있는 곳을, 0은 집이 없는 곳을 나타낸다. 철수는 이 지도를 가지고 연결된 집의 모임인 단지를 정의하고, 단지에 번호를 붙이려 한다. 여기서 연결되었다는 것은 어떤 집이 좌우, 혹은 아래위로 다른 집이 있는 경우를 말한다. 대각선상에 집이 있는 경우는 연결된 것이 아니다. &lt;그림 2&gt;는 &lt;그림 1&gt;을 단지별로 번호를 붙인 것이다. 지도를 입력하여 단지수를 출력하고, 각 단지에 속하는 집의 수를 오름차순으로 정렬하여 출력하는 프로그램을 작성하시오.\n\n\n\n= 입력조건\n첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.\n- 출력조건\n첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.\n\nsol\n- dfs를 이용한 풀이\n\nn = int(input()) ## 가로 세로 길이\ngraph = []\n\nfor i in range(n):\n    graph.append(list(map(int, input())))\n\ndx = [0, 0, 1, -1]\ndy = [1, -1, 0, 0]\nprint(n)\nprint(graph)\n\n 7\n 0110100\n 0110101\n 1110101\n 0000111\n 0100000\n 0111110\n 0111000\n\n\n7\n[[0, 1, 1, 0, 1, 0, 0], [0, 1, 1, 0, 1, 0, 1], [1, 1, 1, 0, 1, 0, 1], [0, 0, 0, 0, 1, 1, 1], [0, 1, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 0, 0, 0]]\n\n\n\n## 재귀함수 작성\ndef DFS(x, y):\n    if x &lt; 0 or x &gt;= n or y &lt; 0 or y &gt;= n:\n        return False\n\n    if graph[x][y] == 1:\n        global count\n        count += 1\n        graph[x][y] = 0\n        for i in range(4):\n            nx = x + dx[i] ## x좌표\n            ny = y + dy[i] ## y좌표\n            DFS(nx, ny)\n        return True\n    return False\n\n\ncount = 0\nresult = 0\nnum = []\nfor i in range(n):\n    for j in range(n):\n        if DFS(i, j) == True:\n            num.append(count)\n            result += 1\n            count = 0\n\nnum.sort()\nprint(result)\nfor i in range(len(num)):\n    print(num[i])\n\n3\n7\n8\n9"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-3.-유기농-배추",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-3.-유기농-배추",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex 3. 유기농 배추",
-    "text": "ex 3. 유기농 배추\n차세대 영농인 한나는 강원도 고랭지에서 유기농 배추를 재배하기로 하였다. 농약을 쓰지 않고 배추를 재배하려면 배추를 해충으로부터 보호하는 것이 중요하기 때문에, 한나는 해충 방지에 효과적인 배추흰지렁이를 구입하기로 결심한다. 이 지렁이는 배추근처에 서식하며 해충을 잡아 먹음으로써 배추를 보호한다. 특히, 어떤 배추에 배추흰지렁이가 한 마리라도 살고 있으면 이 지렁이는 인접한 다른 배추로 이동할 수 있어, 그 배추들 역시 해충으로부터 보호받을 수 있다. 한 배추의 상하좌우 네 방향에 다른 배추가 위치한 경우에 서로 인접해있는 것이다.\n한나가 배추를 재배하는 땅은 고르지 못해서 배추를 군데군데 심어 놓았다. 배추들이 모여있는 곳에는 배추흰지렁이가 한 마리만 있으면 되므로 서로 인접해있는 배추들이 몇 군데에 퍼져있는지 조사하면 총 몇 마리의 지렁이가 필요한지 알 수 있다. 예를 들어 배추밭이 아래와 같이 구성되어 있으면 최소 5마리의 배추흰지렁이가 필요하다. 0은 배추가 심어져 있지 않은 땅이고, 1은 배추가 심어져 있는 땅을 나타낸다.\n\n\n\n\n\n1\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n\n- 입력\n입력의 첫 줄에는 테스트 케이스의 개수 T가 주어진다. 그 다음 줄부터 각각의 테스트 케이스에 대해 첫째 줄에는 배추를 심은 배추밭의 가로길이 M(1 ≤ M ≤ 50)과 세로길이 N(1 ≤ N ≤ 50), 그리고 배추가 심어져 있는 위치의 개수 K(1 ≤ K ≤ 2500)이 주어진다. 그 다음 K줄에는 배추의 위치 X(0 ≤ X ≤ M-1), Y(0 ≤ Y ≤ N-1)가 주어진다. 두 배추의 위치가 같은 경우는 없다.\n- 출력\n각 테스트 케이스에 대해 필요한 최소의 배추흰지렁이 마리 수를 출력한다.\n- 예제 입력\n1\n5 3 6\n0 2\n1 2\n2 2\n3 2\n4 2\n4 0\n\nsol : dfs\nimport sys\nsys.setrecursionlimit(10**6)\ninput = sys.stdin.readline\n\n# dfs 정의\ndef dfs(x, y):\n    # 상하좌우\n    dx = [0, 0, -1, 1] \n    dy = [1, -1, 0, 0]\n\n    # 네 방향 탐색\n    for i in range(4):\n        nx = x + dx[i]\n        ny = y + dy[i]\n        if (0 &lt;= nx &lt; m) and (0 &lt;= ny &lt; n) and graph[ny][nx] == 1:    \n            graph[ny][nx] = -1 # 지나간것을 -1로 표시하고 주변 탐색\n            dfs(nx, ny)\n\n\n\n\n0\n1\n2\n3\n4\n5\n\n\n\n\n0\n0\n1\n0\n0\n0\n\n\n0\n0\n1\n0\n0\n0\n\n\n0\n0\n1\n0\n0\n0\n\n\n0\n0\n1\n0\n0\n0\n\n\n0\n0\n1\n0\n0\n0\n\n\n1\n0\n0\n0\n0\n0\n\n\n\n\nt = int(input()) # 테스트 케이스의 개수\nfor _ in range(t):\n    m, n, k = map(int, input().split()) # 가로, 세로, 배추 개수\n    graph = [[0 for _ in range(m)] for _ in range(n)] \n\n    # 배추 위치 표시\n    for _ in range(k):\n        X, Y = map(int, input().split()) \n        graph[Y][X] = 1 # X, Y 바꿔서 표시해야하는거 주의! 그래프 loop문 확인\n\n    # 배추 그룹 수(=배추흰지렁이 개수) 세기\n    count = 0\n    for a in range(m):\n        for b in range(n):\n            if graph[b][a] == 1:\n                dfs(a ,b)\n                count += 1\n    print(count)\n\n 1\n 5 3 6\n 0 2\n 1 2\n 2 2\n 3 2\n 4 2\n 4 0\n\n\n2"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-4.-연결-요소의-개수",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-4.-연결-요소의-개수",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex 4. 연결 요소의 개수",
-    "text": "ex 4. 연결 요소의 개수\n방향 없는 그래프가 주어졌을 때, 연결 요소 (Connected Component)의 개수를 구하는 프로그램을 작성하시오.\n- 입력\n첫째 줄에 정점의 개수 N과 간선의 개수 M이 주어진다. (1 ≤ N ≤ 1,000, 0 ≤ M ≤ N×(N-1)/2) 둘째 줄부터 M개의 줄에 간선의 양 끝점 u와 v가 주어진다. (1 ≤ u, v ≤ N, u ≠ v) 같은 간선은 한 번만 주어진다.\n- 출력\n첫째 줄에 연결 요소의 개수를 출력한다.\nimport sys\nsys.setrecursionlimit(10**6)\ninput = sys.stdin.readline\n\n# dfs 함수\ndef dfs(graph, v, visited):\n    visited[v] = True\n    for i in graph[v]:\n        if not visited[i]:\n            dfs(graph, i, visited)\n\n\nn, m = map(int, input().split()) # 정점의 개수, 간선의 개수\n\ngraph = [[] for _ in range(n+1)]\n\nfor i in range(m):\n    u, v = map(int, input().split())\n    graph[u].append(v)\n    graph[v].append(u)\n\n 6 5\n 1 2\n 2 5\n 5 1\n 3 4\n 4 6\n\n\n\ngraph\n\n[[], [2, 5], [1, 5], [4], [3, 6], [2, 1], [4]]\n\n\n\ncount = 0 # 연결 노드의 수\nvisited = [False] * (n+1)\nfor i in range(1, n+1):\n    if not visited[i]:\n        dfs(graph, i, visited)\n        count += 1 # dfs 한 번 끝날 때마다 count+1\n\nprint(count)\n\n2"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-금광",
-    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-금광",
-    "title": "04. 다이나믹 프로그래밍",
-    "section": "ex1. 금광",
-    "text": "ex1. 금광\nn x m크기의 금광이 있다.\n금광은 1 x 1 크기의 칸으로 나누어져 있으며, 각 칸은 특정한 크기의 금이 들어 있다.\n채굴자는 첫 번째 열부터 출발하여 금을 캐기 시작하는데 맨 처음에는 첫 번째 열의 어느 행에서든 출발할 수 있다.\n이후에 m번에 걸쳐서 매번 오른쪽 위, 오른쪽, 오른쪽 아래 3가지 중 하나의 위치로 이동해야 한다.\n결과적으로 채굴자가 얻을 수 있는 금의 최대 크기를 출력하는 프로그램을 작성하시오.\n\n접근법 & 점화식\n- 금광의 모든 위치에 대하여 왼쪽 위, 왼쪽 아래, 왼쪽에서 오는 경우의 3가지 경우만 존재한다.\n- 따라서. 이 3가지 경우 중 최대값을 테이블에 갱신해주면 문제를 해결할 수 있다.\n- 점화식은 다음과 같다.\n\\[\\text{dp}_{i,j} = \\text{array}_{i,j} + \\text{max}(\\text{dp}_{i-1,j-1},\\,\\, \\text{dp}_{i+1,j-1},\\,\\, \\text{dp}_{i,j-1})\\]\n\n\\(\\text{dp}_{i-1,j-1}\\) : 왼쪽 위\n\\(\\text{dp}_{i,j-1}\\) : 왼쪽\n\\(\\text{dp}_{i+1,j-1}\\) : 왼쪽 아래\n\n- 입력조건\n\n첫째 줄에 테스트 케이스 T가 입력된다. (1 &lt;= T &lt;= 1,000)\n매 테스트 케이스 첫째 줄에 n과 m이 공백으로 구분되어 입력된다. (1 &lt; n, m &lt;= 20)\n매 테스트 케이스 둘째 줄에 n x m 위치에 매장된 금의 개수가 공백으로 구분되어 입력된다. (0 이상 100 이하의 정수)\n\n- 출력조건\n\n각 테스트 케이스에서 채굴자가 얻을 수 있는 금의 최대 크기를 출력\n\n- 예시\n만약 다음과 같이 3x4 크기의 금광이 존재한다고 가정합시다.\n1 3 3 2\n2 1 4 1\n0 6 4 7\n가장 왼쪽 위의 위치를 (1,1), 가장 오른쪽 아래의 위치를 (n, m)이라고 할 때, 위 예시에서는 (2,1) -&gt; (3,2) -&gt; (3,3) -&gt; (3,4)의 위치로 이동하면 총 19만큼의 금을 채굴할 수 있으며, 이때의 값이 최댓값입니다.\n- 문제 풀이\n\n채굴자가 얻을 수 있는 금의 최대 크기를 구해야 하므로 max 함수 활용\n테스트 케이스가 한 번에 여러 개 입력되므로 for문 안에서 알고리즘 실행\n1열은 이전의 값이 없으므로 2열부터 시작함\n예를 들어, 2열 1행은 1열 1행 또는 1열 2행의 값을 받을 수 있으므로 두 값 중 큰 수와 더해줌.\n2열 마지막행은 1열 마지막행 또는 1열 마지막행-1의 값을 받을 수 있으므로 두 값 중 큰 수와 더해줌.\n2열 중간행은 위,중간,아래행의 값을 받을 수 있으므로 세 값 중 큰 수와 더해줌.\n\n\n\n예비학습\n\n## 테스트 케이스를 1이라고 가정\ntc = 1\n##  3 x 4에 금광\nn, m = 3, 4\n## 금광을 담을 배열\narray = [1, 3, 3, 2, 2, 1, 4, 1, 0, 6, 4, 7]\n\n## 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화\ndp = []\nindex = 0\nfor i in range(n) :\n      dp.append(array[index:index+m]) ## n번째 행에 m개만큼 배열을 다음\n      index += m ## array가 1차원이므로 index 값 갱신\n\ndp ## 단순히 array를 2차식으로 표시한것임\n\n[[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]\n\n\n\n\\(\\text{dp}_{i-1,j-1}\\) : 왼쪽 위\n\\(\\text{dp}_{i,j-1}\\) : 왼쪽\n\\(\\text{dp}_{i+1,j-1}\\) : 왼쪽 아래\n\n\n## 다이나믹 프로그래밍 진행\nprint(\"초기 dp : \",dp)\nfor j in range(1, m) : ## 열기준 : j가 1인 이유는 항상 왼쪽에서 오니까 0번쨰 인덱스를 입력받기 위함임\n    for i in range(n) :\n        # 1. 왼쪽 위에서 오는 경우\n        if i == 0 : ## 인덱스값을 벗어나는지 체크\n            left_up = 0\n        else : \n            left_up = dp[i-1][j-1]\n        # 2. 왼쪽 아래에서 오는 경우\n        if i == n-1 : # i  == n-1이면  dp[n][j-1]이므로 왼쪽아래가 성립이 안된다..\n            left_down = 0\n        else :\n            left_down = dp[i+1][j-1]\n        ## 3. 왼쪽에서 오는 경우\n        left = dp[i][j-1]\n        ## 4. 위에서 세운 점화식을 구현 -&gt; 2차식으로 구현한 array를 max 값을 입력받아 갱신\n        dp[i][j] = dp[i][j] + max(left_up, left_down, left) ## 모든 j번쨰 열에서 행의 값이 최대값을 +한 것으로 업데이트됨\n\nprint(\"연산후 dp : \",dp)\n\n초기 dp :  [[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]\n연산후 dp :  [[1, 5, 8, 14], [2, 3, 12, 13], [0, 8, 12, 19]]\n\n\n\nresult = 0\nfor i in range(n):\n    result = max(result, dp[i][m - 1]) ## 결국 모든 열과 행의 각 요소에서 가장 금광을 많이 캔 것을 저장했으므로!! 모든 행의 마지막열 중 가장 큰 값을 찾으면됨.\n    print(result)\n\n14\n14\n19\n\n\n- 이를 한번에 하면~~\n\n# 테스트 케이스(Test Case) 입력\nfor tc in range(int(input())):\n    # 금광 정보 입력\n    n, m = map(int, input().split())\n    array = list(map(int, input().split()))\n\n    # 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화\n    dp = []\n    index = 0\n    for i in range(n):\n        dp.append(array[index:index + m])\n        index += m\n\n    # 다이나믹 프로그래밍 진행\n    for j in range(1, m):\n        for i in range(n):\n            # 왼쪽 위에서 오는 경우\n            if i == 0:\n                left_up = 0\n            else:\n                left_up = dp[i - 1][j - 1]\n            # 왼쪽 아래에서 오는 경우\n            if i == n - 1:\n                left_down = 0\n            else:\n                left_down = dp[i + 1][j - 1]\n            # 왼쪽에서 오는 경우\n            left = dp[i][j - 1]\n            dp[i][j] = dp[i][j] + max(left_up, left_down, left)\n\n    result = 0\n    for i in range(n):\n        result = max(result, dp[i][m - 1])\n\n    print(result)\n\n1\n3 4\n1 3 3 2 2 1 4 1 0 6 4 7\n19"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html",
-    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html",
-    "title": "02. PR study (3)",
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#재귀-함수",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#재귀-함수",
+    "title": "06. DFS & BFS",
     "section": "",
-    "text": "정수 배열 arr와 2차원 정수 배열 queries이 주어집니다.\nqueries의 원소는 각각 하나의 query를 나타내며, [s, e, k] 꼴입니다.\n각 query마다 순서대로 s ≤ i ≤ e인 모든 i에 대해 k보다 크면서 가장 작은 arr[i]를 찾습니다.\n단, 특정 쿼리의 답이 존재하지 않으면 -1을 저장\n\n\n\narr = [0,1,2,4,3]\nqueries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]\n\n\nresult = [] ## 결과를 담을 result 리스트\n\nprint(\"s &lt;= i &lt;= e 인 요소들을 arr에서 출력\\n\")\nfor j in queries :    \n    temp = arr[j[0]:j[1]+1] \n    print(\"queries의 \",j[0],\"~\",j[1],\"번째 인덱스에 속하는 arr의 요소 : \",temp)\n    temp2 = [i for i in temp if i &gt; j[2]]\n    print(\"걸러진 arr에서 query(k)보다 큰 요소들 : \",temp2)\n    print(\"\\n============================================================\\n\")\n    result.extend([temp2])\n\ns &lt;= i &lt;= e 인 요소들을 arr에서 출력\n\nqueries의  0 ~ 4 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4, 3]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4, 3]\n\n============================================================\n\nqueries의  0 ~ 3 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4]\n\n============================================================\n\nqueries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]\n걸러진 arr에서 query(k)보다 큰 요소들 :  []\n\n============================================================\n\n\n\n\n\n\ndef solution(arr, queries):\n    result = []\n    for j in queries :    \n        temp = arr[j[0]:j[1]+1] \n        #print(temp)\n        temp2 = [i for i in temp if i &gt; j[2]]\n        result.extend([temp2])\n    return [min(i) if len(i) != 0 else -1 for i in result ]"
+    "text": "DFS외 BFS를 구현하려면 재귀함수도 이해하고 있어야 한다. 재귀함수(Recursive Function)란 자기 자신을 다시 호출하는 함수!\n- 그러나 재귀함수 사용 시 종료 조건을 무조건 명시해야함\n- 그렇지 않으면 호출 횟수 제한을 벗어나 다음과 같은 에러문이 발생한다.\nRecursiveError : maximum recursion depth exceeded while pickling an object\n\n\n- 100번째 출력했을 때 종료되도록 종료 조건 명시\n\ndef r(i) :\n    if i == 5 :\n        return\n    print(i,\"번째 호출\")\n    r(i+1)\n    print(i,\"번째 재귀함수 종료\")\n\nr(1)\n\n1 번째 호출\n2 번째 호출\n3 번째 호출\n4 번째 호출\n4 번째 재귀함수 종료\n3 번째 재귀함수 종료\n2 번째 재귀함수 종료\n1 번째 재귀함수 종료\n\n\n- 컴퓨터 내부에서 재귀함수의 수행은 스택 자료구조를 이용한다.\n\n\n\n\ndef f(n) :\n    result = 1\n    for i in range(1,n+1):\n        result *= i\n    return result\n\n\nf(5)\n\n120\n\n\n\n\n\n\ndef f(n) :\n    if n &lt;= 1 :\n        return 1\n    return n*f(n-1)\n\n\nf(5)\n\n120\n\n\n\n\n\n- 스택은 선입선출, 큐는 선입후출\n- 재귀함수를 이용하면 반복문으로 구현했을때 보다 훨씬 간결하게 코드를 작성할 수 있음"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1",
-    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1",
-    "title": "02. PR study (3)",
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#인접-행렬",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#인접-행렬",
+    "title": "06. DFS & BFS",
+    "section": "인접 행렬",
+    "text": "인접 행렬\n- 아래는 노드 간의 관계를 인접행렬로 표현한 것이다.\n\n\n\n- 인접행렬에서는 연결이 되어 있지 않은 노드끼리는 무한의 비용이라고 작성한다.\n\ninf = 999999999\n\ngraph1 = [\n        [0, 7, 5],\n        [7, 0, inf],\n        [5, inf, 0]]\n\nprint(graph1)\n\n[[0, 7, 5], [7, 0, 999999999], [5, 999999999, 0]]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#인접-리스트",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#인접-리스트",
+    "title": "06. DFS & BFS",
+    "section": "인접 리스트",
+    "text": "인접 리스트\n\n\n\n- 인접 리스트에서는 모든 노드에 연결된 노드에 대한 정보를 차레대로 연결하여 저장한다.\n- 위를 코드로 작성하면\n\ngraph2 = [[] for _ in range(3)]\ngraph2\n\n[[], [], []]\n\n\n- step1. 노드 0에 연결된 노드 정보 저장(노드, 거리)\n\ngraph2[0].append((1,7))\ngraph2[0].append((2,5))\ngraph2\n\n[[(1, 7), (2, 5)], [], []]\n\n\n\n현재 총 노드가 3개이므로 각 리스트에 i번째 원소는 i번째 노드와 해당 노드와 연결된 노드와의 연결 정보를 의미한다.\n\n- step2. 노드 1에 연결된 노드 정보 저장\n\ngraph2[1].append((0,7))\ngraph2\n\n[[(1, 7), (2, 5)], [(0, 7)], []]\n\n\n- step3. 노드 2에 연결된 노드 정보 저장\n\ngraph2[2].append((0,5))\ngraph2\n\n[[(1, 7), (2, 5)], [(0, 7)], [(0, 5)]]\n\n\n\nprint(graph2)\n\n[[(1, 7), (2, 5)], [(0, 7)], [(0, 5)]]\n\n\n\n두 방식의 차이 비교\n- 메모리 측면\n\n메모리 측면에서 보면 인접 행렬 방식은 3 x 3 즉, 모든 관계를 저장하므로 노드 개수가 많아지면 메모리가 불필요하게 낭비된다.\n반면에 인접 리스트 방식은 연결된 정보만을 저장하기 때문에 메모리를 효울적으로 사용한다.\n그러나 인접 리스트 방식은 특정한 두 노드가 연결되어 있는지에 대한 정보를 얻는 속도가 느림 (데이터를 하나씩 확인해야 하기 때문)\n\n\nexample. 노드 1과 노드 7이 연결되어 있는 상황\n\n\n인접 행렬 방식 : graph[1][7] 만 확인하면 된다.\n인접 리스트 방식 : 노드 1에 대한 인접 리스트를 앞에서부터 차례대로 확인해야됨\n\n그러므로 특정한 노드와 연결된 모든 인접 노드를 순회해야한다면? -&gt; 당연히 인접 행렬 방식이 메모리 낭비가 적음\n\n\n\ngraph1\n\n[[0, 7, 5], [7, 0, 999999999], [5, 999999999, 0]]\n\n\n\ngraph2\n\n[[(1, 7), (2, 5)], [(0, 7)], [(0, 5)]]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#dfs",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#dfs",
+    "title": "06. DFS & BFS",
+    "section": "DFS",
+    "text": "DFS\n- DFS는 깊이 우선 탐색 알고리즘이다.\n- 이 알고리즘은 특정한 경로로 탐색하다가 특정한 상황에서 최대한 깊숙이 들어가서 노드를 방문한 후, 다시 돌아가 다른 경로로 탐색하는 알고리즘임.\n- 스택 자료구조를 이용하며 구체적인 동작 과정은 다음과 같다.\n\n탐색 시작 노드를 스택에 삽입하고 방문 처리를 한다.\n스택의 최상단 노드에 방문하지 않은 인접 노드가 있으면 그 인접 노드를 스택에 넣고 방문 처리를 한다.\n방문하지 않은 인접 노드가 없으면 스택에서 최상단 노드를 꺼낸다.\n2번과 3번 과정을 더 이상 수행할 수 없을 때까지 반복\n\n- tip : 방문 처리는 스택에 한 번 삽입되어 처리된 노드가 다시 삽입되지 않게 체크하는 것을 의미한다. 방문 처리를 함으로써 각 노드를 한 번씩만 처리할 수 있다.\n\n예제 1. 1번 노드에서 시작\n\n\n\n1 1번 노드를 스택에 넣고 방문처리\n\nstack = []\nstack.append(1)\nstack\n\n[1]\n\n\n2 1번 노드와 인접한 노드 중 가장 작은 노드인 2를 스택에 넣고 방문 처리\n\nstack.append(2)\nstack\n\n[1, 2]\n\n\n3 2번 노드와 인접한 노드인 7을 스택에 넣고 방문 처리\n\nstack.append(7)\nstack\n\n[1, 2, 7]\n\n\n4 7번 노드와 인접한 노드 중 가장 작은 노드인 6을 스택에 넣고 방문 처리\n\nstack.append(6)\nstack\n\n[1, 2, 7, 6]\n\n\n5 스택의 최상단 노드인 6에 방문하지 않은 인접 노드가 없으므 6번 노드를 스택에서 꺼냄\n\nstack.pop()\nstack\n\n[1, 2, 7]\n\n\n6 다시 돌아가서 스택의 최상단 노드인 7과 인접한 노드 중 방문하지 않은 노드 8이 있으므로 스택에 넣고 방문 처리\n\nstack.append(8)\nstack\n\n[1, 2, 7, 8]\n\n\n7 스택의 최상단 노드 8에 방문하지 않은 인접한 노드가 없으므로 8을 스택에서 꺼냄\n\nstack.pop()\nstack\n\n[1, 2, 7]\n\n\n8 스택의 최상단 노드 7에 방문하지 않은 인접한 노드가 없으므로 7을 스택에서 꺼냄\n\nstack.pop()\nstack\n\n[1, 2]\n\n\n9 스택의 최상단 노드 2에 방문하지 않은 인접한 노드가 없으므로 2을 스택에서 꺼냄\n\nstack.pop()\nstack\n\n[1]\n\n\n10스택의 최상단 노드인 1에서 인접한 노드인 3을 스택에 넣고 방문 처리\n\nstack.append(3)\nstack\n\n[1, 3]\n\n\n11 스택의 최상단 노드인 3과 인접한 노드 중 가장 작은 노드인 4를 스택에 넣고 방문 처리\n\nstack.append(4)\nstack\n\n[1, 3, 4]\n\n\n12 스택의 최상단 노드인 4에 인접한 노드인 5를 스택에 넣고 방문 처리\n\nstack.append(5)\nstack\n\n[1, 3, 4, 5]\n\n\n13 남아 있는 노드에 방문하지 않은 인접 노드가 업으므로 차례대로 꺼냄\n\nstack.pop()\nstack.pop()\nstack.pop()\nstack.pop()\n\n1\n\n\n- 결과적으로 노드의 탐색 순서는? [1,2,7,6,8,3,4,5]\n\n\n\n- 깊이 우선 탐색 알고리즘인 DFS는 스택 자료구조에 기초한다는 점에서 구현이 간단하다.\n- 살제로는 스택을 쓰지 않아도 되며 탐색을 수행함에 있어서 데이터의 개수가 \\(N\\)개인 경우 \\(O(N)\\)의 시간이 소요된다.\n- 또한 DFS는 스택을 이용하는 알고리즘이기 때문에 실제 구현은 재귀 함수를 이용했을 때 매우 간결하게 구현할 수 있음.\n\n\n예제 1번 DFS 코드 작성\n\n\n\n\ndef dfs(graph, v, visited) : \n    # 현재 노드를 방문 처리\n    visited[v] = True\n    print(v, end = \" \")\n    # 현재 노드와 연결된 다른 노드를 재귀적으로 방문\n    for i in graph[v] :\n        if not visited[i] :\n            dfs(graph, i, visited)\n\n\n## 연결된 정보를 인접 리스트로 표현\ngraph = [[], # 0번 노드는 없으므로 비어있음\n         [2, 3, 8],\n         [1, 7],\n         [1, 4, 5],\n         [3, 5],\n         [3, 4],\n         [7],\n         [2, 6, 8],\n         [1, 7]]\n\n- loop문은 아래와 같이 v 번째 노드의 연결된 i 노드들을 호출하기 위함임\n\nfor i in graph[1] :\n    print(i)\n\n2\n3\n8\n\n\n- 각 노드가 방문된 정보를 리스트 자료형으로 표현\n\nvisited = [False]*9\n\n- 정의된 DFS 함수 호출\n\ndfs(graph, 1, visited)\n\n1 2 7 6 8 3 4 5"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#bfs",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#bfs",
+    "title": "06. DFS & BFS",
+    "section": "BFS",
+    "text": "BFS\n- Breadth First Search : 너비 우선 탐색\n- 가까운 노드부터 탐색하는 알고리즘\n- 앞선 DFS 방식에서는 최대한 깊숙이 들어갔다가 나중에 다시 돌아오는 방식, 즉 멀리 있는 노드를 우선적으로 탐색하였다.\n- BFS는 큐 자료구조를 이용하여, 인접한 노드를 반복적으로 큐에 넣도록 알고리즘을 작성해 자연스럽게 먼저 들어온 것이 먼저 나가게 되어, 가까운 노드부터 탐색을 진행하게 된다.\n- 동작 방식\n\n탐색 시작 노드를 큐에 삽입하고 방문 처리\n큐에서 노드를 꺼내 해당 노드의 인접 노드 중에 방문하지 않은 노드를 모두 큐에 삽입하여 방문 처리\n2번의 과정을 더 이상 수행할 수 없을 때까지 반복한다.\n\n\n예제 1. 1번노드에서 시작\n\n\n\n1 1번 노드를 큐에 삽입하고 방문처리\n2 1번 노드를 꺼내고 2,3,8을 모두 큐에 삽입하고 방문 처리\n3 큐에서 노드 2를 꺼내고 방문하지 않은 인접 노드 7을 큐에 삽입 후 방문 처리\n4 큐에서 노드 3을 꺼내고 방문하지 않은 인접노드 4, 5를 큐에 삽입 후 방문 처리\n5 큐에서 노드 8을 꺼내고 방문하지 않은 인접노드가 없으므로 무시\n6 큐에서 노드 7을 꺼내고 방문하지 않은 인접노드 6을 큐에 삽입하고 방문처리\n7 방문하지 않은 인접 노드가 없으므로, 모든 노드를 차례대로 꺼냄\n8 노드 탐색순서 : 1 -&gt; 2 -&gt; 3 -&gt; 8 -&gt; 7 -&gt; 4 -&gt; 5 -&gt; 6\n\n시간 복잡도 : \\(O(N)\\)\n일반적인 경우 실제 수행 시간은 DFS보다 좋은 편이라는 점까지만 추가로 기억하자/\n\n\n\n예제 1번 BFS 코드 작성\n\nfrom collections import deque\n\n\ndef bfs(graph, start, visited) :\n    queue = deque([start])\n    \n    # 현재 노드를 방문 처리\n    visited[start] = True\n    \n    # 큐가 빌 때까지 반복\n    while queue :\n        # 큐에서 하난의 원소를 뽑아 출력\n        v = queue.popleft()\n        print(v, end = \" \")\n        # 해당 원소와 연결된, 아직 방문하지 않은 원소들을 큐에 삽입\n        for i in graph[v] :\n            if not visited[i] :\n                queue.append(i)\n                visited[i] = True\n\n\n## 연결된 정보를 인접 리스트로 표현\ngraph = [[], # 0번 노드는 없으므로 비어있음\n         [2, 3, 8],\n         [1, 7],\n         [1, 4, 5],\n         [3, 5],\n         [3, 4],\n         [7],\n         [2, 6, 8],\n         [1, 7]]\n\n\nvisited = [False]*9\n\n\nbfs(graph,1, visited)\n\n1"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-1.-섬의-개수",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-1.-섬의-개수",
+    "title": "06. DFS & BFS",
+    "section": "ex 1. 섬의 개수",
+    "text": "ex 1. 섬의 개수\n정사각형으로 이루어져 있는 섬과 바다 지도가 주어진다. 섬의 개수를 세는 프로그램을 작성하시오.\n\n한 정사각형과 가로, 세로 또는 대각선으로 연결되어 있는 사각형은 걸어갈 수 있는 사각형이다.\n두 정사각형이 같은 섬에 있으려면, 한 정사각형에서 다른 정사각형으로 걸어서 갈 수 있는 경로가 있어야 한다. 지도는 바다로 둘러싸여 있으며, 지도 밖으로 나갈 수 없다.\n- 입력\n입력은 여러 개의 테스트 케이스로 이루어져 있다. 각 테스트 케이스의 첫째 줄에는 지도의 너비 w와 높이 h가 주어진다. w와 h는 50보다 작거나 같은 양의 정수이다.\n둘째 줄부터 h개 줄에는 지도가 주어진다. 1은 땅, 0은 바다이다.\n입력의 마지막 줄에는 0이 두 개 주어진다.\n- 출력\n각 테스트 케이스에 대해서, 섬의 개수를 출력한다.\n\nsol\n\nimport sys\nsys.setrecursionlimit(10**6)\n\n\ndef dfs(x, y) :\n    if x &lt;= -1 or x &gt;= h or y &lt;= -1 or y&gt;=w:\n           return False\n    if graph[x][y] == 1 :\n        # 해당 노드 방문 처리\n        graph[x][y]  = 0\n        # 상, 하, 좌, 우, 대각선 위치를 모두 재귀적으로 호출\n        dfs(x-1, y) # 하\n        dfs(x+1, y) # 상 \n        dfs(x, y-1) # 좌 \n        dfs(x, y+1) # 우\n        dfs(x-1,y-1) # 하좌\n        dfs(x-1,y+1) # 하우\n        dfs(x+1,y-1) # 상죄\n        dfs(x+1,y+1) # 상우\n        return True\n    return False\n\n\nwhile True :\n    w, h = map(int, input().split())\n    if w == 0 and h == 0 :\n        break\n    graph = [list(map(int, input().split())) for _ in range(h)]\n    result = 0\n    for i in range(h) :\n        for j in range(w) :\n            # 현재 위치에서 DFS 수행\n            if dfs(i, j) == True :\n                result += 1\n    print(result)\n\n 2 2\n 0 1\n 1 0\n 5 4\n 1 0 1 0 0\n 1 0 0 0 0\n 1 0 1 0 1\n 1 0 0 1 0\n 0 0\n\n\n1\n3"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-2.-안전영역",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-2.-안전영역",
+    "title": "06. DFS & BFS",
+    "section": "ex 2. 안전영역",
+    "text": "ex 2. 안전영역\n높이가 4 이하인 모든 지점이 물에 잠겼다고 하자.\n\n\n\n\n\n6\n\n\n8\n\n\n2\n\n\n6\n\n\n2\n\n\n\n\n3\n\n\n2\n\n\n3\n\n\n4\n\n\n6\n\n\n\n\n6\n\n\n7\n\n\n3\n\n\n3\n\n\n2\n\n\n\n\n7\n\n\n2\n\n\n5\n\n\n3\n\n\n6\n\n\n\n\n8\n\n\n9\n\n\n5\n\n\n2\n\n\n7\n\n\n\n\n\n물에 잠기지 않는 안전한 영역이라 함은 물에 잠기지 않는 지점들이 위, 아래, 오른쪽 혹은 왼쪽으로 인접해 있으며 그 크기가 최대인 영역을 말한다. 위의 경우에서 물에 잠기지 않는 안전한 영역은 5개가 된다(꼭짓점으로만 붙어 있는 두 지점은 인접하지 않는다고 취급한다).\n- 입력\n첫째 줄에는 어떤 지역을 나타내는 2차원 배열의 행과 열의 개수를 나타내는 수 N이 입력된다. N은 2 이상 100 이하의 정수이다. 둘째 줄부터 N개의 각 줄에는 2차원 배열의 첫 번째 행부터 N번째 행까지 순서대로 한 행씩 높이 정보가 입력된다. 각 줄에는 각 행의 첫 번째 열부터 N번째 열까지 N개의 높이 정보를 나타내는 자연수가 빈 칸을 사이에 두고 입력된다. 높이는 1이상 100 이하의 정수이다.\n- 출력\n첫째 줄에 장마철에 물에 잠기지 않는 안전한 영역의 최대 개수를 출력한다.\n\nsol\n\nfrom collections import deque\n\n\nn = int(input())\n\n 5\n\n\n\ngraph = []\n\nfor i in range(n) :\n    graph.append(list(map(int, input().split())))\n\n 6 8 2 6 2\n 3 2 3 4 6\n 6 7 3 3 2\n 7 2 5 3 6\n 8 9 5 2 7\n\n\n\nM = max(map(max,graph))\nM\n\n9\n\n\n\ndx = [1,0, -1, 0]\ndy = [0,1, 0, -1]\n\n\ndef bfs(x, y, h, visited) :\n    q = deque()\n    q.append((x, y))\n    visited[x][y] = 1\n    \n    while q :\n        x1, y1 = q.popleft()\n        \n        for i in range(4) :\n            nx = x1 + dx[i]\n            ny = y1 + dy[i]\n        \n            if (0&lt;=nx&lt;n) * (0&lt;=ny&lt;n) :\n                if (graph[nx][ny] &gt; h) * (visited[nx][ny] == 0) :\n                    visited[nx][ny] = 1\n                    q.append((nx,ny))\n\n\nresult = []\n\nfor h in range(M) :\n    visited = [[0]*n for _ in range(n)]\n    cnt = 0\n    \n    for j in range(n):\n        for k in range(n) :\n            if (graph[j][k] &gt; h)*(visited[j][k] == 0) :\n                bfs(j, k, h, visited)\n                cnt += 1\n    result.append(cnt)\nprint(max(result))"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-3.-트리의-부모찾기",
+    "href": "posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html#ex-3.-트리의-부모찾기",
+    "title": "06. DFS & BFS",
+    "section": "ex 3. 트리의 부모찾기",
+    "text": "ex 3. 트리의 부모찾기\n루트 없는 트리가 주어진다. 이때, 트리의 루트를 1이라고 정했을 때, 각 노드의 부모를 구하는 프로그램을 작성하시오.\n- 입력\n첫째 줄에 노드의 개수 N (2 ≤ N ≤ 100,000)이 주어진다. 둘째 줄부터 N-1개의 줄에 트리 상에서 연결된 두 정점이 주어진다.\n- 출력\n첫째 줄부터 N-1개의 줄에 각 노드의 부모 노드 번호를 2번 노드부터 순서대로 출력한다.\n\nsol\n\nfrom collections import deque\n\n\nN = int(input())\ngraph = [[] for i in range(N+1)]\n\nfor _ in range(N-1) :\n    a, b = map(int, input().split())\n    graph[a].append(b)\n    graph[b].append(a)\n\n 7\n 1 6\n 6 3\n 3 5\n 4 1\n 2 4\n 4 7\n\n\n\ngraph\n\n[[], [6, 4], [4], [6, 5], [1, 2, 7], [3], [1, 3], [4]]\n\n\n\nvisited = [False]*(N+1)\nans = [0]*(N+1)\n\n\ndef bfs(graph,v,visited) :\n    q = deque([v])\n    visited[v] = True\n    while q:\n        now = q.popleft()\n        for i in graph[now] :\n            if not visited[i] :\n                ans[i] = now\n                q.append(i)\n                visited[i] = True\n\n\nbfs(graph,1,visited)\n\n\nfor i in range(2,N+1):\n        print(ans[i])\n\n4\n6\n1\n3\n1\n4"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html",
+    "title": "03. PR study (4)",
     "section": "",
-    "text": "arr = [0,1,2,4,3]\nqueries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]\n\n\nresult = [] ## 결과를 담을 result 리스트\n\nprint(\"s &lt;= i &lt;= e 인 요소들을 arr에서 출력\\n\")\nfor j in queries :    \n    temp = arr[j[0]:j[1]+1] \n    print(\"queries의 \",j[0],\"~\",j[1],\"번째 인덱스에 속하는 arr의 요소 : \",temp)\n    temp2 = [i for i in temp if i &gt; j[2]]\n    print(\"걸러진 arr에서 query(k)보다 큰 요소들 : \",temp2)\n    print(\"\\n============================================================\\n\")\n    result.extend([temp2])\n\ns &lt;= i &lt;= e 인 요소들을 arr에서 출력\n\nqueries의  0 ~ 4 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4, 3]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4, 3]\n\n============================================================\n\nqueries의  0 ~ 3 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4]\n\n============================================================\n\nqueries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]\n걸러진 arr에서 query(k)보다 큰 요소들 :  []\n\n============================================================\n\n\n\n\n\n\ndef solution(arr, queries):\n    result = []\n    for j in queries :    \n        temp = arr[j[0]:j[1]+1] \n        #print(temp)\n        temp2 = [i for i in temp if i &gt; j[2]]\n        result.extend([temp2])\n    return [min(i) if len(i) != 0 else -1 for i in result ]"
+    "text": "A = [\"hello\", \"apple\", \"stat\", \"abc\"]\nB = [\"lohel\", \"elppa\", \"tata\", \"abc\"]\n\n\na = A[0]\nb = B[0]\n\n\ndef solution(a,b) : \n    if b not in a*2 : ### hello*2 -&gt; hellohello \n        return -1\n    if a==b : \n        return 0\n    for i in range(len(a)) :\n        r = a[-1]\n        temp = r+a[0:-1]\n        print(f\"{i+1}번 밀기\")\n        a = temp\n        print(f\"{i+1}번 민 후 결과 : {a}\")\n        print(\"\\n\")\n        print(\"*\"*50)\n        print(\"\\n\")\n        if a == b : break\n    return i+1\n\n\nsolution(a,b)\n\n1번 밀기\n1번 민 후 결과 : ohell\n\n\n**************************************************\n\n\n2번 밀기\n2번 민 후 결과 : lohel\n\n\n**************************************************\n\n\n\n\n2"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-1",
-    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-1",
-    "title": "02. PR study (3)",
-    "section": "sol 1",
-    "text": "sol 1\n\nprint(arr)\nfor i in range(len(query)) : \n    if i % 2 == 0 :\n        arr = arr[ : query[i]+1]\n        print(\"query =\",query[i],\", arr :\", arr)\n    else :\n        arr = arr[query[i] : ]\n        print(\"query =\",query[i],\", arr :\", arr)\n\n[0, 1, 2, 3, 4, 5]\nquery = 4 , arr : [0, 1, 2, 3, 4]\nquery = 1 , arr : [1, 2, 3, 4]\nquery = 2 , arr : [1, 2, 3]\n\n\n\n함수로 작성\n\ndef solution(arr, query):\n    for i in range(len(query)) : \n        if i % 2 == 0 :\n            arr = arr[ : query[i]+1]\n            #print(\"query =\",query[i],\", arr :\", arr)\n        else :\n            arr = arr[query[i] : ]\n            #print(\"query =\",query[i],\", arr :\", arr)\n    return arr\n\n\nsolution(arr,query)\n\n[2, 3]"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-2",
-    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-2",
-    "title": "02. PR study (3)",
-    "section": "sol 1",
-    "text": "sol 1\n\na,b,c,d = 4,4,4,3\n\n\n4print(a,b,c,d,\"\\n\")\nlst = [a,b,c,d]\n\nif len(set(lst)) == 1:\n    p = lst[0]\n    print(1111*a)\n    print(\"모두 값이 같습니다. -&gt;\", 1111*p)\n    \nelif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 3:\n    p = sorted(lst)[2]\n    q = [i for i in lst if i != p][0]\n    print(\"3개의 값이 같고 1개가 다릅니다 -&gt;\", (10*p + q)**2)\n    \nelif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 2:\n    p = sorted(lst)[2]\n    q = [i for i in lst if i != p][0]\n    print(\"2개씩 같은값이 각각 존재 -&gt; \", (p+q)*abs(p-q))\n\nelif len(set(lst)) == 3 :\n    dic = {i : lst.count(i) for i in lst}\n    q,r = (i  for i,j in dic.items() if j != 2)\n    print(\"2개의 값이 같고, 나머지 두개는 값이 다름. -&gt; \", q*r)\nelse : \n    print(\"다다름\",min(lst))\n\n\n함수로 작성\n\ndef solution(a, b, c, d):\n    lst = [a,b,c,d]\n\n    if len(set(lst)) == 1:\n        p = lst[0]\n        return (1111*p)\n\n    elif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 3:\n        p = sorted(lst)[2]\n        q = [i for i in lst if i != p][0]\n        return (10*p + q)**2\n\n    elif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 2:\n        p = sorted(lst)[2]\n        q = [i for i in lst if i != p][0]\n        return (p+q)*abs(p-q)\n\n    elif len(set(lst)) == 3 :\n        dic = {i : lst.count(i) for i in lst}\n        q,r = (i  for i,j in dic.items() if j != 2)\n        return q*r\n    else :\n        return min(lst)"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-3",
-    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-3",
-    "title": "02. PR study (3)",
-    "section": "sol 1",
-    "text": "sol 1\n\nn = 125\nresult = []\nwhile n &gt;= 1 : \n    n,r = divmod(n,3)\n    result.append(r)\n\nint(\"\".join([str(i) for i in result]),3)\n\n229\n\n\n\n함수로 작성\n\ndef solution(n) :\n    result = []\n    while n &gt;= 1 : \n        n,r = divmod(n,3)\n        result.append(r)\n\n    return int(\"\".join([str(i) for i in result]),3)"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html",
-    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html",
-    "title": "00. PR study (1)",
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol",
+    "title": "03. PR study (4)",
     "section": "",
-    "text": "def solution(lst):\n    dic = {i : lst.count(i) for i in set(lst)}\n    M = max(dic.values())\n    l = [i for i in lst if lst.count(i)==M ]\n    if len(set(l)) !=1 :\n         return (-1) \n    else : \n         return (l[0])\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\ndef solution(array):\n    while len(array) != 0: ## array길이가 0이 아닐때 까지\n        \n        for i, a in enumerate(set(array)):  ## 루프를 돌려서 유니크한 값 하나씩 array에서 제거\n           \n            array.remove(a)  ## 유니크한 값 하나씩 array에서 제거 하고 다시 루프로 돌아가 유니크한 값을 다시 뽑음\n        \n        if i == 0: return a ## 그러다 보면 값이 하나만 남게 되고 유니크 인덱스가 0이 될테니 해당 값이 최빈값!\n    \n    return -1 ## [1,1,2,2] 에 경우 두번에 루프에서 array의 모든값이 제거되므로 return -1이됨\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\n\n\n\ndef solution(code):\n    m=0\n    m_l = []\n    for i in code : \n        if i ==  \"1\" :\n            m=m+1\n            m_l.append(m)\n        else :\n            m_l.append(m)\n    mode = [0 if i % 2 ==0 else 1 for i in m_l ]\n    rat = []\n    idx = list(range(0,len(code)))\n\n    for i in idx :\n        if (mode[i]== 0) and  (i  % 2==0) :\n                rat.append(code[i])\n        elif (mode[i]==1) and (i % 2== 1) :\n                rat.append(code[i])\n                \n    result = \"\".join([i for i in rat if i !=\"1\"])\n    if len(result) == 0 :\n        return \"EMPTY\"\n    else :\n        return result\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'\n\n\n\n\n\n\ndef solution(code):\n    return \"\".join(code.split(\"1\"))[::2] or \"EMPTY\"\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'"
+    "text": "A = [\"hello\", \"apple\", \"stat\", \"abc\"]\nB = [\"lohel\", \"elppa\", \"tata\", \"abc\"]\n\n\na = A[0]\nb = B[0]\n\n\ndef solution(a,b) : \n    if b not in a*2 : ### hello*2 -&gt; hellohello \n        return -1\n    if a==b : \n        return 0\n    for i in range(len(a)) :\n        r = a[-1]\n        temp = r+a[0:-1]\n        print(f\"{i+1}번 밀기\")\n        a = temp\n        print(f\"{i+1}번 민 후 결과 : {a}\")\n        print(\"\\n\")\n        print(\"*\"*50)\n        print(\"\\n\")\n        if a == b : break\n    return i+1\n\n\nsolution(a,b)\n\n1번 밀기\n1번 민 후 결과 : ohell\n\n\n**************************************************\n\n\n2번 밀기\n2번 민 후 결과 : lohel\n\n\n**************************************************\n\n\n\n\n2"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#최빈값-구하기",
-    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#최빈값-구하기",
-    "title": "00. PR study (1)",
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-1",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-1",
+    "title": "03. PR study (4)",
+    "section": "sol",
+    "text": "sol\n- 평행인 2개의 직선을 그려보면 왜 \\(x\\)값을 기준으로 정렬해서 풀어야하는지 금방 이해할 수 있다.\n\ndef solution (dots) :\n    print(\"정렬 전 : \", dots)\n    dots.sort()\n    print(\"정렬 후 : \", dots)\n    [x1, y1], [x2, y2] = dots[:2]\n    [x3, y3], [x4, y4] = dots[2:]\n    \n    a1 = (y1-y2)/(x1-x2)\n    a2 = (y3-y4)/(x3-x4)\n    \n    if a1==a2 :\n        return 1\n    else : \n        return 0\n\n\nsolution(dots)\n\n정렬 전 :  [[1, 4], [3, 8], [9, 2], [11, 6]]\n정렬 후 :  [[1, 4], [3, 8], [9, 2], [11, 6]]\n\n\n1"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2",
+    "title": "03. PR study (4)",
+    "section": "sol2",
+    "text": "sol2\n\\[\\text {기울기 구하는 공식} = \\frac{(y_1-y_2)}{(x_1-x_2)}\\]\n\ndots\n\n[[1, 4], [3, 8], [9, 2], [11, 6]]\n\n\n\ndef solution(dots):\n    [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]=dots\n    answer1 = ((y1-y2)*(x3-x4) == (y3-y4)*(x1-x2))\n    answer2 = ((y1-y3)*(x2-x4) == (y2-y4)*(x1-x3))\n    answer3 = ((y1-y4)*(x2-x3) == (y2-y3)*(x1-x4))\n    return 1 if answer1 or answer2 or answer3 else 0\n\n\nsolution(dots)\n\n1"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol1",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol1",
+    "title": "03. PR study (4)",
+    "section": "sol1",
+    "text": "sol1\n\np\n\n['mislav', 'stanko', 'mislav', 'ana']\n\n\n\nc\n\n['stanko', 'ana', 'mislav']\n\n\n\nfor i in range(len(p)) :\n    print(i,\"번째 loop\")\n    person = p.pop()\n    print(person,\"이 완주했는가?\")\n    if person in c :\n        print(person, \"은 완주했음!!\")\n        c.remove(person)\n    else : print(person, \"은 완주하지 못함...\")\n    print(\"*\"*50)\n\n0 번째 loop\nana 이 완주했는가?\nana 은 완주했음!!\n**************************************************\n1 번째 loop\nmislav 이 완주했는가?\nmislav 은 완주했음!!\n**************************************************\n2 번째 loop\nstanko 이 완주했는가?\nstanko 은 완주했음!!\n**************************************************\n3 번째 loop\nmislav 이 완주했는가?\nmislav 은 완주하지 못함...\n**************************************************"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2-1",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2-1",
+    "title": "03. PR study (4)",
+    "section": "sol2",
+    "text": "sol2\n\ndef solution(p,c) :\n    p.sort()\n    c.sort()\n    for i in range(len(c)) :\n        if p[i] != c[i] :\n            return p[i]\n    return p[-1]\n\n\nsolution(p,c)\n\n'mislav'"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#예비학습",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#예비학습",
+    "title": "03. PR study (4)",
+    "section": "예비학습",
+    "text": "예비학습\n\nlines = [[0, 5], [3, 9], [1, 10]]\n\n\nlines\n\n[[0, 5], [3, 9], [1, 10]]\n\n\n\nsets = [set(range(l[0],l[1])) for l in lines]\nsets\n\n[{0, 1, 2, 3, 4}, {3, 4, 5, 6, 7, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 9}]\n\n\n\\[\\text{sets[0]} \\cap \\text {sets[1]}= \\text{{3, 4}}\\]\n\n(sets[0] & sets[1])\n\n{3, 4}\n\n\n\nlen((sets[0] & sets[1]) | (sets[0] & sets[2]) | (sets[1] & sets[2]))\n\n8"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-2",
+    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-2",
+    "title": "03. PR study (4)",
+    "section": "sol",
+    "text": "sol\n\ndef solution(lines):\n    sets = [set(range(min(l), max(l))) for l in lines]\n    return len(sets[0] & sets[1] | sets[0] & sets[2] | sets[1] & sets[2])\n\n\nsolution(lines)\n\n8"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html",
+    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html",
+    "title": "01. PR study (2)",
     "section": "",
-    "text": "def solution(lst):\n    dic = {i : lst.count(i) for i in set(lst)}\n    M = max(dic.values())\n    l = [i for i in lst if lst.count(i)==M ]\n    if len(set(l)) !=1 :\n         return (-1) \n    else : \n         return (l[0])\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\ndef solution(array):\n    while len(array) != 0: ## array길이가 0이 아닐때 까지\n        \n        for i, a in enumerate(set(array)):  ## 루프를 돌려서 유니크한 값 하나씩 array에서 제거\n           \n            array.remove(a)  ## 유니크한 값 하나씩 array에서 제거 하고 다시 루프로 돌아가 유니크한 값을 다시 뽑음\n        \n        if i == 0: return a ## 그러다 보면 값이 하나만 남게 되고 유니크 인덱스가 0이 될테니 해당 값이 최빈값!\n    \n    return -1 ## [1,1,2,2] 에 경우 두번에 루프에서 array의 모든값이 제거되므로 return -1이됨\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1"
+    "text": "- 정수 n이 주어질 때 위와 같은 규칙을 따르는 숫지를 return 하는 함수를 작성하라\n\n\n\n임의의 숫자 n을 입력 받았을 때, 1부터 n 번째 까지의 상황을 기록하는 변수(r)가 필요\n\nr = 0\nfor i in range(1, n+1) :\n    r += 1\n2. 변수 r이 3의 배수 이거나 3을 포함하고 있는 string일 경우 r+1을 수행\n\nn=15\n\n\nr = 0\nfor i in range(1, n+1) :\n    r +=1\n    while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n        r+=1\nr\n\n25\n\n\n3. 함수로 작성\n\ndef solution(n) : \n        r = 0\n        for i in range(1, n+1) :\n            r +=1\n            while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n                r+=1\n        return r\n\n\nsolution(5)\n\n7\n\n\n\n\n\n\n\n- 리스트 안에 임의의 수식들이 주어졌을 때 결과가 맞으면 “O”, 아니면 “X”를 출력하는 함수를 작성\n\n\n\nlst = [\"3 - 4 = -3\", \"5 + 6 = 11\"]\n\n- 연산이 이루어지는 쪽과 결과값을 저장\n\nl,r=lst[0].split(\"=\")\nl = l.split()\nl,r\n\n(['3', '-', '4'], ' -3')\n\n\n- 사칙연산\n\nif l[1] == \"-\" :\n    temp = int(l[0]) - int(l[-1]) == int(r)\n\n\ntemp\n\nFalse\n\n\n- 루프를 통해 모든 원소에 적용\n\nresult = []\nfor i in lst :\n    l,r=i.split(\"=\")\n    l = l.split()\n    if l[1] == \"-\" :\n        temp = int(l[0]) - int(l[-1]) == int(r)\n    else :\n        temp = int(l[0]) + int(l[-1]) == int(r)\n    \n    result.append(temp)\n\n\nresult\n\n[False, True]\n\n\n- 위 result를 “O”, “X”로 변경\n\n[\"O\" if i == True else \"X\" for i in result]\n\n['X', 'O']\n\n\n- 함수 작성\n\n\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\n\ndef solution(lst) : \n    result = []\n    for i in lst :\n        l,r=i.split(\"=\")\n        l = l.split()\n        if l[1] == \"-\" :\n            temp = int(l[0]) - int(l[-1]) == int(r)\n        else :\n            temp = int(l[0]) + int(l[-1]) == int(r)\n\n        result.append(temp)\n    print(result)\n    result = [\"O\" if i == True else \"X\" for i in result]\n    return result\n\n\nsolution(lst)\n\n[True, True, False, True]\n\n\n['O', 'O', 'X', 'O']\n\n\n\n\n\n\ndef valid(equation):\n    equation = equation.replace('=', '==')\n    return eval(equation)\n\ndef solution(equations):\n    return [\"O\" if valid(equation) else \"X\" for equation in equations]\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\nsolution(lst)\n\n['O', 'O', 'X', 'O']"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#코드-처리하기",
-    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#코드-처리하기",
-    "title": "00. PR study (1)",
+    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#저주의-숫자-3",
+    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#저주의-숫자-3",
+    "title": "01. PR study (2)",
     "section": "",
-    "text": "def solution(code):\n    m=0\n    m_l = []\n    for i in code : \n        if i ==  \"1\" :\n            m=m+1\n            m_l.append(m)\n        else :\n            m_l.append(m)\n    mode = [0 if i % 2 ==0 else 1 for i in m_l ]\n    rat = []\n    idx = list(range(0,len(code)))\n\n    for i in idx :\n        if (mode[i]== 0) and  (i  % 2==0) :\n                rat.append(code[i])\n        elif (mode[i]==1) and (i % 2== 1) :\n                rat.append(code[i])\n                \n    result = \"\".join([i for i in rat if i !=\"1\"])\n    if len(result) == 0 :\n        return \"EMPTY\"\n    else :\n        return result\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'\n\n\n\n\n\n\ndef solution(code):\n    return \"\".join(code.split(\"1\"))[::2] or \"EMPTY\"\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'"
+    "text": "- 정수 n이 주어질 때 위와 같은 규칙을 따르는 숫지를 return 하는 함수를 작성하라\n\n\n\n임의의 숫자 n을 입력 받았을 때, 1부터 n 번째 까지의 상황을 기록하는 변수(r)가 필요\n\nr = 0\nfor i in range(1, n+1) :\n    r += 1\n2. 변수 r이 3의 배수 이거나 3을 포함하고 있는 string일 경우 r+1을 수행\n\nn=15\n\n\nr = 0\nfor i in range(1, n+1) :\n    r +=1\n    while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n        r+=1\nr\n\n25\n\n\n3. 함수로 작성\n\ndef solution(n) : \n        r = 0\n        for i in range(1, n+1) :\n            r +=1\n            while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n                r+=1\n        return r\n\n\nsolution(5)\n\n7"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#비밀지도",
-    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#비밀지도",
-    "title": "00. PR study (1)",
-    "section": "1. 비밀지도",
-    "text": "1. 비밀지도\n- 두 개의 배열을 입력받아 다음과 같은 연산을 작성하는 코드를 작성하라\n\n\n예비학습 : 비트 연산 사용하기\n- 해당 문제는 주어진 이진수를 비트 (or)연산을 이용하여 해결하는 문제이다.\n\n비트 연산 표\n\n\n\n\n\n\n\n\n연산자\n설명\n\n\n\n\n& (and)\n대응되는 비트가 모두 1이면 1을 반환\n\n\nㅣ (or)\n대응되는 비트 중에서 하나라도 1이면 1을 반환\n\n\n^ (xor)\n대응되는 비트가 서로 다르면 1을 반환\n\n\n~ (not)\n비트를 1이면 0으로, 0이변 1로 반전시킴\n\n\n&lt;&lt; (left shift)\n지정한 수만큼 비트를 왼쪽으로 전부 이동시킴 (거듭제곱)\n\n\n&gt;&gt; (right shift)\n위와 반대\n\n\n\n- 해당 문제는 주어진 이진수를 비트 (or)연산을 이용하여 해결하는 문제이다.\n1. 배열 셋팅\n\nn=5\narr1 = [9,1,28,18,11]\narr2 = [30,1,21,17,28]\n\n2 비트연산 확인\n\nprint(f'''\n   십진수 : {arr1[1]} -&gt; 이진수 변환 : { bin(arr1[0])}\n   십진수 : {arr2[1]} -&gt; 이진수 변환 : { bin(arr2[1])}\n   \n   비트연산(or) : {format(arr1[1] | arr2[1],\"b\")}\n   \n''')\n\n\n   십진수 : 1 -&gt; 이진수 변환 : 0b1001\n   십진수 : 1 -&gt; 이진수 변환 : 0b1\n   \n   비트연산(or) : 1\n   \n\n\n\n3 해당 문제는 다섯칸 전부를 채워야 하므로 비었는 부분을 0으로 채워주기\n\nr.zfill(width) : width는 숫자의 자릿수로 비어있는 부분을 0으로 채워준다.\n\n\nr = format(arr1[1] | arr2[1],\"b\")\nprint(f\"비트연산(or) : {r}, 비트연산.zfill : {r.zfill(n)}\" )\n\n비트연산(or) : 1, 비트연산.zfill : 00001\n\n\n4 “1”을 “#” 으로 바꿔주기, 0은 공백으로 바꿔주기\n\nr.zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n\n'    #'\n\n\n4 loof를 이용하여 전체의 적용\n\nresult = []\nfor i,j in zip(arr1,arr2) :\n    r = format(i | j,\"b\").zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n    result.append(r)\n\n5 결과확인\n\nresult\n\n['#####', '    #', '### #', '#  ##', '#####']\n\n\n\n\n풀이1\n\ndef solution (n,arr1,arr2) :\n    result = []\n    for i,j in zip(arr1,arr2) :\n        r = format(i | j,\"b\").zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n        result.append(r)            \n    return result"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#숫자-문자열과-영단어",
-    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#숫자-문자열과-영단어",
-    "title": "00. PR study (1)",
-    "section": "2. 숫자 문자열과 영단어",
-    "text": "2. 숫자 문자열과 영단어\n- 다음과 같은 문자와 숫자가 섞인 문자열이 주어졌을 떼 문자를 숫자로 바꿔서 완전한 숫자로 바꾸기\n\n\"one4seveneight\" \\(\\to\\) 1478\n\n\n예비학습\n1 다음과 같은 리스트를 생성\n\nlst=  [\"zero\",'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n\n\nprint(lst)\n\n['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n\n\n2 replace 함수를 이용해서 바뀌는지 확인!\n\ns = \"12one456nine12\"\n\n\ns.replace(lst[0],str(1))\n\n'12one456nine12'\n\n\n3 loop를 이용하여 문자로 표기된 것들을 모두 숫자로 변경!\n\nfor i in range(0,10) :\n    s=s.replace(lst[i],str(i))\n\n\nint(s)\n\n121456912\n\n\n\n\n풀이 1\n\ndef solution(s):\n    lst=  [\"zero\",'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n    for i in range(0,10) :\n        s=s.replace(lst[i],str(i))\n    return int(s)\n\n\nsolution(s)\n\n121456912\n\n\n\n\n풀이 2\n\nnum_dic = {\"zero\":\"0\", \"one\":\"1\", \"two\":\"2\", \"three\":\"3\", \"four\":\"4\", \"five\":\"5\", \"six\":\"6\", \"seven\":\"7\", \"eight\":\"8\", \"nine\":\"9\"}\n\ndef solution(s):\n    answer = s\n    for key, value in num_dic.items():\n        answer = answer.replace(key, value)\n    return int(answer)"
-  },
-  {
-    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html",
-    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html",
-    "title": "00. 그리디 알고리즘",
+    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#ox-퀴즈",
+    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#ox-퀴즈",
+    "title": "01. PR study (2)",
     "section": "",
-    "text": "- 현재 상황에서 지금 당장 좋은 것만 고르는 알고리즘\n\n\n- 다음과 같이 거스름돈으로 사용할 리스트가 있고, 거슬러줘야 할 돈(N)이 1,260원 이라고 하자.\n\nN = 1260\nlst=  [500,100,50,10]\n\n- 해당 문제에서 우리는 최소한의 동전 개수로 돈을 거슬러줘야한다.\n\n그리디 알고리즘을 이용해 풀 수 있는 대표적인 문제는 바로 이러한 문제이며, 해결법은 가장 큰 화폐 단위부터 돈을 거슬러 주는 것이다.\n\n\n처음에 500원짜리 2개\n그 다음, 100원 짜리 2개\n50원짜리 1개, 10원짜리 1개\n최소 6개의 동전을 이용한다!\n\n\n\n\nN = 1260\nlst=  [500,100,50,10]\n\ncount = 0 ## 동전 개수 저장\n\nfor i in lst :\n    count += N // i\n    N %= i\n\nprint(count)\n\n6\n\n\n\n\n\n\n\n- 큰 수의 법칙은 다양한 수로 이루어진 배열이 있을 때 주어진 수들을 M번 더하여 가장 큰 수를 만드는 법칙이다.\n\n규칙 1 : 단, 배열의 특정한 인덱스에 해당하는 수가 연속해서 K번 초과하여 더해질 수 없다.\n규칙 2 : 그러나 서로 다른 인덱스의 같은 수가 있다면, 같은 수를 번갈하서 K번 더할 수 있다.\n규칙 3 : K는 항상 M보다 작거나 같다\n\n- 변수 소개\n\nN : 입력 받을 배열의 자연수 개수\nM : 주어진 N개의 수에서 M번 더할 수 있음.\nK : 해당 인덱스에서 연속해서 꺼낼 수 있는 수\n\n- 입력 예시\n\nN,M,K = 5,8,3\narr = [2,4,5,4,6]\n\n\n위와 같은 배열이 주어지면 \\(\\to\\) 6 + 6 + 6 + 5 +  6  + 6 + 6 + 5 = 46\n\n\n\n- 가장 큰 수와 두 번째로 큰 수를 알고 있다면, 두 수를 번갈아서 더해 M번을 채우면 된다!!\n1 데이터 입력 받기\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\n 5 8 3\n 2 4 5 4 6\n\n\n2 입력받은 수들을 정렬\n\ndata.sort()\n\n\ndata\n\n[2, 4, 4, 5, 6]\n\n\n3 가장 큰 수와 두번째로 큰 수를 저장\n\nfirst = data[n-1]\nsecond = data[n-2]\n\n\nprint(first,second)\n\n6 5\n\n\n4 가장 큰 수가 더해지는 횟수 계산\n\n여기에서는 k가 3이므로 그리디 배열은 [6,6,6,5]이다. 따라서 전체 m을 (k+1)로 나누면 해당 배열이 그리디 배열을 반복하는 숫자이다.\n그러나 M이 (k+1)로 나누어 떨어지지 않는 경우도 고려해야한다. 그럴 때는 M을 (k+1)로 나눈 나머지만큼 가장 큰 수가 추가도 더해지므로 이를 고려한다.\n\n\nn,m,k\n\n(5, 8, 3)\n\n\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\ncount\n\n6\n\n\n5 위를 활용하여 가장 큰 수가 더해지는 횟수와 두 번째로 큰 수가 더해지는 횟수까지 구할 수 있다.\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\nresult\n\n36\n\n\n\nresult += (m-count)*second \n\n\nprint(result)\n\n46\n\n\n\n\n\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\ndata.sort()\n\n\nfirst = data[n-1]\nsecond = data[n-2]\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\n\nresult += (m-count)*second \n\nprint(result)\n\n 5 8 3\n 2 4 5 4 6\n\n\n46\n\n\n\n\n\n\n- 여러 개의 숫자 카드 중에서 가장 높은 숫자가 쓰인 카드 한 장을 뽑는 게임\n\n숫자가 쓰인 카드들이 $N \\times M$ 형태로 놓여 있다.\n먼저 뽑고자 하는 카드가 포함되어 있는 행을 선택한다.\n그다음 선택된 행에 포함된 카드들 중 가장 숫자가 낮은 카드를 뽑아야한다.\n따라서 처음에 카드를 골라낼 행을 선택할 때, 이후에 해당 행에서 가장 숫자가 낮은 카드를 뽑을 것을 고려하여 최종적으로 가장 높은 숫자의 카드를 뽑을 수 있도록 전략을 짜야함\n\n- 문제 해결 방법 : 각 행마다 가장 작은 수를 찾은 뒤에 그 수 중에서 가장 큰 수를 찾는 것!\n\n\n\nn, m = map(int,input().split())\n\nresult = 0\n\nfor i in range(n) :\n    data = list(map(int, input().split())) ## 한 줄씩 배열 입력 받기\n    min_value = min(data)\n    result = max(result,min_value) ## 가장 작은 수들 중에서 가장 큰 수 찾기\n\nprint(result)\n\n 3 3\n 3 1 2\n 4 1 4\n 2 2 2\n\n\n2\n\n\n\n\n\n\n\n어떤 수 N이 1이 될 때까지 다음의 두 과정 중 하나를 반복적으로 선택하여 수행한다.\n\nN에서 1을 뺀다.\nN을 K로 나눈다.\n\n만약 N이 17, K가 4라고 가정하자. 이때 1번의 과정을 한 번 수행하면 N은 16이 된다.\n이후에 2번의 과정을 두 번 수행하면 N은 1이 되며 이는 N을 1로 만드는 최소 횟수이다.\n- 인사이트 : 해당 문제의 해법은 최대한 나누기를 많이 하는 것이다!\n\nN이 K의 배수가 될 때까지 1을 빼기\nN을 K로 나누기\n\n\n\n- 접근 : 루프를 통해 계속해서 n을 k의 배수로 만들어준다.\n\nn, k = map(int,input().split())\n\nresult = 0\nprint(f\"n : {n}\")\nwhile True :\n    print(\"\\n빼기 연산 수행\")\n    target = (n//k) *k ## n을 k로 나눈 몫을 담기\n    print(f\"target : {target}\")\n    result += (n-target) ## 만약 n=17이고 k가 4라면 result에는 1이 저장\n    print(f\"result : {result}\")\n    n = target ## n을 target으로 바꿔줌, 즉 n을 k의 배수로 변경\n    \n    if n &lt; k : \n        break\n    n //= k # n을 k로 나누기\n    result += 1 ## 나눈 횟수 저장\n    print(\"\\n나누기 연산 수행\")\n    print(f\"n : {n}\")\n    print(f\"result : {result}\")\n   \nprint(f\"\\n n: {n}\")\nresult += (n-1)\nprint(f\"\\n result: {result}\")\n\n 17 4\n\n\nn : 17\n\n빼기 연산 수행\ntarget : 16\nresult : 1\n\n나누기 연산 수행\nn : 4\nresult : 2\n\n빼기 연산 수행\ntarget : 4\nresult : 2\n\n나누기 연산 수행\nn : 1\nresult : 3\n\n빼기 연산 수행\ntarget : 0\nresult : 4\n\n n: 0\n\n result: 3"
+    "text": "- 리스트 안에 임의의 수식들이 주어졌을 때 결과가 맞으면 “O”, 아니면 “X”를 출력하는 함수를 작성\n\n\n\nlst = [\"3 - 4 = -3\", \"5 + 6 = 11\"]\n\n- 연산이 이루어지는 쪽과 결과값을 저장\n\nl,r=lst[0].split(\"=\")\nl = l.split()\nl,r\n\n(['3', '-', '4'], ' -3')\n\n\n- 사칙연산\n\nif l[1] == \"-\" :\n    temp = int(l[0]) - int(l[-1]) == int(r)\n\n\ntemp\n\nFalse\n\n\n- 루프를 통해 모든 원소에 적용\n\nresult = []\nfor i in lst :\n    l,r=i.split(\"=\")\n    l = l.split()\n    if l[1] == \"-\" :\n        temp = int(l[0]) - int(l[-1]) == int(r)\n    else :\n        temp = int(l[0]) + int(l[-1]) == int(r)\n    \n    result.append(temp)\n\n\nresult\n\n[False, True]\n\n\n- 위 result를 “O”, “X”로 변경\n\n[\"O\" if i == True else \"X\" for i in result]\n\n['X', 'O']\n\n\n- 함수 작성\n\n\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\n\ndef solution(lst) : \n    result = []\n    for i in lst :\n        l,r=i.split(\"=\")\n        l = l.split()\n        if l[1] == \"-\" :\n            temp = int(l[0]) - int(l[-1]) == int(r)\n        else :\n            temp = int(l[0]) + int(l[-1]) == int(r)\n\n        result.append(temp)\n    print(result)\n    result = [\"O\" if i == True else \"X\" for i in result]\n    return result\n\n\nsolution(lst)\n\n[True, True, False, True]\n\n\n['O', 'O', 'X', 'O']\n\n\n\n\n\n\ndef valid(equation):\n    equation = equation.replace('=', '==')\n    return eval(equation)\n\ndef solution(equations):\n    return [\"O\" if valid(equation) else \"X\" for equation in equations]\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\nsolution(lst)\n\n['O', 'O', 'X', 'O']"
   },
   {
-    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-1.-거스름돈",
-    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-1.-거스름돈",
-    "title": "00. 그리디 알고리즘",
-    "section": "",
-    "text": "- 다음과 같이 거스름돈으로 사용할 리스트가 있고, 거슬러줘야 할 돈(N)이 1,260원 이라고 하자.\n\nN = 1260\nlst=  [500,100,50,10]\n\n- 해당 문제에서 우리는 최소한의 동전 개수로 돈을 거슬러줘야한다.\n\n그리디 알고리즘을 이용해 풀 수 있는 대표적인 문제는 바로 이러한 문제이며, 해결법은 가장 큰 화폐 단위부터 돈을 거슬러 주는 것이다.\n\n\n처음에 500원짜리 2개\n그 다음, 100원 짜리 2개\n50원짜리 1개, 10원짜리 1개\n최소 6개의 동전을 이용한다!\n\n\n\n\nN = 1260\nlst=  [500,100,50,10]\n\ncount = 0 ## 동전 개수 저장\n\nfor i in lst :\n    count += N // i\n    N %= i\n\nprint(count)\n\n6"
+    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#정수를-나선형으로-배치하기",
+    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#정수를-나선형으로-배치하기",
+    "title": "01. PR study (2)",
+    "section": "1. 정수를 나선형으로 배치하기",
+    "text": "1. 정수를 나선형으로 배치하기\n\nsol\n\n\n\n\ndef solution(n):\n    if n == 1:\n        return [[1]]\n    \n    answer = [[0 for j in range(n)] for i in range(n)] \n    x = 0\n    y = 0\n    dir = 'r'\n    for i in range(n*n):\n        answer[x][y] = i + 1\n        if dir == 'r':\n            y += 1\n            if y == n-1 or answer[x][y+1] != 0: \n                dir = 'd'\n        elif dir == 'd':\n            x += 1\n            if x == n-1 or answer[x+1][y] != 0:\n                dir = 'l'\n        elif dir == 'l':\n            y -= 1\n            if y == 0 or answer[x][y-1] != 0:\n                dir = 'u'\n        elif dir == 'u':\n            x -= 1\n            if x == n-1 or answer[x-1][y] != 0:\n                dir = 'r'        \n    return answer\n\n\nsolution(4)\n\n[[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]"
   },
   {
-    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-2.-큰-수의-법칙",
-    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-2.-큰-수의-법칙",
-    "title": "00. 그리디 알고리즘",
-    "section": "",
-    "text": "- 큰 수의 법칙은 다양한 수로 이루어진 배열이 있을 때 주어진 수들을 M번 더하여 가장 큰 수를 만드는 법칙이다.\n\n규칙 1 : 단, 배열의 특정한 인덱스에 해당하는 수가 연속해서 K번 초과하여 더해질 수 없다.\n규칙 2 : 그러나 서로 다른 인덱스의 같은 수가 있다면, 같은 수를 번갈하서 K번 더할 수 있다.\n규칙 3 : K는 항상 M보다 작거나 같다\n\n- 변수 소개\n\nN : 입력 받을 배열의 자연수 개수\nM : 주어진 N개의 수에서 M번 더할 수 있음.\nK : 해당 인덱스에서 연속해서 꺼낼 수 있는 수\n\n- 입력 예시\n\nN,M,K = 5,8,3\narr = [2,4,5,4,6]\n\n\n위와 같은 배열이 주어지면 \\(\\to\\) 6 + 6 + 6 + 5 +  6  + 6 + 6 + 5 = 46\n\n\n\n- 가장 큰 수와 두 번째로 큰 수를 알고 있다면, 두 수를 번갈아서 더해 M번을 채우면 된다!!\n1 데이터 입력 받기\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\n 5 8 3\n 2 4 5 4 6\n\n\n2 입력받은 수들을 정렬\n\ndata.sort()\n\n\ndata\n\n[2, 4, 4, 5, 6]\n\n\n3 가장 큰 수와 두번째로 큰 수를 저장\n\nfirst = data[n-1]\nsecond = data[n-2]\n\n\nprint(first,second)\n\n6 5\n\n\n4 가장 큰 수가 더해지는 횟수 계산\n\n여기에서는 k가 3이므로 그리디 배열은 [6,6,6,5]이다. 따라서 전체 m을 (k+1)로 나누면 해당 배열이 그리디 배열을 반복하는 숫자이다.\n그러나 M이 (k+1)로 나누어 떨어지지 않는 경우도 고려해야한다. 그럴 때는 M을 (k+1)로 나눈 나머지만큼 가장 큰 수가 추가도 더해지므로 이를 고려한다.\n\n\nn,m,k\n\n(5, 8, 3)\n\n\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\ncount\n\n6\n\n\n5 위를 활용하여 가장 큰 수가 더해지는 횟수와 두 번째로 큰 수가 더해지는 횟수까지 구할 수 있다.\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\nresult\n\n36\n\n\n\nresult += (m-count)*second \n\n\nprint(result)\n\n46\n\n\n\n\n\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\ndata.sort()\n\n\nfirst = data[n-1]\nsecond = data[n-2]\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\n\nresult += (m-count)*second \n\nprint(result)\n\n 5 8 3\n 2 4 5 4 6\n\n\n46"
-  },
-  {
-    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-3.-숫자-카드게임",
-    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-3.-숫자-카드게임",
-    "title": "00. 그리디 알고리즘",
-    "section": "",
-    "text": "- 여러 개의 숫자 카드 중에서 가장 높은 숫자가 쓰인 카드 한 장을 뽑는 게임\n\n숫자가 쓰인 카드들이 $N \\times M$ 형태로 놓여 있다.\n먼저 뽑고자 하는 카드가 포함되어 있는 행을 선택한다.\n그다음 선택된 행에 포함된 카드들 중 가장 숫자가 낮은 카드를 뽑아야한다.\n따라서 처음에 카드를 골라낼 행을 선택할 때, 이후에 해당 행에서 가장 숫자가 낮은 카드를 뽑을 것을 고려하여 최종적으로 가장 높은 숫자의 카드를 뽑을 수 있도록 전략을 짜야함\n\n- 문제 해결 방법 : 각 행마다 가장 작은 수를 찾은 뒤에 그 수 중에서 가장 큰 수를 찾는 것!\n\n\n\nn, m = map(int,input().split())\n\nresult = 0\n\nfor i in range(n) :\n    data = list(map(int, input().split())) ## 한 줄씩 배열 입력 받기\n    min_value = min(data)\n    result = max(result,min_value) ## 가장 작은 수들 중에서 가장 큰 수 찾기\n\nprint(result)\n\n 3 3\n 3 1 2\n 4 1 4\n 2 2 2\n\n\n2"
-  },
-  {
-    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-4.-1이-될-때까지-starstar",
-    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-4.-1이-될-때까지-starstar",
-    "title": "00. 그리디 알고리즘",
-    "section": "",
-    "text": "어떤 수 N이 1이 될 때까지 다음의 두 과정 중 하나를 반복적으로 선택하여 수행한다.\n\nN에서 1을 뺀다.\nN을 K로 나눈다.\n\n만약 N이 17, K가 4라고 가정하자. 이때 1번의 과정을 한 번 수행하면 N은 16이 된다.\n이후에 2번의 과정을 두 번 수행하면 N은 1이 되며 이는 N을 1로 만드는 최소 횟수이다.\n- 인사이트 : 해당 문제의 해법은 최대한 나누기를 많이 하는 것이다!\n\nN이 K의 배수가 될 때까지 1을 빼기\nN을 K로 나누기\n\n\n\n- 접근 : 루프를 통해 계속해서 n을 k의 배수로 만들어준다.\n\nn, k = map(int,input().split())\n\nresult = 0\nprint(f\"n : {n}\")\nwhile True :\n    print(\"\\n빼기 연산 수행\")\n    target = (n//k) *k ## n을 k로 나눈 몫을 담기\n    print(f\"target : {target}\")\n    result += (n-target) ## 만약 n=17이고 k가 4라면 result에는 1이 저장\n    print(f\"result : {result}\")\n    n = target ## n을 target으로 바꿔줌, 즉 n을 k의 배수로 변경\n    \n    if n &lt; k : \n        break\n    n //= k # n을 k로 나누기\n    result += 1 ## 나눈 횟수 저장\n    print(\"\\n나누기 연산 수행\")\n    print(f\"n : {n}\")\n    print(f\"result : {result}\")\n   \nprint(f\"\\n n: {n}\")\nresult += (n-1)\nprint(f\"\\n result: {result}\")\n\n 17 4\n\n\nn : 17\n\n빼기 연산 수행\ntarget : 16\nresult : 1\n\n나누기 연산 수행\nn : 4\nresult : 2\n\n빼기 연산 수행\ntarget : 4\nresult : 2\n\n나누기 연산 수행\nn : 1\nresult : 3\n\n빼기 연산 수행\ntarget : 0\nresult : 4\n\n n: 0\n\n result: 3"
-  },
-  {
-    "objectID": "about.html#education",
-    "href": "about.html#education",
-    "title": "About Me",
-    "section": "Education",
-    "text": "Education\n- 전북대학교 통계학과 학사(부전공: 컴퓨터공학) 졸업 | 3.67 / 4.50 | 2015. 03 ~ 2021. 02\n- 전북대학교 통계학과 석사 졸업 | 4.44 / 4.50 | 2021. 03 ~ 2023. 02"
-  },
-  {
-    "objectID": "about.html#experience",
-    "href": "about.html#experience",
-    "title": "About Me",
-    "section": "Experience",
-    "text": "Experience\n- 국민연금공단 빅데이터부 현장실습 | 2020. 03 ~ 2020. 06\n- 지역 문화산업 융복합 데이터 전문가 과정 | 과학기술정보통신부, 한국데이터산업진흥원 | 2021. 06 ~ 2021. 08\n- 빅데이터 혁신공유대학사업 서포터즈 |전북대학교 빅데이터 현신공유대학사업| 2021. 07. 01 ~ 2021. 10. 31\n- KT AIVLE School DX Consultant Track | KT | 2023. 08 ~"
-  },
-  {
-    "objectID": "about.html#publications",
-    "href": "about.html#publications",
-    "title": "About Me",
-    "section": "Publications",
-    "text": "Publications\n- 데이터 분석을 통한 지역별 고령친화도 시각화\n`-` 김영선, 강민구, 이강철 등  | 문화융복합아카이빙연구소 | 2021. 10 | 기록관리/보존 \n- 핵심어 추출 및 데이터 증강기법을 이용한 텍스트 분류 모델 성능 개선\n`-` 이강철, 안정용 | 한국자료분석학회 | 한국자료분석학회 | 2022. 10 | 통계학"
-  },
-  {
-    "objectID": "about.html#certificate",
-    "href": "about.html#certificate",
-    "title": "About Me",
-    "section": "Certificate",
-    "text": "Certificate\n- 워드프로세서 | 대한상공회의소 | 19-19-017981 | 2019. 08. 30\n- 데이터분석준전문가(ADsP) | 한국데이터진흥원 | ADsP-0223898 | 2019. 10. 01\n- 사회조사분석사 2급 | 한국산업인력공단 | 19201142418N | 2019. 10. 01"
-  },
-  {
-    "objectID": "about.html#conctact",
-    "href": "about.html#conctact",
-    "title": "About Me",
-    "section": "Conctact",
-    "text": "Conctact\n- rkdcjf8232@gmail.com"
-  },
-  {
-    "objectID": "index.html",
-    "href": "index.html",
-    "title": "IA2023",
-    "section": "",
-    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nOct 8, 2023\n\n\n04. 다이나믹 프로그래밍\n\n\nGC \n\n\n\n\nSep 24, 2023\n\n\n03. PR study (4)\n\n\nGC \n\n\n\n\nSep 7, 2023\n\n\n02. PR study (3)\n\n\nGC \n\n\n\n\nSep 3, 2023\n\n\n01. PR study (2)\n\n\nGC \n\n\n\n\nAug 24, 2023\n\n\n00. 그리디 알고리즘\n\n\nGC \n\n\n\n\nAug 23, 2023\n\n\n00. PR study (1)\n\n\nGC \n\n\n\n\nAug 16, 2023\n\n\n00. Lv. 0\n\n\nGC \n\n\n\n\n\n\nNo matching items"
+    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#직사각형-별찍기",
+    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#직사각형-별찍기",
+    "title": "01. PR study (2)",
+    "section": "2. 직사각형 별찍기",
+    "text": "2. 직사각형 별찍기\n- n과 m을 입력받아 \\(n \\times m\\) 크기 만큼 * 채우기\n\nsol 1\n\nn,m = map(int,input().split())\n\n 5 3\n\n\n\nprint((\"*\"*n +\"\\n\")*m)\n\n*****\n*****\n*****\n\n\n\n\n\nsol 2\n\nfor i in range(m) :\n    print(\"*\"*n)\n\n*****\n*****\n*****"
   },
   {
     "objectID": "posts/coding test/PR/2023-08-16-00. Lv 0.html",
@@ -371,94 +294,248 @@
     "text": "두 배열의 길이가 다르다면, 배열의 길이가 긴 쪽이 더 크다.\n배열의 길이가 같다면 각 배열에 있는 모든 원소의 합을 비교하여 다르다면 더 큰 쪽이 크고, 같다면 같다.\n두 정수 배열 arr1과 arr2가 주어질 때, 위에서 정의한 배열의 대소관계에 대하여 arr2가 크다면 -1, arr1이 크다면 1, 두 배열이 같다면 0을 return 하는 solution 함수를 작성\n\n\ndef solution(arr1, arr2):\n    if len(arr1) &lt; len(arr2) :\n        return -1\n    elif len(arr1) == len(arr2) :\n        if sum(arr1) &gt; sum(arr2) :\n            return 1\n        elif sum(arr1) == sum(arr2) : \n            return 0\n        else : return -1\n    else : return 1\n\n\narr1 = [49, 13]\narr2 =  [70, 11, 2]\n\n\nsolution(arr1,arr2)\n\n-1\n\n\n\na = [1, 2, 3, 4] + [2]\n\nprint(a)\n\n[1, 2, 3, 4, 2]"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html",
-    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html",
-    "title": "01. PR study (2)",
+    "objectID": "index.html",
+    "href": "index.html",
+    "title": "IA2023",
     "section": "",
-    "text": "- 정수 n이 주어질 때 위와 같은 규칙을 따르는 숫지를 return 하는 함수를 작성하라\n\n\n\n임의의 숫자 n을 입력 받았을 때, 1부터 n 번째 까지의 상황을 기록하는 변수(r)가 필요\n\nr = 0\nfor i in range(1, n+1) :\n    r += 1\n2. 변수 r이 3의 배수 이거나 3을 포함하고 있는 string일 경우 r+1을 수행\n\nn=15\n\n\nr = 0\nfor i in range(1, n+1) :\n    r +=1\n    while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n        r+=1\nr\n\n25\n\n\n3. 함수로 작성\n\ndef solution(n) : \n        r = 0\n        for i in range(1, n+1) :\n            r +=1\n            while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n                r+=1\n        return r\n\n\nsolution(5)\n\n7\n\n\n\n\n\n\n\n- 리스트 안에 임의의 수식들이 주어졌을 때 결과가 맞으면 “O”, 아니면 “X”를 출력하는 함수를 작성\n\n\n\nlst = [\"3 - 4 = -3\", \"5 + 6 = 11\"]\n\n- 연산이 이루어지는 쪽과 결과값을 저장\n\nl,r=lst[0].split(\"=\")\nl = l.split()\nl,r\n\n(['3', '-', '4'], ' -3')\n\n\n- 사칙연산\n\nif l[1] == \"-\" :\n    temp = int(l[0]) - int(l[-1]) == int(r)\n\n\ntemp\n\nFalse\n\n\n- 루프를 통해 모든 원소에 적용\n\nresult = []\nfor i in lst :\n    l,r=i.split(\"=\")\n    l = l.split()\n    if l[1] == \"-\" :\n        temp = int(l[0]) - int(l[-1]) == int(r)\n    else :\n        temp = int(l[0]) + int(l[-1]) == int(r)\n    \n    result.append(temp)\n\n\nresult\n\n[False, True]\n\n\n- 위 result를 “O”, “X”로 변경\n\n[\"O\" if i == True else \"X\" for i in result]\n\n['X', 'O']\n\n\n- 함수 작성\n\n\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\n\ndef solution(lst) : \n    result = []\n    for i in lst :\n        l,r=i.split(\"=\")\n        l = l.split()\n        if l[1] == \"-\" :\n            temp = int(l[0]) - int(l[-1]) == int(r)\n        else :\n            temp = int(l[0]) + int(l[-1]) == int(r)\n\n        result.append(temp)\n    print(result)\n    result = [\"O\" if i == True else \"X\" for i in result]\n    return result\n\n\nsolution(lst)\n\n[True, True, False, True]\n\n\n['O', 'O', 'X', 'O']\n\n\n\n\n\n\ndef valid(equation):\n    equation = equation.replace('=', '==')\n    return eval(equation)\n\ndef solution(equations):\n    return [\"O\" if valid(equation) else \"X\" for equation in equations]\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\nsolution(lst)\n\n['O', 'O', 'X', 'O']"
+    "text": "Order By\n       Default\n         \n          Date - Oldest\n        \n         \n          Date - Newest\n        \n         \n          Title\n        \n         \n          Author\n        \n     \n  \n    \n      \n      \n    \n\n\n\n\n\n\nDate\n\n\nTitle\n\n\nAuthor\n\n\n\n\n\n\nOct 23, 2023\n\n\n06. DFS & BFS\n\n\nGC \n\n\n\n\nOct 8, 2023\n\n\n04. 다이나믹 프로그래밍\n\n\nGC \n\n\n\n\nSep 24, 2023\n\n\n03. PR study (4)\n\n\nGC \n\n\n\n\nSep 7, 2023\n\n\n02. PR study (3)\n\n\nGC \n\n\n\n\nSep 3, 2023\n\n\n01. PR study (2)\n\n\nGC \n\n\n\n\nAug 24, 2023\n\n\n00. 그리디 알고리즘\n\n\nGC \n\n\n\n\nAug 23, 2023\n\n\n00. PR study (1)\n\n\nGC \n\n\n\n\nAug 16, 2023\n\n\n00. Lv. 0\n\n\nGC \n\n\n\n\n\n\nNo matching items"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#저주의-숫자-3",
-    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#저주의-숫자-3",
-    "title": "01. PR study (2)",
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "About Me",
+    "section": "Education",
+    "text": "Education\n- 전북대학교 통계학과 학사(부전공: 컴퓨터공학) 졸업 | 3.67 / 4.50 | 2015. 03 ~ 2021. 02\n- 전북대학교 통계학과 석사 졸업 | 4.44 / 4.50 | 2021. 03 ~ 2023. 02"
+  },
+  {
+    "objectID": "about.html#experience",
+    "href": "about.html#experience",
+    "title": "About Me",
+    "section": "Experience",
+    "text": "Experience\n- 국민연금공단 빅데이터부 현장실습 | 2020. 03 ~ 2020. 06\n- 지역 문화산업 융복합 데이터 전문가 과정 | 과학기술정보통신부, 한국데이터산업진흥원 | 2021. 06 ~ 2021. 08\n- 빅데이터 혁신공유대학사업 서포터즈 |전북대학교 빅데이터 현신공유대학사업| 2021. 07. 01 ~ 2021. 10. 31\n- KT AIVLE School DX Consultant Track | KT | 2023. 08 ~"
+  },
+  {
+    "objectID": "about.html#publications",
+    "href": "about.html#publications",
+    "title": "About Me",
+    "section": "Publications",
+    "text": "Publications\n- 데이터 분석을 통한 지역별 고령친화도 시각화\n`-` 김영선, 강민구, 이강철 등  | 문화융복합아카이빙연구소 | 2021. 10 | 기록관리/보존 \n- 핵심어 추출 및 데이터 증강기법을 이용한 텍스트 분류 모델 성능 개선\n`-` 이강철, 안정용 | 한국자료분석학회 | 한국자료분석학회 | 2022. 10 | 통계학"
+  },
+  {
+    "objectID": "about.html#certificate",
+    "href": "about.html#certificate",
+    "title": "About Me",
+    "section": "Certificate",
+    "text": "Certificate\n- 워드프로세서 | 대한상공회의소 | 19-19-017981 | 2019. 08. 30\n- 데이터분석준전문가(ADsP) | 한국데이터진흥원 | ADsP-0223898 | 2019. 10. 01\n- 사회조사분석사 2급 | 한국산업인력공단 | 19201142418N | 2019. 10. 01"
+  },
+  {
+    "objectID": "about.html#conctact",
+    "href": "about.html#conctact",
+    "title": "About Me",
+    "section": "Conctact",
+    "text": "Conctact\n- rkdcjf8232@gmail.com"
+  },
+  {
+    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html",
+    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html",
+    "title": "00. 그리디 알고리즘",
     "section": "",
-    "text": "- 정수 n이 주어질 때 위와 같은 규칙을 따르는 숫지를 return 하는 함수를 작성하라\n\n\n\n임의의 숫자 n을 입력 받았을 때, 1부터 n 번째 까지의 상황을 기록하는 변수(r)가 필요\n\nr = 0\nfor i in range(1, n+1) :\n    r += 1\n2. 변수 r이 3의 배수 이거나 3을 포함하고 있는 string일 경우 r+1을 수행\n\nn=15\n\n\nr = 0\nfor i in range(1, n+1) :\n    r +=1\n    while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n        r+=1\nr\n\n25\n\n\n3. 함수로 작성\n\ndef solution(n) : \n        r = 0\n        for i in range(1, n+1) :\n            r +=1\n            while (r % 3 == 0) or ('3' in str(r)) : ## 30,31,32... 이럴경우 for문에서 계속 반복해야 하므로\n                r+=1\n        return r\n\n\nsolution(5)\n\n7"
+    "text": "- 현재 상황에서 지금 당장 좋은 것만 고르는 알고리즘\n\n\n- 다음과 같이 거스름돈으로 사용할 리스트가 있고, 거슬러줘야 할 돈(N)이 1,260원 이라고 하자.\n\nN = 1260\nlst=  [500,100,50,10]\n\n- 해당 문제에서 우리는 최소한의 동전 개수로 돈을 거슬러줘야한다.\n\n그리디 알고리즘을 이용해 풀 수 있는 대표적인 문제는 바로 이러한 문제이며, 해결법은 가장 큰 화폐 단위부터 돈을 거슬러 주는 것이다.\n\n\n처음에 500원짜리 2개\n그 다음, 100원 짜리 2개\n50원짜리 1개, 10원짜리 1개\n최소 6개의 동전을 이용한다!\n\n\n\n\nN = 1260\nlst=  [500,100,50,10]\n\ncount = 0 ## 동전 개수 저장\n\nfor i in lst :\n    count += N // i\n    N %= i\n\nprint(count)\n\n6\n\n\n\n\n\n\n\n- 큰 수의 법칙은 다양한 수로 이루어진 배열이 있을 때 주어진 수들을 M번 더하여 가장 큰 수를 만드는 법칙이다.\n\n규칙 1 : 단, 배열의 특정한 인덱스에 해당하는 수가 연속해서 K번 초과하여 더해질 수 없다.\n규칙 2 : 그러나 서로 다른 인덱스의 같은 수가 있다면, 같은 수를 번갈하서 K번 더할 수 있다.\n규칙 3 : K는 항상 M보다 작거나 같다\n\n- 변수 소개\n\nN : 입력 받을 배열의 자연수 개수\nM : 주어진 N개의 수에서 M번 더할 수 있음.\nK : 해당 인덱스에서 연속해서 꺼낼 수 있는 수\n\n- 입력 예시\n\nN,M,K = 5,8,3\narr = [2,4,5,4,6]\n\n\n위와 같은 배열이 주어지면 \\(\\to\\) 6 + 6 + 6 + 5 +  6  + 6 + 6 + 5 = 46\n\n\n\n- 가장 큰 수와 두 번째로 큰 수를 알고 있다면, 두 수를 번갈아서 더해 M번을 채우면 된다!!\n1 데이터 입력 받기\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\n 5 8 3\n 2 4 5 4 6\n\n\n2 입력받은 수들을 정렬\n\ndata.sort()\n\n\ndata\n\n[2, 4, 4, 5, 6]\n\n\n3 가장 큰 수와 두번째로 큰 수를 저장\n\nfirst = data[n-1]\nsecond = data[n-2]\n\n\nprint(first,second)\n\n6 5\n\n\n4 가장 큰 수가 더해지는 횟수 계산\n\n여기에서는 k가 3이므로 그리디 배열은 [6,6,6,5]이다. 따라서 전체 m을 (k+1)로 나누면 해당 배열이 그리디 배열을 반복하는 숫자이다.\n그러나 M이 (k+1)로 나누어 떨어지지 않는 경우도 고려해야한다. 그럴 때는 M을 (k+1)로 나눈 나머지만큼 가장 큰 수가 추가도 더해지므로 이를 고려한다.\n\n\nn,m,k\n\n(5, 8, 3)\n\n\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\ncount\n\n6\n\n\n5 위를 활용하여 가장 큰 수가 더해지는 횟수와 두 번째로 큰 수가 더해지는 횟수까지 구할 수 있다.\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\nresult\n\n36\n\n\n\nresult += (m-count)*second \n\n\nprint(result)\n\n46\n\n\n\n\n\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\ndata.sort()\n\n\nfirst = data[n-1]\nsecond = data[n-2]\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\n\nresult += (m-count)*second \n\nprint(result)\n\n 5 8 3\n 2 4 5 4 6\n\n\n46\n\n\n\n\n\n\n- 여러 개의 숫자 카드 중에서 가장 높은 숫자가 쓰인 카드 한 장을 뽑는 게임\n\n숫자가 쓰인 카드들이 $N \\times M$ 형태로 놓여 있다.\n먼저 뽑고자 하는 카드가 포함되어 있는 행을 선택한다.\n그다음 선택된 행에 포함된 카드들 중 가장 숫자가 낮은 카드를 뽑아야한다.\n따라서 처음에 카드를 골라낼 행을 선택할 때, 이후에 해당 행에서 가장 숫자가 낮은 카드를 뽑을 것을 고려하여 최종적으로 가장 높은 숫자의 카드를 뽑을 수 있도록 전략을 짜야함\n\n- 문제 해결 방법 : 각 행마다 가장 작은 수를 찾은 뒤에 그 수 중에서 가장 큰 수를 찾는 것!\n\n\n\nn, m = map(int,input().split())\n\nresult = 0\n\nfor i in range(n) :\n    data = list(map(int, input().split())) ## 한 줄씩 배열 입력 받기\n    min_value = min(data)\n    result = max(result,min_value) ## 가장 작은 수들 중에서 가장 큰 수 찾기\n\nprint(result)\n\n 3 3\n 3 1 2\n 4 1 4\n 2 2 2\n\n\n2\n\n\n\n\n\n\n\n어떤 수 N이 1이 될 때까지 다음의 두 과정 중 하나를 반복적으로 선택하여 수행한다.\n\nN에서 1을 뺀다.\nN을 K로 나눈다.\n\n만약 N이 17, K가 4라고 가정하자. 이때 1번의 과정을 한 번 수행하면 N은 16이 된다.\n이후에 2번의 과정을 두 번 수행하면 N은 1이 되며 이는 N을 1로 만드는 최소 횟수이다.\n- 인사이트 : 해당 문제의 해법은 최대한 나누기를 많이 하는 것이다!\n\nN이 K의 배수가 될 때까지 1을 빼기\nN을 K로 나누기\n\n\n\n- 접근 : 루프를 통해 계속해서 n을 k의 배수로 만들어준다.\n\nn, k = map(int,input().split())\n\nresult = 0\nprint(f\"n : {n}\")\nwhile True :\n    print(\"\\n빼기 연산 수행\")\n    target = (n//k) *k ## n을 k로 나눈 몫을 담기\n    print(f\"target : {target}\")\n    result += (n-target) ## 만약 n=17이고 k가 4라면 result에는 1이 저장\n    print(f\"result : {result}\")\n    n = target ## n을 target으로 바꿔줌, 즉 n을 k의 배수로 변경\n    \n    if n &lt; k : \n        break\n    n //= k # n을 k로 나누기\n    result += 1 ## 나눈 횟수 저장\n    print(\"\\n나누기 연산 수행\")\n    print(f\"n : {n}\")\n    print(f\"result : {result}\")\n   \nprint(f\"\\n n: {n}\")\nresult += (n-1)\nprint(f\"\\n result: {result}\")\n\n 17 4\n\n\nn : 17\n\n빼기 연산 수행\ntarget : 16\nresult : 1\n\n나누기 연산 수행\nn : 4\nresult : 2\n\n빼기 연산 수행\ntarget : 4\nresult : 2\n\n나누기 연산 수행\nn : 1\nresult : 3\n\n빼기 연산 수행\ntarget : 0\nresult : 4\n\n n: 0\n\n result: 3"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#ox-퀴즈",
-    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#ox-퀴즈",
-    "title": "01. PR study (2)",
+    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-1.-거스름돈",
+    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-1.-거스름돈",
+    "title": "00. 그리디 알고리즘",
     "section": "",
-    "text": "- 리스트 안에 임의의 수식들이 주어졌을 때 결과가 맞으면 “O”, 아니면 “X”를 출력하는 함수를 작성\n\n\n\nlst = [\"3 - 4 = -3\", \"5 + 6 = 11\"]\n\n- 연산이 이루어지는 쪽과 결과값을 저장\n\nl,r=lst[0].split(\"=\")\nl = l.split()\nl,r\n\n(['3', '-', '4'], ' -3')\n\n\n- 사칙연산\n\nif l[1] == \"-\" :\n    temp = int(l[0]) - int(l[-1]) == int(r)\n\n\ntemp\n\nFalse\n\n\n- 루프를 통해 모든 원소에 적용\n\nresult = []\nfor i in lst :\n    l,r=i.split(\"=\")\n    l = l.split()\n    if l[1] == \"-\" :\n        temp = int(l[0]) - int(l[-1]) == int(r)\n    else :\n        temp = int(l[0]) + int(l[-1]) == int(r)\n    \n    result.append(temp)\n\n\nresult\n\n[False, True]\n\n\n- 위 result를 “O”, “X”로 변경\n\n[\"O\" if i == True else \"X\" for i in result]\n\n['X', 'O']\n\n\n- 함수 작성\n\n\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\n\ndef solution(lst) : \n    result = []\n    for i in lst :\n        l,r=i.split(\"=\")\n        l = l.split()\n        if l[1] == \"-\" :\n            temp = int(l[0]) - int(l[-1]) == int(r)\n        else :\n            temp = int(l[0]) + int(l[-1]) == int(r)\n\n        result.append(temp)\n    print(result)\n    result = [\"O\" if i == True else \"X\" for i in result]\n    return result\n\n\nsolution(lst)\n\n[True, True, False, True]\n\n\n['O', 'O', 'X', 'O']\n\n\n\n\n\n\ndef valid(equation):\n    equation = equation.replace('=', '==')\n    return eval(equation)\n\ndef solution(equations):\n    return [\"O\" if valid(equation) else \"X\" for equation in equations]\n\n\nlst =[\"19 - 6 = 13\", \"5 + 66 = 71\", \"5 - 15 = 63\", \"3 - 1 = 2\"]\nsolution(lst)\n\n['O', 'O', 'X', 'O']"
+    "text": "- 다음과 같이 거스름돈으로 사용할 리스트가 있고, 거슬러줘야 할 돈(N)이 1,260원 이라고 하자.\n\nN = 1260\nlst=  [500,100,50,10]\n\n- 해당 문제에서 우리는 최소한의 동전 개수로 돈을 거슬러줘야한다.\n\n그리디 알고리즘을 이용해 풀 수 있는 대표적인 문제는 바로 이러한 문제이며, 해결법은 가장 큰 화폐 단위부터 돈을 거슬러 주는 것이다.\n\n\n처음에 500원짜리 2개\n그 다음, 100원 짜리 2개\n50원짜리 1개, 10원짜리 1개\n최소 6개의 동전을 이용한다!\n\n\n\n\nN = 1260\nlst=  [500,100,50,10]\n\ncount = 0 ## 동전 개수 저장\n\nfor i in lst :\n    count += N // i\n    N %= i\n\nprint(count)\n\n6"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#정수를-나선형으로-배치하기",
-    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#정수를-나선형으로-배치하기",
-    "title": "01. PR study (2)",
-    "section": "1. 정수를 나선형으로 배치하기",
-    "text": "1. 정수를 나선형으로 배치하기\n\nsol\n\n\n\n\ndef solution(n):\n    if n == 1:\n        return [[1]]\n    \n    answer = [[0 for j in range(n)] for i in range(n)] \n    x = 0\n    y = 0\n    dir = 'r'\n    for i in range(n*n):\n        answer[x][y] = i + 1\n        if dir == 'r':\n            y += 1\n            if y == n-1 or answer[x][y+1] != 0: \n                dir = 'd'\n        elif dir == 'd':\n            x += 1\n            if x == n-1 or answer[x+1][y] != 0:\n                dir = 'l'\n        elif dir == 'l':\n            y -= 1\n            if y == 0 or answer[x][y-1] != 0:\n                dir = 'u'\n        elif dir == 'u':\n            x -= 1\n            if x == n-1 or answer[x-1][y] != 0:\n                dir = 'r'        \n    return answer\n\n\nsolution(4)\n\n[[1, 2, 3, 4], [12, 13, 14, 5], [11, 16, 15, 6], [10, 9, 8, 7]]"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#직사각형-별찍기",
-    "href": "posts/coding test/PR/study/2023-08-27-01. PR study (2).html#직사각형-별찍기",
-    "title": "01. PR study (2)",
-    "section": "2. 직사각형 별찍기",
-    "text": "2. 직사각형 별찍기\n- n과 m을 입력받아 \\(n \\times m\\) 크기 만큼 * 채우기\n\nsol 1\n\nn,m = map(int,input().split())\n\n 5 3\n\n\n\nprint((\"*\"*n +\"\\n\")*m)\n\n*****\n*****\n*****\n\n\n\n\n\nsol 2\n\nfor i in range(m) :\n    print(\"*\"*n)\n\n*****\n*****\n*****"
-  },
-  {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html",
-    "title": "03. PR study (4)",
+    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-2.-큰-수의-법칙",
+    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-2.-큰-수의-법칙",
+    "title": "00. 그리디 알고리즘",
     "section": "",
-    "text": "A = [\"hello\", \"apple\", \"stat\", \"abc\"]\nB = [\"lohel\", \"elppa\", \"tata\", \"abc\"]\n\n\na = A[0]\nb = B[0]\n\n\ndef solution(a,b) : \n    if b not in a*2 : ### hello*2 -&gt; hellohello \n        return -1\n    if a==b : \n        return 0\n    for i in range(len(a)) :\n        r = a[-1]\n        temp = r+a[0:-1]\n        print(f\"{i+1}번 밀기\")\n        a = temp\n        print(f\"{i+1}번 민 후 결과 : {a}\")\n        print(\"\\n\")\n        print(\"*\"*50)\n        print(\"\\n\")\n        if a == b : break\n    return i+1\n\n\nsolution(a,b)\n\n1번 밀기\n1번 민 후 결과 : ohell\n\n\n**************************************************\n\n\n2번 밀기\n2번 민 후 결과 : lohel\n\n\n**************************************************\n\n\n\n\n2"
+    "text": "- 큰 수의 법칙은 다양한 수로 이루어진 배열이 있을 때 주어진 수들을 M번 더하여 가장 큰 수를 만드는 법칙이다.\n\n규칙 1 : 단, 배열의 특정한 인덱스에 해당하는 수가 연속해서 K번 초과하여 더해질 수 없다.\n규칙 2 : 그러나 서로 다른 인덱스의 같은 수가 있다면, 같은 수를 번갈하서 K번 더할 수 있다.\n규칙 3 : K는 항상 M보다 작거나 같다\n\n- 변수 소개\n\nN : 입력 받을 배열의 자연수 개수\nM : 주어진 N개의 수에서 M번 더할 수 있음.\nK : 해당 인덱스에서 연속해서 꺼낼 수 있는 수\n\n- 입력 예시\n\nN,M,K = 5,8,3\narr = [2,4,5,4,6]\n\n\n위와 같은 배열이 주어지면 \\(\\to\\) 6 + 6 + 6 + 5 +  6  + 6 + 6 + 5 = 46\n\n\n\n- 가장 큰 수와 두 번째로 큰 수를 알고 있다면, 두 수를 번갈아서 더해 M번을 채우면 된다!!\n1 데이터 입력 받기\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\n 5 8 3\n 2 4 5 4 6\n\n\n2 입력받은 수들을 정렬\n\ndata.sort()\n\n\ndata\n\n[2, 4, 4, 5, 6]\n\n\n3 가장 큰 수와 두번째로 큰 수를 저장\n\nfirst = data[n-1]\nsecond = data[n-2]\n\n\nprint(first,second)\n\n6 5\n\n\n4 가장 큰 수가 더해지는 횟수 계산\n\n여기에서는 k가 3이므로 그리디 배열은 [6,6,6,5]이다. 따라서 전체 m을 (k+1)로 나누면 해당 배열이 그리디 배열을 반복하는 숫자이다.\n그러나 M이 (k+1)로 나누어 떨어지지 않는 경우도 고려해야한다. 그럴 때는 M을 (k+1)로 나눈 나머지만큼 가장 큰 수가 추가도 더해지므로 이를 고려한다.\n\n\nn,m,k\n\n(5, 8, 3)\n\n\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\ncount\n\n6\n\n\n5 위를 활용하여 가장 큰 수가 더해지는 횟수와 두 번째로 큰 수가 더해지는 횟수까지 구할 수 있다.\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\nresult\n\n36\n\n\n\nresult += (m-count)*second \n\n\nprint(result)\n\n46\n\n\n\n\n\n\nn,m,k  = map(int, input().split())\ndata = list(map(int,input().split()))\n\ndata.sort()\n\n\nfirst = data[n-1]\nsecond = data[n-2]\n\ncount = int(m/(k+1))*k\ncount += m%(k+1)\n\n\nresult = 0\nresult += (count)*first # 가장 큰 수 더하기\n\nresult += (m-count)*second \n\nprint(result)\n\n 5 8 3\n 2 4 5 4 6\n\n\n46"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol",
-    "title": "03. PR study (4)",
+    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-3.-숫자-카드게임",
+    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-3.-숫자-카드게임",
+    "title": "00. 그리디 알고리즘",
     "section": "",
-    "text": "A = [\"hello\", \"apple\", \"stat\", \"abc\"]\nB = [\"lohel\", \"elppa\", \"tata\", \"abc\"]\n\n\na = A[0]\nb = B[0]\n\n\ndef solution(a,b) : \n    if b not in a*2 : ### hello*2 -&gt; hellohello \n        return -1\n    if a==b : \n        return 0\n    for i in range(len(a)) :\n        r = a[-1]\n        temp = r+a[0:-1]\n        print(f\"{i+1}번 밀기\")\n        a = temp\n        print(f\"{i+1}번 민 후 결과 : {a}\")\n        print(\"\\n\")\n        print(\"*\"*50)\n        print(\"\\n\")\n        if a == b : break\n    return i+1\n\n\nsolution(a,b)\n\n1번 밀기\n1번 민 후 결과 : ohell\n\n\n**************************************************\n\n\n2번 밀기\n2번 민 후 결과 : lohel\n\n\n**************************************************\n\n\n\n\n2"
+    "text": "- 여러 개의 숫자 카드 중에서 가장 높은 숫자가 쓰인 카드 한 장을 뽑는 게임\n\n숫자가 쓰인 카드들이 $N \\times M$ 형태로 놓여 있다.\n먼저 뽑고자 하는 카드가 포함되어 있는 행을 선택한다.\n그다음 선택된 행에 포함된 카드들 중 가장 숫자가 낮은 카드를 뽑아야한다.\n따라서 처음에 카드를 골라낼 행을 선택할 때, 이후에 해당 행에서 가장 숫자가 낮은 카드를 뽑을 것을 고려하여 최종적으로 가장 높은 숫자의 카드를 뽑을 수 있도록 전략을 짜야함\n\n- 문제 해결 방법 : 각 행마다 가장 작은 수를 찾은 뒤에 그 수 중에서 가장 큰 수를 찾는 것!\n\n\n\nn, m = map(int,input().split())\n\nresult = 0\n\nfor i in range(n) :\n    data = list(map(int, input().split())) ## 한 줄씩 배열 입력 받기\n    min_value = min(data)\n    result = max(result,min_value) ## 가장 작은 수들 중에서 가장 큰 수 찾기\n\nprint(result)\n\n 3 3\n 3 1 2\n 4 1 4\n 2 2 2\n\n\n2"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-1",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-1",
-    "title": "03. PR study (4)",
-    "section": "sol",
-    "text": "sol\n- 평행인 2개의 직선을 그려보면 왜 \\(x\\)값을 기준으로 정렬해서 풀어야하는지 금방 이해할 수 있다.\n\ndef solution (dots) :\n    print(\"정렬 전 : \", dots)\n    dots.sort()\n    print(\"정렬 후 : \", dots)\n    [x1, y1], [x2, y2] = dots[:2]\n    [x3, y3], [x4, y4] = dots[2:]\n    \n    a1 = (y1-y2)/(x1-x2)\n    a2 = (y3-y4)/(x3-x4)\n    \n    if a1==a2 :\n        return 1\n    else : \n        return 0\n\n\nsolution(dots)\n\n정렬 전 :  [[1, 4], [3, 8], [9, 2], [11, 6]]\n정렬 후 :  [[1, 4], [3, 8], [9, 2], [11, 6]]\n\n\n1"
+    "objectID": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-4.-1이-될-때까지-starstar",
+    "href": "posts/Algorithm/2023-08-24-00. 그리디 알고리즘.html#예제-4.-1이-될-때까지-starstar",
+    "title": "00. 그리디 알고리즘",
+    "section": "",
+    "text": "어떤 수 N이 1이 될 때까지 다음의 두 과정 중 하나를 반복적으로 선택하여 수행한다.\n\nN에서 1을 뺀다.\nN을 K로 나눈다.\n\n만약 N이 17, K가 4라고 가정하자. 이때 1번의 과정을 한 번 수행하면 N은 16이 된다.\n이후에 2번의 과정을 두 번 수행하면 N은 1이 되며 이는 N을 1로 만드는 최소 횟수이다.\n- 인사이트 : 해당 문제의 해법은 최대한 나누기를 많이 하는 것이다!\n\nN이 K의 배수가 될 때까지 1을 빼기\nN을 K로 나누기\n\n\n\n- 접근 : 루프를 통해 계속해서 n을 k의 배수로 만들어준다.\n\nn, k = map(int,input().split())\n\nresult = 0\nprint(f\"n : {n}\")\nwhile True :\n    print(\"\\n빼기 연산 수행\")\n    target = (n//k) *k ## n을 k로 나눈 몫을 담기\n    print(f\"target : {target}\")\n    result += (n-target) ## 만약 n=17이고 k가 4라면 result에는 1이 저장\n    print(f\"result : {result}\")\n    n = target ## n을 target으로 바꿔줌, 즉 n을 k의 배수로 변경\n    \n    if n &lt; k : \n        break\n    n //= k # n을 k로 나누기\n    result += 1 ## 나눈 횟수 저장\n    print(\"\\n나누기 연산 수행\")\n    print(f\"n : {n}\")\n    print(f\"result : {result}\")\n   \nprint(f\"\\n n: {n}\")\nresult += (n-1)\nprint(f\"\\n result: {result}\")\n\n 17 4\n\n\nn : 17\n\n빼기 연산 수행\ntarget : 16\nresult : 1\n\n나누기 연산 수행\nn : 4\nresult : 2\n\n빼기 연산 수행\ntarget : 4\nresult : 2\n\n나누기 연산 수행\nn : 1\nresult : 3\n\n빼기 연산 수행\ntarget : 0\nresult : 4\n\n n: 0\n\n result: 3"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2",
-    "title": "03. PR study (4)",
-    "section": "sol2",
-    "text": "sol2\n\\[\\text {기울기 구하는 공식} = \\frac{(y_1-y_2)}{(x_1-x_2)}\\]\n\ndots\n\n[[1, 4], [3, 8], [9, 2], [11, 6]]\n\n\n\ndef solution(dots):\n    [[x1, y1], [x2, y2], [x3, y3], [x4, y4]]=dots\n    answer1 = ((y1-y2)*(x3-x4) == (y3-y4)*(x1-x2))\n    answer2 = ((y1-y3)*(x2-x4) == (y2-y4)*(x1-x3))\n    answer3 = ((y1-y4)*(x2-x3) == (y2-y3)*(x1-x4))\n    return 1 if answer1 or answer2 or answer3 else 0\n\n\nsolution(dots)\n\n1"
+    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html",
+    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html",
+    "title": "00. PR study (1)",
+    "section": "",
+    "text": "def solution(lst):\n    dic = {i : lst.count(i) for i in set(lst)}\n    M = max(dic.values())\n    l = [i for i in lst if lst.count(i)==M ]\n    if len(set(l)) !=1 :\n         return (-1) \n    else : \n         return (l[0])\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\ndef solution(array):\n    while len(array) != 0: ## array길이가 0이 아닐때 까지\n        \n        for i, a in enumerate(set(array)):  ## 루프를 돌려서 유니크한 값 하나씩 array에서 제거\n           \n            array.remove(a)  ## 유니크한 값 하나씩 array에서 제거 하고 다시 루프로 돌아가 유니크한 값을 다시 뽑음\n        \n        if i == 0: return a ## 그러다 보면 값이 하나만 남게 되고 유니크 인덱스가 0이 될테니 해당 값이 최빈값!\n    \n    return -1 ## [1,1,2,2] 에 경우 두번에 루프에서 array의 모든값이 제거되므로 return -1이됨\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\n\n\n\ndef solution(code):\n    m=0\n    m_l = []\n    for i in code : \n        if i ==  \"1\" :\n            m=m+1\n            m_l.append(m)\n        else :\n            m_l.append(m)\n    mode = [0 if i % 2 ==0 else 1 for i in m_l ]\n    rat = []\n    idx = list(range(0,len(code)))\n\n    for i in idx :\n        if (mode[i]== 0) and  (i  % 2==0) :\n                rat.append(code[i])\n        elif (mode[i]==1) and (i % 2== 1) :\n                rat.append(code[i])\n                \n    result = \"\".join([i for i in rat if i !=\"1\"])\n    if len(result) == 0 :\n        return \"EMPTY\"\n    else :\n        return result\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'\n\n\n\n\n\n\ndef solution(code):\n    return \"\".join(code.split(\"1\"))[::2] or \"EMPTY\"\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol1",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol1",
-    "title": "03. PR study (4)",
-    "section": "sol1",
-    "text": "sol1\n\np\n\n['mislav', 'stanko', 'mislav', 'ana']\n\n\n\nc\n\n['stanko', 'ana', 'mislav']\n\n\n\nfor i in range(len(p)) :\n    print(i,\"번째 loop\")\n    person = p.pop()\n    print(person,\"이 완주했는가?\")\n    if person in c :\n        print(person, \"은 완주했음!!\")\n        c.remove(person)\n    else : print(person, \"은 완주하지 못함...\")\n    print(\"*\"*50)\n\n0 번째 loop\nana 이 완주했는가?\nana 은 완주했음!!\n**************************************************\n1 번째 loop\nmislav 이 완주했는가?\nmislav 은 완주했음!!\n**************************************************\n2 번째 loop\nstanko 이 완주했는가?\nstanko 은 완주했음!!\n**************************************************\n3 번째 loop\nmislav 이 완주했는가?\nmislav 은 완주하지 못함...\n**************************************************"
+    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#최빈값-구하기",
+    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#최빈값-구하기",
+    "title": "00. PR study (1)",
+    "section": "",
+    "text": "def solution(lst):\n    dic = {i : lst.count(i) for i in set(lst)}\n    M = max(dic.values())\n    l = [i for i in lst if lst.count(i)==M ]\n    if len(set(l)) !=1 :\n         return (-1) \n    else : \n         return (l[0])\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1\n\n\n\n\n\n\ndef solution(array):\n    while len(array) != 0: ## array길이가 0이 아닐때 까지\n        \n        for i, a in enumerate(set(array)):  ## 루프를 돌려서 유니크한 값 하나씩 array에서 제거\n           \n            array.remove(a)  ## 유니크한 값 하나씩 array에서 제거 하고 다시 루프로 돌아가 유니크한 값을 다시 뽑음\n        \n        if i == 0: return a ## 그러다 보면 값이 하나만 남게 되고 유니크 인덱스가 0이 될테니 해당 값이 최빈값!\n    \n    return -1 ## [1,1,2,2] 에 경우 두번에 루프에서 array의 모든값이 제거되므로 return -1이됨\n\n\nprint(solution([1, 2, 3, 3, 3, 4]))\nprint(solution([1, 1, 2, 2]))\nprint(solution([1]))\n\n3\n-1\n1"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2-1",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol2-1",
-    "title": "03. PR study (4)",
-    "section": "sol2",
-    "text": "sol2\n\ndef solution(p,c) :\n    p.sort()\n    c.sort()\n    for i in range(len(c)) :\n        if p[i] != c[i] :\n            return p[i]\n    return p[-1]\n\n\nsolution(p,c)\n\n'mislav'"
+    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#코드-처리하기",
+    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#코드-처리하기",
+    "title": "00. PR study (1)",
+    "section": "",
+    "text": "def solution(code):\n    m=0\n    m_l = []\n    for i in code : \n        if i ==  \"1\" :\n            m=m+1\n            m_l.append(m)\n        else :\n            m_l.append(m)\n    mode = [0 if i % 2 ==0 else 1 for i in m_l ]\n    rat = []\n    idx = list(range(0,len(code)))\n\n    for i in idx :\n        if (mode[i]== 0) and  (i  % 2==0) :\n                rat.append(code[i])\n        elif (mode[i]==1) and (i % 2== 1) :\n                rat.append(code[i])\n                \n    result = \"\".join([i for i in rat if i !=\"1\"])\n    if len(result) == 0 :\n        return \"EMPTY\"\n    else :\n        return result\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'\n\n\n\n\n\n\ndef solution(code):\n    return \"\".join(code.split(\"1\"))[::2] or \"EMPTY\"\n\n\nsolution(\"abc1abc1abc\")\n\n'acbac'"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#예비학습",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#예비학습",
-    "title": "03. PR study (4)",
-    "section": "예비학습",
-    "text": "예비학습\n\nlines = [[0, 5], [3, 9], [1, 10]]\n\n\nlines\n\n[[0, 5], [3, 9], [1, 10]]\n\n\n\nsets = [set(range(l[0],l[1])) for l in lines]\nsets\n\n[{0, 1, 2, 3, 4}, {3, 4, 5, 6, 7, 8}, {1, 2, 3, 4, 5, 6, 7, 8, 9}]\n\n\n\\[\\text{sets[0]} \\cap \\text {sets[1]}= \\text{{3, 4}}\\]\n\n(sets[0] & sets[1])\n\n{3, 4}\n\n\n\nlen((sets[0] & sets[1]) | (sets[0] & sets[2]) | (sets[1] & sets[2]))\n\n8"
+    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#비밀지도",
+    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#비밀지도",
+    "title": "00. PR study (1)",
+    "section": "1. 비밀지도",
+    "text": "1. 비밀지도\n- 두 개의 배열을 입력받아 다음과 같은 연산을 작성하는 코드를 작성하라\n\n\n예비학습 : 비트 연산 사용하기\n- 해당 문제는 주어진 이진수를 비트 (or)연산을 이용하여 해결하는 문제이다.\n\n비트 연산 표\n\n\n\n\n\n\n\n\n연산자\n설명\n\n\n\n\n& (and)\n대응되는 비트가 모두 1이면 1을 반환\n\n\nㅣ (or)\n대응되는 비트 중에서 하나라도 1이면 1을 반환\n\n\n^ (xor)\n대응되는 비트가 서로 다르면 1을 반환\n\n\n~ (not)\n비트를 1이면 0으로, 0이변 1로 반전시킴\n\n\n&lt;&lt; (left shift)\n지정한 수만큼 비트를 왼쪽으로 전부 이동시킴 (거듭제곱)\n\n\n&gt;&gt; (right shift)\n위와 반대\n\n\n\n- 해당 문제는 주어진 이진수를 비트 (or)연산을 이용하여 해결하는 문제이다.\n1. 배열 셋팅\n\nn=5\narr1 = [9,1,28,18,11]\narr2 = [30,1,21,17,28]\n\n2 비트연산 확인\n\nprint(f'''\n   십진수 : {arr1[1]} -&gt; 이진수 변환 : { bin(arr1[0])}\n   십진수 : {arr2[1]} -&gt; 이진수 변환 : { bin(arr2[1])}\n   \n   비트연산(or) : {format(arr1[1] | arr2[1],\"b\")}\n   \n''')\n\n\n   십진수 : 1 -&gt; 이진수 변환 : 0b1001\n   십진수 : 1 -&gt; 이진수 변환 : 0b1\n   \n   비트연산(or) : 1\n   \n\n\n\n3 해당 문제는 다섯칸 전부를 채워야 하므로 비었는 부분을 0으로 채워주기\n\nr.zfill(width) : width는 숫자의 자릿수로 비어있는 부분을 0으로 채워준다.\n\n\nr = format(arr1[1] | arr2[1],\"b\")\nprint(f\"비트연산(or) : {r}, 비트연산.zfill : {r.zfill(n)}\" )\n\n비트연산(or) : 1, 비트연산.zfill : 00001\n\n\n4 “1”을 “#” 으로 바꿔주기, 0은 공백으로 바꿔주기\n\nr.zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n\n'    #'\n\n\n4 loof를 이용하여 전체의 적용\n\nresult = []\nfor i,j in zip(arr1,arr2) :\n    r = format(i | j,\"b\").zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n    result.append(r)\n\n5 결과확인\n\nresult\n\n['#####', '    #', '### #', '#  ##', '#####']\n\n\n\n\n풀이1\n\ndef solution (n,arr1,arr2) :\n    result = []\n    for i,j in zip(arr1,arr2) :\n        r = format(i | j,\"b\").zfill(n).replace(\"1\",\"#\").replace(\"0\",\" \")\n        result.append(r)            \n    return result"
   },
   {
-    "objectID": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-2",
-    "href": "posts/coding test/PR/study/2023-09-24-03. PR study (4).html#sol-2",
-    "title": "03. PR study (4)",
-    "section": "sol",
-    "text": "sol\n\ndef solution(lines):\n    sets = [set(range(min(l), max(l))) for l in lines]\n    return len(sets[0] & sets[1] | sets[0] & sets[2] | sets[1] & sets[2])\n\n\nsolution(lines)\n\n8"
+    "objectID": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#숫자-문자열과-영단어",
+    "href": "posts/coding test/PR/study/2023-08-23-00. PR study (1).html#숫자-문자열과-영단어",
+    "title": "00. PR study (1)",
+    "section": "2. 숫자 문자열과 영단어",
+    "text": "2. 숫자 문자열과 영단어\n- 다음과 같은 문자와 숫자가 섞인 문자열이 주어졌을 떼 문자를 숫자로 바꿔서 완전한 숫자로 바꾸기\n\n\"one4seveneight\" \\(\\to\\) 1478\n\n\n예비학습\n1 다음과 같은 리스트를 생성\n\nlst=  [\"zero\",'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n\n\nprint(lst)\n\n['zero', 'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n\n\n2 replace 함수를 이용해서 바뀌는지 확인!\n\ns = \"12one456nine12\"\n\n\ns.replace(lst[0],str(1))\n\n'12one456nine12'\n\n\n3 loop를 이용하여 문자로 표기된 것들을 모두 숫자로 변경!\n\nfor i in range(0,10) :\n    s=s.replace(lst[i],str(i))\n\n\nint(s)\n\n121456912\n\n\n\n\n풀이 1\n\ndef solution(s):\n    lst=  [\"zero\",'one', 'two', 'three', 'four', 'five', 'six', 'seven', 'eight', 'nine']\n    for i in range(0,10) :\n        s=s.replace(lst[i],str(i))\n    return int(s)\n\n\nsolution(s)\n\n121456912\n\n\n\n\n풀이 2\n\nnum_dic = {\"zero\":\"0\", \"one\":\"1\", \"two\":\"2\", \"three\":\"3\", \"four\":\"4\", \"five\":\"5\", \"six\":\"6\", \"seven\":\"7\", \"eight\":\"8\", \"nine\":\"9\"}\n\ndef solution(s):\n    answer = s\n    for key, value in num_dic.items():\n        answer = answer.replace(key, value)\n    return int(answer)"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html",
+    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html",
+    "title": "02. PR study (3)",
+    "section": "",
+    "text": "정수 배열 arr와 2차원 정수 배열 queries이 주어집니다.\nqueries의 원소는 각각 하나의 query를 나타내며, [s, e, k] 꼴입니다.\n각 query마다 순서대로 s ≤ i ≤ e인 모든 i에 대해 k보다 크면서 가장 작은 arr[i]를 찾습니다.\n단, 특정 쿼리의 답이 존재하지 않으면 -1을 저장\n\n\n\narr = [0,1,2,4,3]\nqueries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]\n\n\nresult = [] ## 결과를 담을 result 리스트\n\nprint(\"s &lt;= i &lt;= e 인 요소들을 arr에서 출력\\n\")\nfor j in queries :    \n    temp = arr[j[0]:j[1]+1] \n    print(\"queries의 \",j[0],\"~\",j[1],\"번째 인덱스에 속하는 arr의 요소 : \",temp)\n    temp2 = [i for i in temp if i &gt; j[2]]\n    print(\"걸러진 arr에서 query(k)보다 큰 요소들 : \",temp2)\n    print(\"\\n============================================================\\n\")\n    result.extend([temp2])\n\ns &lt;= i &lt;= e 인 요소들을 arr에서 출력\n\nqueries의  0 ~ 4 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4, 3]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4, 3]\n\n============================================================\n\nqueries의  0 ~ 3 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4]\n\n============================================================\n\nqueries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]\n걸러진 arr에서 query(k)보다 큰 요소들 :  []\n\n============================================================\n\n\n\n\n\n\ndef solution(arr, queries):\n    result = []\n    for j in queries :    \n        temp = arr[j[0]:j[1]+1] \n        #print(temp)\n        temp2 = [i for i in temp if i &gt; j[2]]\n        result.extend([temp2])\n    return [min(i) if len(i) != 0 else -1 for i in result ]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1",
+    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1",
+    "title": "02. PR study (3)",
+    "section": "",
+    "text": "arr = [0,1,2,4,3]\nqueries = [[0, 4, 2],[0, 3, 2],[0, 2, 2]]\n\n\nresult = [] ## 결과를 담을 result 리스트\n\nprint(\"s &lt;= i &lt;= e 인 요소들을 arr에서 출력\\n\")\nfor j in queries :    \n    temp = arr[j[0]:j[1]+1] \n    print(\"queries의 \",j[0],\"~\",j[1],\"번째 인덱스에 속하는 arr의 요소 : \",temp)\n    temp2 = [i for i in temp if i &gt; j[2]]\n    print(\"걸러진 arr에서 query(k)보다 큰 요소들 : \",temp2)\n    print(\"\\n============================================================\\n\")\n    result.extend([temp2])\n\ns &lt;= i &lt;= e 인 요소들을 arr에서 출력\n\nqueries의  0 ~ 4 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4, 3]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4, 3]\n\n============================================================\n\nqueries의  0 ~ 3 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2, 4]\n걸러진 arr에서 query(k)보다 큰 요소들 :  [4]\n\n============================================================\n\nqueries의  0 ~ 2 번째 인덱스에 속하는 arr의 요소 :  [0, 1, 2]\n걸러진 arr에서 query(k)보다 큰 요소들 :  []\n\n============================================================\n\n\n\n\n\n\ndef solution(arr, queries):\n    result = []\n    for j in queries :    \n        temp = arr[j[0]:j[1]+1] \n        #print(temp)\n        temp2 = [i for i in temp if i &gt; j[2]]\n        result.extend([temp2])\n    return [min(i) if len(i) != 0 else -1 for i in result ]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-1",
+    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-1",
+    "title": "02. PR study (3)",
+    "section": "sol 1",
+    "text": "sol 1\n\nprint(arr)\nfor i in range(len(query)) : \n    if i % 2 == 0 :\n        arr = arr[ : query[i]+1]\n        print(\"query =\",query[i],\", arr :\", arr)\n    else :\n        arr = arr[query[i] : ]\n        print(\"query =\",query[i],\", arr :\", arr)\n\n[0, 1, 2, 3, 4, 5]\nquery = 4 , arr : [0, 1, 2, 3, 4]\nquery = 1 , arr : [1, 2, 3, 4]\nquery = 2 , arr : [1, 2, 3]\n\n\n\n함수로 작성\n\ndef solution(arr, query):\n    for i in range(len(query)) : \n        if i % 2 == 0 :\n            arr = arr[ : query[i]+1]\n            #print(\"query =\",query[i],\", arr :\", arr)\n        else :\n            arr = arr[query[i] : ]\n            #print(\"query =\",query[i],\", arr :\", arr)\n    return arr\n\n\nsolution(arr,query)\n\n[2, 3]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-2",
+    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-2",
+    "title": "02. PR study (3)",
+    "section": "sol 1",
+    "text": "sol 1\n\na,b,c,d = 4,4,4,3\n\n\n4print(a,b,c,d,\"\\n\")\nlst = [a,b,c,d]\n\nif len(set(lst)) == 1:\n    p = lst[0]\n    print(1111*a)\n    print(\"모두 값이 같습니다. -&gt;\", 1111*p)\n    \nelif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 3:\n    p = sorted(lst)[2]\n    q = [i for i in lst if i != p][0]\n    print(\"3개의 값이 같고 1개가 다릅니다 -&gt;\", (10*p + q)**2)\n    \nelif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 2:\n    p = sorted(lst)[2]\n    q = [i for i in lst if i != p][0]\n    print(\"2개씩 같은값이 각각 존재 -&gt; \", (p+q)*abs(p-q))\n\nelif len(set(lst)) == 3 :\n    dic = {i : lst.count(i) for i in lst}\n    q,r = (i  for i,j in dic.items() if j != 2)\n    print(\"2개의 값이 같고, 나머지 두개는 값이 다름. -&gt; \", q*r)\nelse : \n    print(\"다다름\",min(lst))\n\n\n함수로 작성\n\ndef solution(a, b, c, d):\n    lst = [a,b,c,d]\n\n    if len(set(lst)) == 1:\n        p = lst[0]\n        return (1111*p)\n\n    elif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 3:\n        p = sorted(lst)[2]\n        q = [i for i in lst if i != p][0]\n        return (10*p + q)**2\n\n    elif len(set(lst)) == 2 and lst.count(sorted(lst)[2]) == 2:\n        p = sorted(lst)[2]\n        q = [i for i in lst if i != p][0]\n        return (p+q)*abs(p-q)\n\n    elif len(set(lst)) == 3 :\n        dic = {i : lst.count(i) for i in lst}\n        q,r = (i  for i,j in dic.items() if j != 2)\n        return q*r\n    else :\n        return min(lst)"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-3",
+    "href": "posts/coding test/PR/study/2023-09-07-02. PR study (3).html#sol-1-3",
+    "title": "02. PR study (3)",
+    "section": "sol 1",
+    "text": "sol 1\n\nn = 125\nresult = []\nwhile n &gt;= 1 : \n    n,r = divmod(n,3)\n    result.append(r)\n\nint(\"\".join([str(i) for i in result]),3)\n\n229\n\n\n\n함수로 작성\n\ndef solution(n) :\n    result = []\n    while n &gt;= 1 : \n        n,r = divmod(n,3)\n        result.append(r)\n\n    return int(\"\".join([str(i) for i in result]),3)"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "",
+    "text": "- 동적 프로그래밍의 대표적인 예제\n\\[a_{n} = a_{n-1} + a_{n-2},\\quad n\\geq3\\]\n\\[a_1 = 1, a_2 =1\\]\nif \\(n = 4\\)?\n\\[\\begin{align} \\text{fibo(4)} &= \\text{fibo(3)} + \\text{fibo(2)} \\\\\n                                                          &=  2 + 1 = 3\\end {align}\\]\n\n\n- 재귀함수를 이용 : 큰 문제를 해결하기 위해 작은 문제를 호출하는 방식\n\n\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n8\n\n\n\n\n- fibo1(6) 를 구하기 위해 fibo(3) 이 몇 번 호출될까?\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        if n == 3:\n            print(n)\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n3\n3\n3\n\n\n8\n\n\n- 이를 직관적으로 표현하면…??\nfibo(6) = fibo(5) + fibo(4)\n\nfibo(5) = fibo(4) + fibo(3)....  ## 1번\n\nfibo(4) = fibo(3) + fibo(2)... ## 2번\n\nfibo(3) = fibo(2) + fibo(1)... ## 3번\n....\n- 총 3번 호출된다.\n\n여기서 말하는 문제점은 단순히 재귀함수를 통해 매번 계산하는 방식은 비효율적이라는 것이다.\nf(n)에서 n이 커질수록, 반복해서 호출하고 계산하고…벌써 끔찍함..\n이러한 문제점을 해결하기 위해 “메모제이션을 활용한 TOP-down” 또는 “DP 테이블을 활용한 Bottom-Up” 방식이 사용된다.\n\n\n\n\n\n- 메모제이션(Memoization) : 한 번 계산한 결과를 메모리 공간에 메모하는 기법 * 같은 문제를 다시 호출하면 메모했던 결과를 그대로 가져옴 * 값을 기록해 놓는다는 점에서 캐싱(Cashing) 이라고도 한다..\n\n## step 1. 한 번 계산된 결과를 메모제이션 하기 위한 리스트 초기화\nd = [0] * 100\n\ndef fibo(x) :\n        if x ==1 or x== 2:\n            return 1\n        ## step 2. 만약 이전의 결과를 저장해 놓았다면 그 값을 그대로 반환\n        if d[x] != 0:\n            print(\"어 이전에 값을 저장해 두셨네요! 핳\")\n            return d[x]\n        ## step 3. 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과를 반환\n        if x == 3:\n            print(x)\n        print(\"저장해둔 값이 없네요...\")\n        d[x] = fibo(x-1) + fibo(x-2)\n        return d[x]\n\n- 아래와 같이 fibo(3)을 계산하려고 할 떄 저장된 값이 있다면? 그냥 값을 가져옴을 확인할 수 있다!!\n\nfibo(6)\n\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n3\n저장해둔 값이 없네요...\n어 이전에 값을 저장해 두셨네요! 핳\n어 이전에 값을 저장해 두셨네요! 핳\n\n\n8\n\n\n\n\n\n\n- 단순히 반복문을 이용하여 작은 문제를 먼저 해결하고, 해결된 작은 문제를 모아 큰 문제를 해결하는 방식\n\n # 앞서 계산된 결과를 저장하기 위한 테이블 초기화\nd = [0] * 100\n\n  # 첫 번째 피보나치 수와 두 번째 피보나치 수는 1\nd[1] = 1\nd[2] = 1\nn = 6\n\n  # 피보나치 함수(Fibonacci Function) 반복문으로 구현(보텀업 다이나믹 프로그래밍)\nfor i in range(3, n + 1):\n    d[i] = d[i - 1] + d[i - 2]\n\nprint(d[n])\n\n8"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-1.-탑다운",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-1.-탑다운",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "",
+    "text": "- 재귀함수를 이용 : 큰 문제를 해결하기 위해 작은 문제를 호출하는 방식\n\n\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n8\n\n\n\n\n- fibo1(6) 를 구하기 위해 fibo(3) 이 몇 번 호출될까?\n\ndef fibo1(n) :\n        if n == 1 or n == 2 :\n            return 1\n        if n == 3:\n            print(n)\n        return fibo1(n-1) + fibo1(n-2)\n\n\nfibo1(6)\n\n3\n3\n3\n\n\n8\n\n\n- 이를 직관적으로 표현하면…??\nfibo(6) = fibo(5) + fibo(4)\n\nfibo(5) = fibo(4) + fibo(3)....  ## 1번\n\nfibo(4) = fibo(3) + fibo(2)... ## 2번\n\nfibo(3) = fibo(2) + fibo(1)... ## 3번\n....\n- 총 3번 호출된다.\n\n여기서 말하는 문제점은 단순히 재귀함수를 통해 매번 계산하는 방식은 비효율적이라는 것이다.\nf(n)에서 n이 커질수록, 반복해서 호출하고 계산하고…벌써 끔찍함..\n이러한 문제점을 해결하기 위해 “메모제이션을 활용한 TOP-down” 또는 “DP 테이블을 활용한 Bottom-Up” 방식이 사용된다.\n\n\n\n\n\n- 메모제이션(Memoization) : 한 번 계산한 결과를 메모리 공간에 메모하는 기법 * 같은 문제를 다시 호출하면 메모했던 결과를 그대로 가져옴 * 값을 기록해 놓는다는 점에서 캐싱(Cashing) 이라고도 한다..\n\n## step 1. 한 번 계산된 결과를 메모제이션 하기 위한 리스트 초기화\nd = [0] * 100\n\ndef fibo(x) :\n        if x ==1 or x== 2:\n            return 1\n        ## step 2. 만약 이전의 결과를 저장해 놓았다면 그 값을 그대로 반환\n        if d[x] != 0:\n            print(\"어 이전에 값을 저장해 두셨네요! 핳\")\n            return d[x]\n        ## step 3. 아직 계산하지 않은 문제라면 점화식에 따라서 피보나치 결과를 반환\n        if x == 3:\n            print(x)\n        print(\"저장해둔 값이 없네요...\")\n        d[x] = fibo(x-1) + fibo(x-2)\n        return d[x]\n\n- 아래와 같이 fibo(3)을 계산하려고 할 떄 저장된 값이 있다면? 그냥 값을 가져옴을 확인할 수 있다!!\n\nfibo(6)\n\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n저장해둔 값이 없네요...\n3\n저장해둔 값이 없네요...\n어 이전에 값을 저장해 두셨네요! 핳\n어 이전에 값을 저장해 두셨네요! 핳\n\n\n8"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-2.-보텀업",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#방법-2.-보텀업",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "",
+    "text": "- 단순히 반복문을 이용하여 작은 문제를 먼저 해결하고, 해결된 작은 문제를 모아 큰 문제를 해결하는 방식\n\n # 앞서 계산된 결과를 저장하기 위한 테이블 초기화\nd = [0] * 100\n\n  # 첫 번째 피보나치 수와 두 번째 피보나치 수는 1\nd[1] = 1\nd[2] = 1\nn = 6\n\n  # 피보나치 함수(Fibonacci Function) 반복문으로 구현(보텀업 다이나믹 프로그래밍)\nfor i in range(3, n + 1):\n    d[i] = d[i - 1] + d[i - 2]\n\nprint(d[n])\n\n8"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-k번째-수",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-k번째-수",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex1. K번째 수",
+    "text": "ex1. K번째 수\n배열 array의 i번째 숫자부터 j번째 숫자까지 자르고 정렬했을 때, k번째에 있는 수를 구하려 합니다.\n예를 들어 array가 [1, 5, 2, 6, 3, 7, 4], i = 2, j = 5, k = 3이라면\n\narray의 2번째부터 5번째까지 자르면 [5, 2, 6, 3]입니다.\n1에서 나온 배열을 정렬하면 [2, 3, 5, 6]입니다.\n2에서 나온 배열의 3번째 숫자는 5입니다.\n\n배열 array, [i, j, k]를 원소로 가진 2차원 배열 commands가 매개변수로 주어질 때, commands의 모든 원소에 대해 앞서 설명한 연산을 적용했을 때 나온 결과를 배열에 담아 return 하도록 solution 함수를 작성해주세요.\n\nsol\n- 예비학습\n\narray = [1, 5, 2, 6 ,3 ,7]\ncommands = [[2, 5, 3], [4, 4, 1], [1, 7, 3]]\n\n\nresult = []\nfor c in commands :\n    i, j, k = c\n    result.append((sorted(array[i-1:j])[k-1]))\n    print(result)\nresult\n\n[5]\n[5, 6]\n[5, 6, 3]\n\n\n[5, 6, 3]\n\n\n- 함수로 작성\n\ndef solution(array, commands) :\n    result = []\n    for c in commands :  \n        i, j, k = c\n        result.append((sorted(array[i-1:j])[k-1]))\n    return result\n\n\nsolutions(array,commands)\n\n[5, 6, 3]"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex2.-완주하지-못한-선수",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex2.-완주하지-못한-선수",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex2. 완주하지 못한 선수",
+    "text": "ex2. 완주하지 못한 선수\n완주하지 못한 선수"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex3.-rgb-거리",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex3.-rgb-거리",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex3. RGB 거리",
+    "text": "ex3. RGB 거리\nRGB거리에는 집이 N개 있다. 거리는 선분으로 나타낼 수 있고, 1번 집부터 N번 집이 순서대로 있다.\n집은 빨강, 초록, 파랑 중 하나의 색으로 칠해야 한다. 각각의 집을 빨강, 초록, 파랑으로 칠하는 비용이 주어졌을 때, 아래 규칙을 만족하면서 모든 집을 칠하는 비용의 최솟값을 구해보자.\n\n1번 집의 색은 2번 집의 색과 같지 않아야 한다.\nN번 집의 색은 N-1번 집의 색과 같지 않아야 한다.\ni(2 ≤ i ≤ N-1)번 집의 색은 i-1번, i+1번 집의 색과 같지 않아야 한다.\n\n- 입력\n첫째 줄에 집의 수 N(2 ≤ N ≤ 1,000)이 주어진다. 둘째 줄부터 N개의 줄에는 각 집을 빨강, 초록, 파랑으로 칠하는 비용이 1번 집부터 한 줄에 하나씩 주어진다. 집을 칠하는 비용은 1,000보다 작거나 같은 자연수이다.\n- 출력\n첫째 줄에 모든 집을 칠하는 비용의 최솟값을 출력한다.\n- 접근법 : 보텀업 방식\n\ni번째 집과 i-1 번째집의 색깔이 같으며 안되므로 i번쨰 집이 0의 색깔일 때, i-1번쨰 집이 1,2 인 경우 작은 값을 더 해서 쌓자\n\n\nsol\n\nn = int(input())\na = [0]*n\n\nfor i in range(n):\n    a[i] = list(map(int,input().split()))\n    \nfor i in range(1,n): \n    a[i][0]= min(a[i-1][1],a[i-1][2]) + a[i][0] \n    a[i][1]= min(a[i-1][0],a[i-1][2]) + a[i][1]\n    a[i][2]= min(a[i-1][0],a[i-1][1]) + a[i][2]\n\n3\n26 40 83\n49 60 57\n13 89 99\n\n\n[[26, 40, 83], [89, 86, 83], [96, 172, 185]]\n\n\n\nprint(min(a[n-1][0],a[n-1][1],a[n-1][2]))\n\n96"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-계단-오르기",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-계단-오르기",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex4. 계단 오르기",
+    "text": "ex4. 계단 오르기\n계단 오르기 게임은 계단 아래 시작점부터 계단 꼭대기에 위치한 도착점까지 가는 게임이다. &lt;그림 1&gt;과 같이 각각의 계단에는 일정한 점수가 쓰여 있는데 계단을 밟으면 그 계단에 쓰여 있는 점수를 얻게 된다.\n\n\n\n예를 들어 &lt;그림 2&gt;와 같이 시작점에서부터 첫 번째, 두 번째, 네 번째, 여섯 번째 계단을 밟아 도착점에 도달하면 총 점수는 10 + 20 + 25 + 20 = 75점이 된다.\n계단 오르는 데는 다음과 같은 규칙이 있다.\n\n계단은 한 번에 한 계단씩 또는 두 계단씩 오를 수 있다. 즉, 한 계단을 밟으면서 이어서 다음 계단이나, 다음 다음 계단으로 오를 수 있다.\n연속된 세 개의 계단을 모두 밟아서는 안 된다. 단, 시작점은 계단에 포함되지 않는다.\n마지막 도착 계단은 반드시 밟아야 한다.\n\n따라서 첫 번째 계단을 밟고 이어 두 번째 계단이나, 세 번째 계단으로 오를 수 있다. 하지만, 첫 번째 계단을 밟고 이어 네 번째 계단으로 올라가거나, 첫 번째, 두 번째, 세 번째 계단을 연속해서 모두 밟을 수는 없다.\n각 계단에 쓰여 있는 점수가 주어질 때 이 게임에서 얻을 수 있는 총 점수의 최댓값을 구하는 프로그램을 작성하시오.\n\nsol\n- 점화식 1. \\((i \\geq 3)\\)\n\n연속된 3개의 계단을 밞을 수 없으므로 1칸, 1칸 간 경우와\n한번에 2칸 간 경우, 최대값을 구하면 된다.\n\n\\[\\text{dp}[i] = \\text {max}(\\text {dp}[i-3] + \\text {s}[i-1] + s[i], \\text{dp}[i-2] + s[i])\\]\n\nn = int(input()) # 계단 개수 입력\n\nfor i in range(n):\n    s[i] = list(map(int,input().split()))\n\ndp=[0]*(n) \n\nif len(s)&lt;=2: # 계단의 개수 가 2인 경우\n    print(sum(s))\n\nelse: # 계단이 3개 이상일 때\n    dp[0]=s[0] # 첫째 계단 수동 계산\n    dp[1]=s[0]+s[1] # 둘째 계단까지 수동 계산\n    \n    for i in range(2,n):\n        dp[i]=max(dp[i-3]+s[i-1]+s[i], dp[i-2]+s[i])\n    print(dp[-1])\n\n6\n10\n20\n15\n20\n25\n20\n80"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-5.-가장-긴-증가하는-부분-수열",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-5.-가장-긴-증가하는-부분-수열",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex 5. 가장 긴 증가하는 부분 수열",
+    "text": "ex 5. 가장 긴 증가하는 부분 수열\n\nsol\n\nn=int(input())\nA = list(map(int, input().split()))\n\ndp = [0]*1001 ## dp 초기화\nresult = 0\n\nfor i in range(n):\n    num = A[i] ## i 번째 원소 전달\n    dp[num] = max(dp[0:num])+1 \n    result = max(result, dp[num])\n    print(\"i번째 result : \", result)\nprint(result)\n\n6\n 10 20 10 30 20 50\ni번째 result :  1\ni번째 result :  2\ni번째 result :  2\ni번째 result :  3\ni번째 result :  3\ni번째 result :  4\n4"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-2xn-타일링과-쿼리-못품",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex4.-2xn-타일링과-쿼리-못품",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex4. 2xN 타일링과 쿼리 (못품…)",
+    "text": "ex4. 2xN 타일링과 쿼리 (못품…)\n2xN 크기의 직사각형에 1x2 또는 2x1크기의 타일로 채우는 방법의 수를 구하는 문제는 잘 알려져 있다.\n최초에 아무런 제한이 없는 2xN 직사각형에 블럭을 놓는 칸에 대한 제한이 빈번히 생기고 사라질 때 제한을 제외한 나머지 칸을 전부 채우는 방법의 수를 구하는 프로그램을 작성하시오.\n각 쿼리는 다음과 같다.\n\n1 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 추가한다. 이전에 제한이 없었음이 보장된다.\n2 x y : (x,y)의 위치에 블럭을 놓을 수 없다는 제한을 삭제한다. 이전에 제한이 있었음이 보장된다."
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-바이러스",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-바이러스",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex1. 바이러스",
+    "text": "ex1. 바이러스\n신종 바이러스인 웜 바이러스는 네트워크를 통해 전파된다. 한 컴퓨터가 웜 바이러스에 걸리면 그 컴퓨터와 네트워크 상에서 연결되어 있는 모든 컴퓨터는 웜 바이러스에 걸리게 된다.\n예를 들어 7대의 컴퓨터가 &lt;그림 1&gt;과 같이 네트워크 상에서 연결되어 있다고 하자. 1번 컴퓨터가 웜 바이러스에 걸리면 웜 바이러스는 2번과 5번 컴퓨터를 거쳐 3번과 6번 컴퓨터까지 전파되어 2, 3, 5, 6 네 대의 컴퓨터는 웜 바이러스에 걸리게 된다. 하지만 4번과 7번 컴퓨터는 1번 컴퓨터와 네트워크상에서 연결되어 있지 않기 때문에 영향을 받지 않는다.\n\n\n\n\n입력\n\n첫째 줄에는 컴퓨터의 수가 주어진다. 컴퓨터의 수는 100 이하인 양의 정수이고 각 컴퓨터에는 1번 부터 차례대로 번호가 매겨진다. 둘째 줄에는 네트워크 상에서 직접 연결되어 있는 컴퓨터 쌍의 수가 주어진다. 이어서 그 수만큼 한 줄에 한 쌍씩 네트워크 상에서 직접 연결되어 있는 컴퓨터의 번호 쌍이 주어진다.\n7\n6\n1 2\n2 3\n1 5\n5 2\n5 6\n4 7\n\n출력\n\n1번 컴퓨터가 웜 바이러스에 걸렸을 때, 1번 컴퓨터를 통해 웜 바이러스에 걸리게 되는 컴퓨터의 수를 첫째 줄에 출력한다.\n\nsol\n-dfs를 이용한 풀이\n\n# 컴퓨터\nv = int(input())\n\n# 네트워크 쌍\ne = int(input())\n\ngraph = [[] for _ in range(v+1)]\nfor _ in range(e):\n    a, b = map(int, input().split())\n    graph[a].append(b)\n    graph[b].append(a)\n\n# 재귀적 구현\ndef dfs(x):\n    global count ## 전역변수 설정\n    visited[x] = True\n    count += 1\n    for node in graph[x]: \n        if visited[node]:\n            continue\n        dfs(node)\n\ncount = 0\nvisited = [False for _ in range(v+1)]\ndfs(1)\nprint(count-1)\n\n 7\n 6\n 2 3\n 1 2\n 1 5\n 5 2\n 5 6\n 4 7\n\n\n4"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-2.-단지번호-붙이기",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-2.-단지번호-붙이기",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex 2. 단지번호 붙이기",
+    "text": "ex 2. 단지번호 붙이기\n&lt;그림 1&gt;과 같이 정사각형 모양의 지도가 있다. 1은 집이 있는 곳을, 0은 집이 없는 곳을 나타낸다. 철수는 이 지도를 가지고 연결된 집의 모임인 단지를 정의하고, 단지에 번호를 붙이려 한다. 여기서 연결되었다는 것은 어떤 집이 좌우, 혹은 아래위로 다른 집이 있는 경우를 말한다. 대각선상에 집이 있는 경우는 연결된 것이 아니다. &lt;그림 2&gt;는 &lt;그림 1&gt;을 단지별로 번호를 붙인 것이다. 지도를 입력하여 단지수를 출력하고, 각 단지에 속하는 집의 수를 오름차순으로 정렬하여 출력하는 프로그램을 작성하시오.\n\n\n\n= 입력조건\n첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.\n- 출력조건\n첫 번째 줄에는 지도의 크기 N(정사각형이므로 가로와 세로의 크기는 같으며 5≤N≤25)이 입력되고, 그 다음 N줄에는 각각 N개의 자료(0혹은 1)가 입력된다.\n\nsol\n- dfs를 이용한 풀이\n\nn = int(input()) ## 가로 세로 길이\ngraph = []\n\nfor i in range(n):\n    graph.append(list(map(int, input())))\n\ndx = [0, 0, 1, -1]\ndy = [1, -1, 0, 0]\nprint(n)\nprint(graph)\n\n 7\n 0110100\n 0110101\n 1110101\n 0000111\n 0100000\n 0111110\n 0111000\n\n\n7\n[[0, 1, 1, 0, 1, 0, 0], [0, 1, 1, 0, 1, 0, 1], [1, 1, 1, 0, 1, 0, 1], [0, 0, 0, 0, 1, 1, 1], [0, 1, 0, 0, 0, 0, 0], [0, 1, 1, 1, 1, 1, 0], [0, 1, 1, 1, 0, 0, 0]]\n\n\n\n## 재귀함수 작성\ndef DFS(x, y):\n    if x &lt; 0 or x &gt;= n or y &lt; 0 or y &gt;= n:\n        return False\n\n    if graph[x][y] == 1:\n        global count\n        count += 1\n        graph[x][y] = 0\n        for i in range(4):\n            nx = x + dx[i] ## x좌표\n            ny = y + dy[i] ## y좌표\n            DFS(nx, ny)\n        return True\n    return False\n\n\ncount = 0\nresult = 0\nnum = []\n\nfor i in range(n):\n    for j in range(n):\n        if DFS(i, j) == True:\n            num.append(count)\n            result += 1\n            count = 0\n\nnum.sort()\nprint(result)\nfor i in range(len(num)):\n    print(num[i])\n\n3\n7\n8\n9"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-3.-유기농-배추",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-3.-유기농-배추",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex 3. 유기농 배추",
+    "text": "ex 3. 유기농 배추\n차세대 영농인 한나는 강원도 고랭지에서 유기농 배추를 재배하기로 하였다. 농약을 쓰지 않고 배추를 재배하려면 배추를 해충으로부터 보호하는 것이 중요하기 때문에, 한나는 해충 방지에 효과적인 배추흰지렁이를 구입하기로 결심한다. 이 지렁이는 배추근처에 서식하며 해충을 잡아 먹음으로써 배추를 보호한다. 특히, 어떤 배추에 배추흰지렁이가 한 마리라도 살고 있으면 이 지렁이는 인접한 다른 배추로 이동할 수 있어, 그 배추들 역시 해충으로부터 보호받을 수 있다. 한 배추의 상하좌우 네 방향에 다른 배추가 위치한 경우에 서로 인접해있는 것이다.\n한나가 배추를 재배하는 땅은 고르지 못해서 배추를 군데군데 심어 놓았다. 배추들이 모여있는 곳에는 배추흰지렁이가 한 마리만 있으면 되므로 서로 인접해있는 배추들이 몇 군데에 퍼져있는지 조사하면 총 몇 마리의 지렁이가 필요한지 알 수 있다. 예를 들어 배추밭이 아래와 같이 구성되어 있으면 최소 5마리의 배추흰지렁이가 필요하다. 0은 배추가 심어져 있지 않은 땅이고, 1은 배추가 심어져 있는 땅을 나타낸다.\n\n\n\n\n\n1\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n0\n\n\n0\n\n\n0\n\n\n0\n\n\n1\n\n\n0\n\n\n0\n\n\n1\n\n\n1\n\n\n1\n\n\n\n\n\n- 입력\n입력의 첫 줄에는 테스트 케이스의 개수 T가 주어진다. 그 다음 줄부터 각각의 테스트 케이스에 대해 첫째 줄에는 배추를 심은 배추밭의 가로길이 M(1 ≤ M ≤ 50)과 세로길이 N(1 ≤ N ≤ 50), 그리고 배추가 심어져 있는 위치의 개수 K(1 ≤ K ≤ 2500)이 주어진다. 그 다음 K줄에는 배추의 위치 X(0 ≤ X ≤ M-1), Y(0 ≤ Y ≤ N-1)가 주어진다. 두 배추의 위치가 같은 경우는 없다.\n- 출력\n각 테스트 케이스에 대해 필요한 최소의 배추흰지렁이 마리 수를 출력한다.\n- 예제 입력\n1\n5 3 6\n0 2\n1 2\n2 2\n3 2\n4 2\n4 0\n\nsol : dfs\nimport sys\nsys.setrecursionlimit(10**6)\ninput = sys.stdin.readline\n\n# dfs 정의\ndef dfs(x, y):\n    # 상하좌우\n    dx = [0, 0, -1, 1] \n    dy = [1, -1, 0, 0]\n\n    # 네 방향 탐색\n    for i in range(4):\n        nx = x + dx[i]\n        ny = y + dy[i]\n        if (0 &lt;= nx &lt; m) and (0 &lt;= ny &lt; n) and graph[ny][nx] == 1:    \n            graph[ny][nx] = -1 # 지나간것을 -1로 표시하고 주변 탐색\n            dfs(nx, ny)\n\n\n\n\n0\n1\n2\n\n\n\n\n0\n0\n1\n\n\n0\n0\n1\n\n\n0\n0\n1\n\n\n0\n0\n1\n\n\n0\n0\n1\n\n\n1\n0\n0\n\n\n\n\nt = int(input()) # 테스트 케이스의 개수\nfor _ in range(t):\n    m, n, k = map(int, input().split()) # 가로, 세로, 배추 개수\n    graph = [[0 for _ in range(m)] for _ in range(n)] \n\n    # 배추 위치 표시\n    for _ in range(k):\n        X, Y = map(int, input().split()) \n        graph[Y][X] = 1 # X, Y 바꿔서 표시해야하는거 주의! 그래프 loop문 확인\n\n    # 배추 그룹 수(=배추흰지렁이 개수) 세기\n    count = 0\n    for a in range(m):\n        for b in range(n):\n            if graph[b][a] == 1:\n                dfs(a ,b)\n                count += 1\n    print(count)\n\n 1\n 5 3 6\n 0 2\n 1 2\n 2 2\n 3 2\n 4 2\n 4 0\n\n\n2"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-4.-연결-요소의-개수",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex-4.-연결-요소의-개수",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex 4. 연결 요소의 개수",
+    "text": "ex 4. 연결 요소의 개수\n방향 없는 그래프가 주어졌을 때, 연결 요소 (Connected Component)의 개수를 구하는 프로그램을 작성하시오.\n- 입력\n첫째 줄에 정점의 개수 N과 간선의 개수 M이 주어진다. (1 ≤ N ≤ 1,000, 0 ≤ M ≤ N×(N-1)/2) 둘째 줄부터 M개의 줄에 간선의 양 끝점 u와 v가 주어진다. (1 ≤ u, v ≤ N, u ≠ v) 같은 간선은 한 번만 주어진다.\n- 출력\n첫째 줄에 연결 요소의 개수를 출력한다.\nimport sys\nsys.setrecursionlimit(10**6)\ninput = sys.stdin.readline\n\n# dfs 함수\ndef dfs(graph, v, visited):\n    visited[v] = True\n    for i in graph[v]:\n        if not visited[i]:\n            dfs(graph, i, visited)\n\n\nn, m = map(int, input().split()) # 정점의 개수, 간선의 개수\n\ngraph = [[] for _ in range(n+1)]\n\nfor i in range(m):\n    u, v = map(int, input().split())\n    graph[u].append(v)\n    graph[v].append(u)\n\n 6 5\n 1 2\n 2 5\n 5 1\n 3 4\n 4 6\n\n\n\ngraph\n\n[[], [2, 5], [1, 5], [4], [3, 6], [2, 1], [4]]\n\n\n\ncount = 0 # 연결 노드의 수\nvisited = [False] * (n+1)\nfor i in range(1, n+1):\n    if not visited[i]:\n        dfs(graph, i, visited)\n        count += 1 # dfs 한 번 끝날 때마다 count+1\n\nprint(count)\n\n2"
+  },
+  {
+    "objectID": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-금광",
+    "href": "posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html#ex1.-금광",
+    "title": "04. 다이나믹 프로그래밍",
+    "section": "ex1. 금광",
+    "text": "ex1. 금광\nn x m크기의 금광이 있다.\n금광은 1 x 1 크기의 칸으로 나누어져 있으며, 각 칸은 특정한 크기의 금이 들어 있다.\n채굴자는 첫 번째 열부터 출발하여 금을 캐기 시작하는데 맨 처음에는 첫 번째 열의 어느 행에서든 출발할 수 있다.\n이후에 m번에 걸쳐서 매번 오른쪽 위, 오른쪽, 오른쪽 아래 3가지 중 하나의 위치로 이동해야 한다.\n결과적으로 채굴자가 얻을 수 있는 금의 최대 크기를 출력하는 프로그램을 작성하시오.\n\n접근법 & 점화식\n- 금광의 모든 위치에 대하여 왼쪽 위, 왼쪽 아래, 왼쪽에서 오는 경우의 3가지 경우만 존재한다.\n- 따라서. 이 3가지 경우 중 최대값을 테이블에 갱신해주면 문제를 해결할 수 있다.\n- 점화식은 다음과 같다.\n\\[\\text{dp}_{i,j} = \\text{array}_{i,j} + \\text{max}(\\text{dp}_{i-1,j-1},\\,\\, \\text{dp}_{i+1,j-1},\\,\\, \\text{dp}_{i,j-1})\\]\n\n\\(\\text{dp}_{i-1,j-1}\\) : 왼쪽 위\n\\(\\text{dp}_{i,j-1}\\) : 왼쪽\n\\(\\text{dp}_{i+1,j-1}\\) : 왼쪽 아래\n\n- 입력조건\n\n첫째 줄에 테스트 케이스 T가 입력된다. (1 &lt;= T &lt;= 1,000)\n매 테스트 케이스 첫째 줄에 n과 m이 공백으로 구분되어 입력된다. (1 &lt; n, m &lt;= 20)\n매 테스트 케이스 둘째 줄에 n x m 위치에 매장된 금의 개수가 공백으로 구분되어 입력된다. (0 이상 100 이하의 정수)\n\n- 출력조건\n\n각 테스트 케이스에서 채굴자가 얻을 수 있는 금의 최대 크기를 출력\n\n- 예시\n만약 다음과 같이 3x4 크기의 금광이 존재한다고 가정합시다.\n1 3 3 2\n2 1 4 1\n0 6 4 7\n가장 왼쪽 위의 위치를 (1,1), 가장 오른쪽 아래의 위치를 (n, m)이라고 할 때, 위 예시에서는 (2,1) -&gt; (3,2) -&gt; (3,3) -&gt; (3,4)의 위치로 이동하면 총 19만큼의 금을 채굴할 수 있으며, 이때의 값이 최댓값입니다.\n- 문제 풀이\n\n채굴자가 얻을 수 있는 금의 최대 크기를 구해야 하므로 max 함수 활용\n테스트 케이스가 한 번에 여러 개 입력되므로 for문 안에서 알고리즘 실행\n1열은 이전의 값이 없으므로 2열부터 시작함\n예를 들어, 2열 1행은 1열 1행 또는 1열 2행의 값을 받을 수 있으므로 두 값 중 큰 수와 더해줌.\n2열 마지막행은 1열 마지막행 또는 1열 마지막행-1의 값을 받을 수 있으므로 두 값 중 큰 수와 더해줌.\n2열 중간행은 위,중간,아래행의 값을 받을 수 있으므로 세 값 중 큰 수와 더해줌.\n\n\n\n예비학습\n\n## 테스트 케이스를 1이라고 가정\ntc = 1\n##  3 x 4에 금광\nn, m = 3, 4\n## 금광을 담을 배열\narray = [1, 3, 3, 2, 2, 1, 4, 1, 0, 6, 4, 7]\n\n## 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화\ndp = []\nindex = 0\nfor i in range(n) :\n      dp.append(array[index:index+m]) ## n번째 행에 m개만큼 배열을 다음\n      index += m ## array가 1차원이므로 index 값 갱신\n\ndp ## 단순히 array를 2차식으로 표시한것임\n\n[[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]\n\n\n\n\\(\\text{dp}_{i-1,j-1}\\) : 왼쪽 위\n\\(\\text{dp}_{i,j-1}\\) : 왼쪽\n\\(\\text{dp}_{i+1,j-1}\\) : 왼쪽 아래\n\n\n## 다이나믹 프로그래밍 진행\nprint(\"초기 dp : \",dp)\nfor j in range(1, m) : ## 열기준 : j가 1인 이유는 항상 왼쪽에서 오니까 0번쨰 인덱스를 입력받기 위함임\n    for i in range(n) :\n        # 1. 왼쪽 위에서 오는 경우\n        if i == 0 : ## 인덱스값을 벗어나는지 체크\n            left_up = 0\n        else : \n            left_up = dp[i-1][j-1]\n        # 2. 왼쪽 아래에서 오는 경우\n        if i == n-1 : # i  == n-1이면  dp[n][j-1]이므로 왼쪽아래가 성립이 안된다..\n            left_down = 0\n        else :\n            left_down = dp[i+1][j-1]\n        ## 3. 왼쪽에서 오는 경우\n        left = dp[i][j-1]\n        ## 4. 위에서 세운 점화식을 구현 -&gt; 2차식으로 구현한 array를 max 값을 입력받아 갱신\n        dp[i][j] = dp[i][j] + max(left_up, left_down, left) ## 모든 j번쨰 열에서 행의 값이 최대값을 +한 것으로 업데이트됨\n\nprint(\"연산후 dp : \",dp)\n\n초기 dp :  [[1, 3, 3, 2], [2, 1, 4, 1], [0, 6, 4, 7]]\n연산후 dp :  [[1, 5, 8, 14], [2, 3, 12, 13], [0, 8, 12, 19]]\n\n\n\nresult = 0\nfor i in range(n):\n    result = max(result, dp[i][m - 1]) ## 결국 모든 열과 행의 각 요소에서 가장 금광을 많이 캔 것을 저장했으므로!! 모든 행의 마지막열 중 가장 큰 값을 찾으면됨.\n    print(result)\n\n14\n14\n19\n\n\n- 이를 한번에 하면~~\n\n# 테스트 케이스(Test Case) 입력\nfor tc in range(int(input())):\n    # 금광 정보 입력\n    n, m = map(int, input().split())\n    array = list(map(int, input().split()))\n\n    # 다이나믹 프로그래밍을 위한 2차원 DP 테이블 초기화\n    dp = []\n    index = 0\n    for i in range(n):\n        dp.append(array[index:index + m])\n        index += m\n\n    # 다이나믹 프로그래밍 진행\n    for j in range(1, m):\n        for i in range(n):\n            # 왼쪽 위에서 오는 경우\n            if i == 0:\n                left_up = 0\n            else:\n                left_up = dp[i - 1][j - 1]\n            # 왼쪽 아래에서 오는 경우\n            if i == n - 1:\n                left_down = 0\n            else:\n                left_down = dp[i + 1][j - 1]\n            # 왼쪽에서 오는 경우\n            left = dp[i][j - 1]\n            dp[i][j] = dp[i][j] + max(left_up, left_down, left)\n\n    result = 0\n    for i in range(n):\n        result = max(result, dp[i][m - 1])\n\n    print(result)\n\n1\n3 4\n1 3 3 2 2 1 4 1 0 6 4 7\n19"
   }
 ]

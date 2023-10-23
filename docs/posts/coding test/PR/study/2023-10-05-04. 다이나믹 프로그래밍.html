@@ -66,6 +66,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <script src="../../../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../../../">
+<link href="../../../../posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html" rel="next">
 <link href="../../../../posts/coding test/PR/study/2023-09-24-03. PR study (4).html" rel="prev">
 <script src="../../../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../../../site_libs/quarto-html/popper.min.js"></script>
@@ -304,6 +305,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="sidebar-item-container"> 
   <a href="../../../../posts/coding test/PR/study/2023-10-05-04. 다이나믹 프로그래밍.html" class="sidebar-item-text sidebar-link active">
  <span class="menu-text">04. 다이나믹 프로그래밍</span></a>
+  </div>
+</li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../../../posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text">06. DFS &amp; BFS</span></a>
   </div>
 </li>
       </ul>
@@ -759,11 +766,11 @@ i번째 result :  4
 <p><code>-</code>dfs를 이용한 풀이</p>
 <div class="cell" data-tags="[]" data-execution_count="82">
 <div class="sourceCode cell-code" id="cb32"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb32-1"><a href="#cb32-1"></a><span class="co"># 컴퓨터</span></span>
-<span id="cb32-2"><a href="#cb32-2"></a></span>
-<span id="cb32-3"><a href="#cb32-3"></a>v <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
-<span id="cb32-4"><a href="#cb32-4"></a></span>
-<span id="cb32-5"><a href="#cb32-5"></a><span class="co"># 네트워크 쌍</span></span>
-<span id="cb32-6"><a href="#cb32-6"></a>e <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb32-2"><a href="#cb32-2"></a>v <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb32-3"><a href="#cb32-3"></a></span>
+<span id="cb32-4"><a href="#cb32-4"></a><span class="co"># 네트워크 쌍</span></span>
+<span id="cb32-5"><a href="#cb32-5"></a>e <span class="op">=</span> <span class="bu">int</span>(<span class="bu">input</span>())</span>
+<span id="cb32-6"><a href="#cb32-6"></a></span>
 <span id="cb32-7"><a href="#cb32-7"></a>graph <span class="op">=</span> [[] <span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(v<span class="op">+</span><span class="dv">1</span>)]</span>
 <span id="cb32-8"><a href="#cb32-8"></a><span class="cf">for</span> _ <span class="kw">in</span> <span class="bu">range</span>(e):</span>
 <span id="cb32-9"><a href="#cb32-9"></a>    a, b <span class="op">=</span> <span class="bu">map</span>(<span class="bu">int</span>, <span class="bu">input</span>().split())</span>
@@ -775,7 +782,7 @@ i번째 result :  4
 <span id="cb32-15"><a href="#cb32-15"></a>    <span class="kw">global</span> count <span class="co">## 전역변수 설정</span></span>
 <span id="cb32-16"><a href="#cb32-16"></a>    visited[x] <span class="op">=</span> <span class="va">True</span></span>
 <span id="cb32-17"><a href="#cb32-17"></a>    count <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb32-18"><a href="#cb32-18"></a>    <span class="cf">for</span> node <span class="kw">in</span> graph[x]:  <span class="co">##</span></span>
+<span id="cb32-18"><a href="#cb32-18"></a>    <span class="cf">for</span> node <span class="kw">in</span> graph[x]: </span>
 <span id="cb32-19"><a href="#cb32-19"></a>        <span class="cf">if</span> visited[node]:</span>
 <span id="cb32-20"><a href="#cb32-20"></a>            <span class="cf">continue</span></span>
 <span id="cb32-21"><a href="#cb32-21"></a>        dfs(node)</span>
@@ -860,17 +867,18 @@ i번째 result :  4
 <div class="sourceCode cell-code" id="cb39"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb39-1"><a href="#cb39-1"></a>count <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb39-2"><a href="#cb39-2"></a>result <span class="op">=</span> <span class="dv">0</span></span>
 <span id="cb39-3"><a href="#cb39-3"></a>num <span class="op">=</span> []</span>
-<span id="cb39-4"><a href="#cb39-4"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb39-5"><a href="#cb39-5"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
-<span id="cb39-6"><a href="#cb39-6"></a>        <span class="cf">if</span> DFS(i, j) <span class="op">==</span> <span class="va">True</span>:</span>
-<span id="cb39-7"><a href="#cb39-7"></a>            num.append(count)</span>
-<span id="cb39-8"><a href="#cb39-8"></a>            result <span class="op">+=</span> <span class="dv">1</span></span>
-<span id="cb39-9"><a href="#cb39-9"></a>            count <span class="op">=</span> <span class="dv">0</span></span>
-<span id="cb39-10"><a href="#cb39-10"></a></span>
-<span id="cb39-11"><a href="#cb39-11"></a>num.sort()</span>
-<span id="cb39-12"><a href="#cb39-12"></a><span class="bu">print</span>(result)</span>
-<span id="cb39-13"><a href="#cb39-13"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(num)):</span>
-<span id="cb39-14"><a href="#cb39-14"></a>    <span class="bu">print</span>(num[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb39-4"><a href="#cb39-4"></a></span>
+<span id="cb39-5"><a href="#cb39-5"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb39-6"><a href="#cb39-6"></a>    <span class="cf">for</span> j <span class="kw">in</span> <span class="bu">range</span>(n):</span>
+<span id="cb39-7"><a href="#cb39-7"></a>        <span class="cf">if</span> DFS(i, j) <span class="op">==</span> <span class="va">True</span>:</span>
+<span id="cb39-8"><a href="#cb39-8"></a>            num.append(count)</span>
+<span id="cb39-9"><a href="#cb39-9"></a>            result <span class="op">+=</span> <span class="dv">1</span></span>
+<span id="cb39-10"><a href="#cb39-10"></a>            count <span class="op">=</span> <span class="dv">0</span></span>
+<span id="cb39-11"><a href="#cb39-11"></a></span>
+<span id="cb39-12"><a href="#cb39-12"></a>num.sort()</span>
+<span id="cb39-13"><a href="#cb39-13"></a><span class="bu">print</span>(result)</span>
+<span id="cb39-14"><a href="#cb39-14"></a><span class="cf">for</span> i <span class="kw">in</span> <span class="bu">range</span>(<span class="bu">len</span>(num)):</span>
+<span id="cb39-15"><a href="#cb39-15"></a>    <span class="bu">print</span>(num[i])</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>3
 7
@@ -1121,9 +1129,6 @@ i번째 result :  4
 <th style="text-align: center;">0</th>
 <th style="text-align: center;">1</th>
 <th style="text-align: center;">2</th>
-<th style="text-align: center;">3</th>
-<th style="text-align: center;">4</th>
-<th style="text-align: center;">5</th>
 </tr>
 </thead>
 <tbody>
@@ -1131,47 +1136,29 @@ i번째 result :  4
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 </tr>
 <tr class="odd">
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 </tr>
 <tr class="even">
 <td style="text-align: center;">1</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
-<td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 <td style="text-align: center;">0</td>
 </tr>
@@ -1672,6 +1659,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../../../posts/coding test/PR/study/2023-10-23-06. DFS, BFS.html" class="pagination-link">
+        <span class="nav-page-text">06. DFS &amp; BFS</span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->
