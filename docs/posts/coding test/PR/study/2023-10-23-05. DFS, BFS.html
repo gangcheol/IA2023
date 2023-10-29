@@ -267,12 +267,6 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
  <span class="menu-text">00. Lv. 0</span></a>
   </div>
 </li>
-          <li class="sidebar-item">
-  <div class="sidebar-item-container"> 
-  <a href="../../../../posts/coding test/PR/2023-10-23-01. test.html" class="sidebar-item-text sidebar-link">
- <span class="menu-text">00. meeting (1)</span></a>
-  </div>
-</li>
           <li class="sidebar-item sidebar-item-section">
       <div class="sidebar-item-container"> 
             <a class="sidebar-item-text sidebar-link text-start" data-bs-toggle="collapse" data-bs-target="#quarto-sidebar-section-5" aria-expanded="true">
@@ -411,7 +405,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 </ul>
 <p><code>-</code> 물론 실제로 스택과 큐를 사용할 때는 삽입과 삭제 외에도 오버플로와 언더플로를 고민해야 한다.</p>
 <ul>
-<li><p>오버플로(overflow) : 특정한 자료구조가 수용할 수 있는 데이터의 크기를 이미 가득 찬 상태에서 삽입 연사을 수행할 때 발생</p></li>
+<li><p>오버플로(overflow) : 특정한 자료구조가 수용할 수 있는 데이터의 크기를 이미 가득 찬 상태에서 삽입 연산을 수행할 때 발생</p></li>
 <li><p>언더플로(underflow) : 특정한 자료구조에 데이터가 전혀 들어 있지 않은 상태에서 삭제 연산을 수행하면 데이터가 전혀 없는 상태이므로 언더플로가 발생한다.</p></li>
 </ul>
 <section id="스택" class="level2">
@@ -421,33 +415,24 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <blockquote class="blockquote">
 <p>삽입 (5) - 삽입 (2) - 삽입(3) - 삽입(7) - 삭제() - 삽입(1) - 삽입 (4) - 삭제() : <code>[5, 2, 3, 1]</code></p>
 </blockquote>
-<div class="cell" data-tags="[]" data-execution_count="7">
+<div class="cell" data-tags="[]" data-execution_count="1">
 <div class="sourceCode cell-code" id="cb1"><pre class="sourceCode numberSource python number-lines code-with-copy"><code class="sourceCode python"><span id="cb1-1"><a href="#cb1-1"></a>stack <span class="op">=</span> []</span>
-<span id="cb1-2"><a href="#cb1-2"></a></span>
-<span id="cb1-3"><a href="#cb1-3"></a></span>
-<span id="cb1-4"><a href="#cb1-4"></a>stack.append(<span class="dv">5</span>)</span>
+<span id="cb1-2"><a href="#cb1-2"></a>stack.append(<span class="dv">5</span>)</span>
+<span id="cb1-3"><a href="#cb1-3"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
+<span id="cb1-4"><a href="#cb1-4"></a>stack.append(<span class="dv">2</span>)</span>
 <span id="cb1-5"><a href="#cb1-5"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-6"><a href="#cb1-6"></a></span>
-<span id="cb1-7"><a href="#cb1-7"></a>stack.append(<span class="dv">2</span>)</span>
-<span id="cb1-8"><a href="#cb1-8"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-9"><a href="#cb1-9"></a></span>
-<span id="cb1-10"><a href="#cb1-10"></a>stack.append(<span class="dv">3</span>)</span>
-<span id="cb1-11"><a href="#cb1-11"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-12"><a href="#cb1-12"></a></span>
-<span id="cb1-13"><a href="#cb1-13"></a>stack.append(<span class="dv">7</span>)</span>
-<span id="cb1-14"><a href="#cb1-14"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-15"><a href="#cb1-15"></a></span>
+<span id="cb1-6"><a href="#cb1-6"></a>stack.append(<span class="dv">3</span>)</span>
+<span id="cb1-7"><a href="#cb1-7"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
+<span id="cb1-8"><a href="#cb1-8"></a>stack.append(<span class="dv">7</span>)</span>
+<span id="cb1-9"><a href="#cb1-9"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
+<span id="cb1-10"><a href="#cb1-10"></a>stack.pop()</span>
+<span id="cb1-11"><a href="#cb1-11"></a><span class="bu">print</span>(<span class="st">"삭제 -&gt; stack 상태 : "</span>, stack)</span>
+<span id="cb1-12"><a href="#cb1-12"></a>stack.append(<span class="dv">1</span>)</span>
+<span id="cb1-13"><a href="#cb1-13"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
+<span id="cb1-14"><a href="#cb1-14"></a>stack.append(<span class="dv">4</span>)</span>
+<span id="cb1-15"><a href="#cb1-15"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
 <span id="cb1-16"><a href="#cb1-16"></a>stack.pop()</span>
-<span id="cb1-17"><a href="#cb1-17"></a><span class="bu">print</span>(<span class="st">"삭제 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-18"><a href="#cb1-18"></a></span>
-<span id="cb1-19"><a href="#cb1-19"></a>stack.append(<span class="dv">1</span>)</span>
-<span id="cb1-20"><a href="#cb1-20"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-21"><a href="#cb1-21"></a></span>
-<span id="cb1-22"><a href="#cb1-22"></a>stack.append(<span class="dv">4</span>)</span>
-<span id="cb1-23"><a href="#cb1-23"></a><span class="bu">print</span>(<span class="st">"삽입 -&gt; stack 상태 : "</span>, stack)</span>
-<span id="cb1-24"><a href="#cb1-24"></a></span>
-<span id="cb1-25"><a href="#cb1-25"></a>stack.pop()</span>
-<span id="cb1-26"><a href="#cb1-26"></a><span class="bu">print</span>(<span class="st">"삭제 -&gt; stack 상태 : "</span>, stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
+<span id="cb1-17"><a href="#cb1-17"></a><span class="bu">print</span>(<span class="st">"삭제 -&gt; stack 상태 : "</span>, stack)</span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
 <div class="cell-output cell-output-stdout">
 <pre><code>삽입 -&gt; stack 상태 :  [5]
 삽입 -&gt; stack 상태 :  [5, 2]
@@ -1139,7 +1124,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <span id="cb92-11"><a href="#cb92-11"></a>        dfs(x, y<span class="op">+</span><span class="dv">1</span>) <span class="co"># 우</span></span>
 <span id="cb92-12"><a href="#cb92-12"></a>        dfs(x<span class="op">-</span><span class="dv">1</span>,y<span class="op">-</span><span class="dv">1</span>) <span class="co"># 하좌</span></span>
 <span id="cb92-13"><a href="#cb92-13"></a>        dfs(x<span class="op">-</span><span class="dv">1</span>,y<span class="op">+</span><span class="dv">1</span>) <span class="co"># 하우</span></span>
-<span id="cb92-14"><a href="#cb92-14"></a>        dfs(x<span class="op">+</span><span class="dv">1</span>,y<span class="op">-</span><span class="dv">1</span>) <span class="co"># 상죄</span></span>
+<span id="cb92-14"><a href="#cb92-14"></a>        dfs(x<span class="op">+</span><span class="dv">1</span>,y<span class="op">-</span><span class="dv">1</span>) <span class="co"># 상좌</span></span>
 <span id="cb92-15"><a href="#cb92-15"></a>        dfs(x<span class="op">+</span><span class="dv">1</span>,y<span class="op">+</span><span class="dv">1</span>) <span class="co"># 상우</span></span>
 <span id="cb92-16"><a href="#cb92-16"></a>        <span class="cf">return</span> <span class="va">True</span></span>
 <span id="cb92-17"><a href="#cb92-17"></a>    <span class="cf">return</span> <span class="va">False</span></span></code><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></pre></div>
